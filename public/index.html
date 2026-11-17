@@ -505,6 +505,22 @@ footer{text-align:center}
   .newsbox{padding:16px;box-shadow:4px 4px 0 #7a2cff}
   .herotabs .tab[data-tab="newsletter"]{grid-column:1/-1}
 }
+
+.gpsbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 16px}
+.gpsbar .btn{width:auto;margin:0}
+.gpssort{display:inline-flex;align-items:center;gap:8px;font:700 14px Archivo,sans-serif;color:var(--ink);cursor:pointer}
+.gpssort input{width:18px;height:18px;accent-color:var(--neon)}
+.gpsmsg{flex:1 1 100%;margin:0;font-size:13px;color:var(--mute)}
+.gpsmsg.err{color:#ff8a8a}
+.dica .dist{position:absolute;right:10px;top:10px;z-index:1;font:700 12px Archivo,sans-serif;color:var(--neon);background:rgba(23,10,51,.9);border:2px solid var(--neon);border-radius:999px;padding:3px 10px}
+.ddist{margin:0 0 18px;padding:12px 14px;border:2px solid #7a2cff;border-radius:10px;background:rgba(122,44,255,.12);font-size:15px}
+.ddist h4{margin:0 0 8px;font:700 14px Archivo,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:var(--neon)}
+.ddist .vc{margin:0 0 10px;font-weight:700}
+.ddist ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ddist li button{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;gap:10px;padding:6px 8px;border-radius:6px;cursor:pointer}
+.ddist li button:hover,.ddist li button:focus-visible{background:rgba(57,255,20,.12);outline:none}
+.ddist li b{color:var(--neon);white-space:nowrap}
+.ddist .nt{margin:8px 0 0;font-size:12px;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -630,6 +646,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 <section id="panel-dicas" role="tabpanel" aria-labelledby="tab-dicas" hidden>
   <div class="sec-title"><h2 id="dicas-h">DICAS : AO VIVO NO RIO</h2><span class="chip" id="dicasCount"></span></div>
   <p class="dicas-intro">Pontos turísticos do Rio de Janeiro separados por região. Toque em uma região no mapa para ver os pontos e toque em um card para ver os detalhes.</p>
+  <div class="gpsbar" id="gpsbar"><button type="button" class="btn" id="gpsBtn">📍 Ver distâncias a partir de onde estou</button><label class="gpssort" id="gpsSortL" hidden><input type="checkbox" id="gpsSort"> Mais perto primeiro</label><p class="gpsmsg" id="gpsMsg" role="status">Sua localização fica só no seu aparelho: não é enviada nem guardada. Distâncias em linha reta, aproximadas.</p></div>
   <nav class="zjump" id="zjump" aria-label="Ir para a região"></nav>
   <div id="zonas"></div>
 </section>
@@ -898,7 +915,8 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       <div class="dfacts" id="dfacts"></div>
       <div class="dprice" id="dprice" hidden></div>
       <p class="dtip" id="dtip" hidden></p>
-      <div class="dact"><a class="btn red" id="dlive" target="_blank" rel="noopener" hidden>🔴 Assistir ao vivo</a><button class="btn" id="dmap" type="button">📍 Ver mapa</button><button class="btn ghost" id="dok">Fechar</button></div>
+      <div class="ddist" id="ddist" hidden></div>
+      <div class="dact"><a class="btn red" id="dlive" target="_blank" rel="noopener" hidden>🔴 Assistir ao vivo</a><button class="btn" id="dmap" type="button">📍 Ver mapa</button><a class="btn" id="drota" target="_blank" rel="noopener">🧭 Como chegar (rota)</a><button class="btn ghost" id="dok">Fechar</button></div>
     </div>
   </div>
 </div>
@@ -1877,7 +1895,7 @@ var DICAS = [
 
   /* ---- Cards ---- */
   function makeCard(d,i){
-    var b=document.createElement('button');b.className='dica';b.type='button';b.setAttribute('aria-label','Ver detalhes: '+d.nome);
+    var b=document.createElement('button');b.className='dica';b.type='button';b.dataset.id=d.id;b.setAttribute('aria-label','Ver detalhes: '+d.nome);
     var ph=document.createElement('div');ph.className='ph';
     var im=document.createElement('img');im.loading='lazy';im.alt='Foto de '+d.nome;
     var tg=document.createElement('span');tg.className='tagc';tg.textContent=d.categoria;
@@ -1996,6 +2014,7 @@ var DICAS = [
     var dl=$('dlive');
     if(d.live&&/^https:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\//.test(d.live)){dl.href=d.live;dl.hidden=false;}else{dl.removeAttribute('href');dl.hidden=true;}
     cur={nome:d.nome,q:d.mapa||d.nome+', Rio de Janeiro'};
+    if(window.__distDetalhe)window.__distDetalhe(d);
     if(!st.classList.contains('on'))last=document.activeElement;
     st.classList.add('on');st.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
     st.querySelector('.dsheet').scrollTop=0;$('dok').focus({preventScroll:true});
@@ -2007,6 +2026,77 @@ var DICAS = [
   $('dx').addEventListener('click',hide);$('dok').addEventListener('click',hide);
   st.addEventListener('click',function(e){if(e.target===st)hide();});
   document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;if(ms.classList.contains('on')){closeMap();return;}if(st.classList.contains('on'))hide();});
+})();
+</script>
+<script>
+/* Distâncias (GPS): usa a localização do aparelho só no navegador; nada é enviado nem guardado. */
+(function(){
+  var C={"pao-de-acucar":[-22.9486,-43.1566],"cristo-redentor":[-22.9519,-43.2105],"escadaria-selaron":[-22.915,-43.1795],"arcos-da-lapa":[-22.9128,-43.18],"museu-do-amanha":[-22.8944,-43.1799],"theatro-municipal":[-22.909,-43.1757],"real-gabinete":[-22.9035,-43.1803],"catedral-metropolitana":[-22.9109,-43.181],"confeitaria-colombo":[-22.9035,-43.1778],"ccbb-rio":[-22.9005,-43.1778],"mosteiro-de-sao-bento":[-22.8972,-43.18],"paco-imperial":[-22.903,-43.1745],"copacabana":[-22.9711,-43.1822],"arpoador":[-22.9892,-43.192],"ipanema":[-22.9868,-43.2054],"jardim-botanico":[-22.9674,-43.223],"forte-de-copacabana":[-22.9858,-43.1873],"lagoa-rodrigo-de-freitas":[-22.9719,-43.2102],"maracana":[-22.9121,-43.2302],"quinta-da-boa-vista":[-22.9057,-43.2236],"igreja-da-penha":[-22.8408,-43.276],"parque-madureira":[-22.8714,-43.344],"floresta-da-tijuca":[-22.9535,-43.282],"feira-de-sao-cristovao":[-22.896,-43.2215],"castelo-da-fiocruz":[-22.8767,-43.2434],"mercadao-de-madureira":[-22.8733,-43.3395],"museu-do-samba":[-22.904,-43.2354],"cadeg":[-22.887,-43.2383],"mast":[-22.8963,-43.2245],"estadio-nilton-santos":[-22.8929,-43.293],"pedra-do-telegrafo":[-23.0409,-43.5648],"sitio-burle-marx":[-23.0222,-43.5589],"parque-pedra-branca":[-22.954,-43.454],"ponte-dos-jesuitas":[-22.9167,-43.6903],"praia-de-grumari":[-23.0481,-43.5249],"prainha":[-23.039,-43.5063],"museu-do-pontal":[-23.0233,-43.4793],"praia-da-macumba":[-23.0328,-43.469]};
+  function $(i){return document.getElementById(i);}
+  var btn=$('gpsBtn'),msg=$('gpsMsg'),sortL=$('gpsSortL'),sortCb=$('gpsSort'),pos=null;
+  if(!btn)return;
+  function rad(x){return x*Math.PI/180;}
+  function km(a,b){var dl=rad(b[0]-a[0]),dn=rad(b[1]-a[1]);
+    var h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(rad(a[0]))*Math.cos(rad(b[0]))*Math.sin(dn/2)*Math.sin(dn/2);
+    return 2*6371*Math.asin(Math.sqrt(h));}
+  function fmt(k){return k<1?Math.round(k*1000)+' m':k.toLocaleString('pt-BR',{maximumFractionDigits:k<10?1:0})+' km';}
+  function say(t,err){msg.textContent=t;msg.className='gpsmsg'+(err?' err':'');}
+  function cards(){return document.querySelectorAll('.dica[data-id]');}
+  function ordem(){Array.prototype.forEach.call(document.querySelectorAll('.dicas'),function(g,gi){
+    Array.prototype.forEach.call(g.children,function(c,i){if(c.dataset.ord===undefined)c.dataset.ord=i;});});}
+  function aplicar(){
+    Array.prototype.forEach.call(cards(),function(c){
+      var xy=C[c.dataset.id];if(!xy||!pos)return;
+      var k=km([pos.lat,pos.lng],xy);c.dataset.km=k;
+      var b=c.querySelector('.dist');
+      if(!b){b=document.createElement('span');b.className='dist';c.querySelector('.ph').appendChild(b);}
+      b.textContent='📍 ~'+fmt(k);b.title='Distância em linha reta até você';
+    });
+    sortL.hidden=false;ordenar();
+  }
+  function ordenar(){
+    Array.prototype.forEach.call(document.querySelectorAll('.dicas'),function(g){
+      var arr=Array.prototype.slice.call(g.children);
+      arr.sort(function(a,b){return sortCb.checked?(parseFloat(a.dataset.km)-parseFloat(b.dataset.km)):(a.dataset.ord-b.dataset.ord);});
+      arr.forEach(function(c){g.appendChild(c);});
+    });
+  }
+  sortCb.addEventListener('change',ordenar);
+  btn.addEventListener('click',function(){
+    if(!navigator.geolocation){say('Seu navegador não permite usar a localização. Você ainda pode ver os pontos perto de cada lugar dentro do card.',true);return;}
+    btn.disabled=true;say('Buscando sua localização...');
+    navigator.geolocation.getCurrentPosition(function(p){
+      pos={lat:p.coords.latitude,lng:p.coords.longitude};ordem();aplicar();btn.disabled=false;
+      btn.textContent='📍 Atualizar minha localização';
+      say('Pronto! Mostrando a distância em linha reta (aproximada) até cada ponto. Sua localização não sai do seu aparelho.');
+    },function(e){
+      btn.disabled=false;
+      say(e&&e.code===1?'Permissão negada. Libere a localização deste site nas configurações do navegador e tente de novo.':
+          e&&e.code===3?'Não foi possível obter a localização a tempo. Tente de novo, de preferência ao ar livre.':
+          'Não foi possível obter sua localização agora.',true);
+    },{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+  });
+  /* detalhe do ponto: distância até você, pontos mais próximos e rota */
+  window.__distDetalhe=function(d){
+    var box=$('ddist'),rota=$('drota'),q=d.mapa||d.nome+', Rio de Janeiro';
+    rota.href='https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(q)+(pos?'&origin='+pos.lat+','+pos.lng:'')+'&travelmode=driving';
+    box.textContent='';var xy=C[d.id];if(!xy){box.hidden=true;return;}
+    var h=document.createElement('h4');h.textContent='📏 Distâncias (em linha reta)';box.appendChild(h);
+    if(pos){var v=document.createElement('p');v.className='vc';v.textContent='📍 Você está a ~'+fmt(km([pos.lat,pos.lng],xy))+' deste ponto.';box.appendChild(v);}
+    var lista=Object.keys(C).filter(function(id){return id!==d.id;}).map(function(id){return [id,km(xy,C[id])];})
+      .sort(function(a,b){return a[1]-b[1];}).slice(0,3);
+    var t=document.createElement('p');t.style.margin='0 0 6px';t.textContent='Pontos mais próximos daqui:';box.appendChild(t);
+    var ul=document.createElement('ul');
+    lista.forEach(function(x){
+      var c=document.querySelector('.dica[data-id="'+x[0]+'"]'),nome=c?c.getAttribute('aria-label').replace('Ver detalhes: ',''):x[0];
+      var li=document.createElement('li'),b=document.createElement('button');b.type='button';
+      var s=document.createElement('span');s.textContent=nome;var kb=document.createElement('b');kb.textContent=fmt(x[1]);
+      b.appendChild(s);b.appendChild(kb);b.addEventListener('click',function(){if(c)c.click();});
+      li.appendChild(b);ul.appendChild(li);});
+    box.appendChild(ul);
+    var n=document.createElement('p');n.className='nt';n.textContent='Distância aproximada, em linha reta. O botão "Como chegar" mostra a rota real no Google Maps.';box.appendChild(n);
+    box.hidden=false;
+  };
 })();
 </script>
 <script>
