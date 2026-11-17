@@ -482,28 +482,34 @@ footer{text-align:center}
 .imgmap .rreg.on polygon{fill:rgba(57,255,20,.30);stroke:#39ff14;filter:drop-shadow(0 0 8px #39ff14)}
 .imgmap .rcap{position:static}
 
+@media (max-width:600px){
+}
 /* ---- Aba NEWSLETTER ---- */
 #panel-newsletter{padding:28px 0 56px}
-#news-h{font-size:clamp(22px,3.2vw,32px)}
-.news-intro{margin:10px 0 22px;color:var(--mute);max-width:62ch}
-.newsbox{max-width:560px;position:relative;overflow:hidden;background:linear-gradient(160deg,#3b1a7a 0%,#26104f 55%,#170a33 100%);border:3px solid var(--neon);border-radius:14px;padding:22px;box-shadow:6px 6px 0 #7a2cff,0 0 34px rgba(57,255,20,.25)}
-.newsbox::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(57,255,20,.05) 0 2px,transparent 2px 6px);pointer-events:none}
-.newsbox>*{position:relative}
-.newsbox label{display:block;font:700 14px Archivo,sans-serif;margin:14px 0 5px;color:var(--ink)}
-.newsbox label b{color:var(--neon)}
-.newsbox input[type=text],.newsbox input[type=email]{width:100%;font:400 16px Archivo,sans-serif;color:var(--ink);background:#12062b;border:2px solid var(--line);border-radius:8px;padding:12px 13px}
-.newsbox input:focus{outline:3px solid var(--sky);outline-offset:2px;border-color:var(--neon)}
-.newsbox input[aria-invalid="true"]{border-color:#ff6b6b}
-.newsbox .nerr{min-height:18px;margin:4px 0 0;font-size:13px;color:#ff8a8a}
-.newsbox .hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
-.newsbox .btn{width:100%;margin-top:16px;text-align:center;font-size:16px}
-.newsbox .btn:disabled{opacity:.6;cursor:wait}
-.news-msg{margin:14px 0 0;padding:12px 14px;border:2px dashed var(--neon);border-radius:10px;background:rgba(57,255,20,.07);font-size:15px;font-weight:700}
-.news-msg.err{border-color:#ff6b6b;background:rgba(255,107,107,.08);color:#ffb3b3}
-.news-fine{margin:14px 0 0;font-size:12px;color:var(--mute)}
+#nl-h{font-size:clamp(22px,3.2vw,32px)}
+.nl-intro{margin:10px 0 22px;color:var(--mute);max-width:62ch}
+.nl-card{position:relative;overflow:hidden;max-width:620px;background:linear-gradient(160deg,#3b1a7a 0%,#26104f 55%,#170a33 100%);border:3px solid var(--neon);border-radius:14px;padding:24px;box-shadow:6px 6px 0 #7a2cff,0 0 34px rgba(57,255,20,.28),inset 0 0 22px rgba(57,255,20,.10)}
+.nl-card::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(57,255,20,.05) 0 2px,transparent 2px 6px);pointer-events:none}
+.nl-card>*{position:relative}
+.nl-ico{font-size:44px;line-height:1;filter:drop-shadow(0 0 12px rgba(57,255,20,.5));margin-bottom:6px}
+.nl-card form{display:grid;gap:14px}
+.nl-card label{display:grid;gap:6px;font:700 13px Archivo,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--neon)}
+.nl-card input[type=text],.nl-card input[type=email]{width:100%;font:400 16px Archivo,sans-serif;color:var(--ink);background:rgba(23,10,51,.75);border:2px solid var(--neon);border-radius:8px;padding:12px 14px;min-height:46px}
+.nl-card input::placeholder{color:#8f7cc4}
+.nl-card input:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.nl-card .nl-ok{display:flex;gap:10px;align-items:flex-start;font:400 13px/1.4 Archivo,sans-serif;text-transform:none;letter-spacing:0;color:var(--mute)}
+.nl-card .nl-ok input{flex:none;width:20px;height:20px;margin-top:1px;accent-color:#39ff14}
+.nl-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.nl-card .btn{justify-self:start;min-height:46px}
+.nl-card .btn[disabled]{opacity:.6;cursor:wait}
+.nl-msg{margin:0;min-height:1.4em;font:700 14px Archivo,sans-serif}
+.nl-msg.ok{color:var(--neon)}
+.nl-msg.err{color:#ff8a80}
 @media (max-width:600px){
-  .newsbox{padding:16px;box-shadow:4px 4px 0 #7a2cff}
-  .herotabs .tab[data-tab="newsletter"]{grid-column:1/-1}
+  .nl-card{padding:18px;box-shadow:4px 4px 0 #7a2cff}
+  .nl-card .btn{justify-self:stretch;text-align:center}
+  /* 6 itens no topo (5 abas + WhatsApp): NEWSLETTER e WHATSAPP dividem a última linha */
+  .herotabs .wpp{grid-column:auto}
 }
 </style>
 </head>
@@ -639,79 +645,52 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   <div class="cams" id="camGrid"></div>
   <p class="cam-note"><b>Dica:</b> se uma câmera aparecer fora do ar, o canal pode estar em manutenção ou fora do horário. Use o botão do YouTube ou do site para tentar de novo mais tarde.</p>
 </section>
+<section id="panel-clima" role="tabpanel" aria-labelledby="tab-clima" hidden>
+  <div class="sec-title"><h2 id="clima-h">CLIMA TEMPO NO RIO DE JANEIRO</h2><span class="chip" id="wxStat">carregando…</span></div>
+  <div class="wx" id="wxBox" aria-live="polite"><p class="wx-msg">Carregando o clima do Rio…</p></div>
+</section>
 <section id="panel-newsletter" role="tabpanel" aria-labelledby="tab-newsletter" hidden>
-  <div class="sec-title"><h2 id="news-h">NEWSLETTER AO VIVO NO RIO</h2></div>
-  <p class="news-intro">Receba no seu e-mail as novidades, avisos de lives e dicas do Ao Vivo no Rio. Preencha os dois campos e confirme pelo link que enviaremos para você.</p>
-  <div class="newsbox">
-    <form id="newsForm" novalidate>
-      <label for="newsNome">Nome completo <b>*</b></label>
-      <input id="newsNome" name="nome" type="text" autocomplete="name" maxlength="120" required aria-describedby="newsNomeE" placeholder="Ex.: Maria da Silva">
-      <p class="nerr" id="newsNomeE" role="alert"></p>
-      <label for="newsEmail">E-mail <b>*</b></label>
-      <input id="newsEmail" name="email" type="email" autocomplete="email" inputmode="email" maxlength="160" required aria-describedby="newsEmailE" placeholder="voce@exemplo.com">
-      <p class="nerr" id="newsEmailE" role="alert"></p>
-      <input class="hp" type="text" name="site" id="newsSite" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn" type="submit" id="newsBtn">QUERO RECEBER</button>
-      <div id="newsMsg" class="news-msg" role="status" hidden></div>
-      <p class="news-fine">Seu cadastro só vale depois de clicar no link de confirmação enviado para o seu e-mail. Você pode sair da lista quando quiser.</p>
+  <div class="sec-title"><h2 id="nl-h">NEWSLETTER AO VIVO NO RIO</h2></div>
+  <p class="nl-intro">Receba no seu e-mail os avisos das lives, as novidades do canal e as dicas do Rio. Sem spam: você pode sair quando quiser.</p>
+  <div class="nl-card">
+    <div class="nl-ico" aria-hidden="true">📬</div>
+    <form id="nlForm" novalidate>
+      <label>Seu nome (opcional)
+        <input type="text" name="nome" id="nlNome" autocomplete="given-name" maxlength="80" placeholder="Como podemos te chamar?">
+      </label>
+      <label>Seu e-mail
+        <input type="email" name="email" id="nlEmail" autocomplete="email" inputmode="email" maxlength="160" required placeholder="voce@exemplo.com">
+      </label>
+      <input class="nl-hp" type="text" name="site" id="nlHp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="nl-ok"><input type="checkbox" id="nlOk" required><span>Concordo em receber e-mails do Ao Vivo no Rio e sei que posso cancelar a qualquer momento.</span></label>
+      <button class="btn" type="submit" id="nlBtn">QUERO RECEBER</button>
+      <p class="nl-msg" id="nlMsg" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
 <script>
 /* ===== Aba NEWSLETTER ===== */
 (function(){
-  var f=document.getElementById('newsForm');if(!f)return;
-  /* CONFIGURAÇÃO: defina UMA das opções (antes deste script ou aqui):
-     window.NEWSLETTER_ENDPOINT = 'https://formspree.io/f/SEU_ID';  // serviço de formulário pronto (recebe nome + e-mail)
-     window.NEWSLETTER_API = 'https://seu-backend.com';              // backend próprio com POST /api/newsletter/inscrever */
-  var ENDPOINT=(window.NEWSLETTER_ENDPOINT||'').trim();
-  /* Se o site NÃO estiver no mesmo endereço do backend (Vercel), coloque aqui o endereço do projeto na Vercel,
-     sem "/" no fim. Ex.: 'https://ao-vivo-no-rio.vercel.app'. Se o site já roda na Vercel, deixe vazio. */
-  var BACKEND_URL='';
-  var API=ENDPOINT||(((window.NEWSLETTER_API||BACKEND_URL)||'').replace(/\/$/,'')+'/api/newsletter/inscrever');
-  var nome=document.getElementById('newsNome'),email=document.getElementById('newsEmail'),
-      eN=document.getElementById('newsNomeE'),eE=document.getElementById('newsEmailE'),
-      msg=document.getElementById('newsMsg'),btn=document.getElementById('newsBtn');
-  var RE=/^[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}$/;
-  function bad(inp,el,t){inp.setAttribute('aria-invalid','true');el.textContent=t;}
-  function ok(inp,el){inp.removeAttribute('aria-invalid');el.textContent='';}
-  function show(t,err){msg.hidden=false;msg.className='news-msg'+(err?' err':'');msg.textContent=t;}
-  function validar(){
-    var v=true,n=nome.value.replace(/\s+/g,' ').trim(),m=email.value.trim();
-    if(!n){bad(nome,eN,'O nome completo é obrigatório.');v=false;}
-    else if(n.split(' ').length<2||n.length<5){bad(nome,eN,'Informe nome e sobrenome.');v=false;}
-    else ok(nome,eN);
-    if(!m){bad(email,eE,'O e-mail é obrigatório.');v=false;}
-    else if(!RE.test(m)){bad(email,eE,'Informe um e-mail válido.');v=false;}
-    else ok(email,eE);
-    return v;
-  }
+  var NL_ENDPOINT='/api/newsletter'; /* rota do back-end que grava o e-mail e envia pelo Gmail */
+  var f=document.getElementById('nlForm');if(!f)return;
+  var email=document.getElementById('nlEmail'),nome=document.getElementById('nlNome'),ok=document.getElementById('nlOk'),
+      hp=document.getElementById('nlHp'),btn=document.getElementById('nlBtn'),msg=document.getElementById('nlMsg');
+  function say(t,c){msg.textContent=t;msg.className='nl-msg'+(c?' '+c:'');}
   f.addEventListener('submit',function(e){
-    e.preventDefault();msg.hidden=true;
-    if(!validar()){(f.querySelector('[aria-invalid="true"]')||nome).focus();return;}
-    btn.disabled=true;btn.textContent='ENVIANDO…';
-    var payload={nome:nome.value.replace(/\s+/g,' ').trim(),email:email.value.trim(),site:document.getElementById('newsSite').value};
-    fetch(API,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
-    .then(function(r){return r.json().catch(function(){return{};}).then(function(j){return{s:r.status,ok:r.ok,j:j};});})
-    .then(function(x){
-      var j=x.j||{};
-      if(j.ok||(ENDPOINT&&x.ok&&!j.errors&&!j.error)){show(j.mensagem||(ENDPOINT?'Cadastro recebido! Obrigado por se inscrever.':'Quase lá! Verifique seu e-mail para confirmar.'),false);f.reset();}
-      else if(j.campo==='nome'){bad(nome,eN,j.erro);}
-      else if(j.campo==='email'){bad(email,eE,j.erro);}
-      else if(x.s===404||x.s===405){console.error('Newsletter: endpoint não encontrado ('+x.s+') em '+API+'. Defina BACKEND_URL no script da newsletter (ou window.NEWSLETTER_API).');show('O cadastro ainda não está disponível neste site. Tente novamente mais tarde.',true);}
-      else show(j.erro||(j.errors&&j.errors[0]&&j.errors[0].message)||'Não foi possível concluir agora. Tente novamente.',true);
-    })
-    .catch(function(){show('Sem conexão com o servidor. Tente novamente em instantes.',true);})
-    .then(function(){btn.disabled=false;btn.textContent='QUERO RECEBER';});
+    e.preventDefault();
+    var em=email.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say('Digite um e-mail válido.','err');email.focus();return;}
+    if(!ok.checked){say('Marque a caixa para confirmar o cadastro.','err');ok.focus();return;}
+    if(hp.value){say('Cadastro realizado!','ok');return;} /* robô preencheu o campo escondido */
+    btn.disabled=true;say('Enviando…');
+    fetch(NL_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,nome:nome.value.trim()})})
+      .then(function(r){if(!r.ok)throw new Error(r.status);return r.json().catch(function(){return {};});})
+      .then(function(){say('Pronto! Você está na lista. Confira seu e-mail.','ok');f.reset();})
+      .catch(function(){say('Não foi possível cadastrar agora. Tente novamente em instantes.','err');})
+      .then(function(){btn.disabled=false;});
   });
-  nome.addEventListener('input',function(){if(nome.getAttribute('aria-invalid'))validar();});
-  email.addEventListener('input',function(){if(email.getAttribute('aria-invalid'))validar();});
 })();
 </script>
-<section id="panel-clima" role="tabpanel" aria-labelledby="tab-clima" hidden>
-  <div class="sec-title"><h2 id="clima-h">CLIMA TEMPO NO RIO DE JANEIRO</h2><span class="chip" id="wxStat">carregando…</span></div>
-  <div class="wx" id="wxBox" aria-live="polite"><p class="wx-msg">Carregando o clima do Rio…</p></div>
-</section>
 <script>
 /* ===== Aba CÂMERAS DO RIO ===== */
 (function(){
@@ -1241,6 +1220,86 @@ var DICAS = [
     mapa: 'Catedral Metropolitana de São Sebastião, Avenida República do Chile 245, Rio de Janeiro'
   },
   {
+    id: 'confeitaria-colombo',
+    busca: 'Confeitaria Colombo Rio de Janeiro',
+    zona: 'centro',
+    nome: 'Confeitaria Colombo',
+    categoria: 'Rua Gonçalves Dias · Centro',
+    resumo: 'O café mais charmoso do Rio, aberto em 1894, com salão em estilo art nouveau, espelhos de cristal e vitrais.',
+    foto: 'Confeitaria Colombo.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Confeitaria+Colombo+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'A Confeitaria Colombo foi fundada em 1894 por imigrantes portugueses e funciona na Rua Gonçalves Dias, no Centro. A casa atual ganhou o grande salão em estilo art nouveau no início do século XX.',
+      'O salão principal tem espelhos de cristal de grandes dimensões, móveis de jacarandá, piso de mármore e um vitral no teto. É um lugar clássico para tomar um café, provar doces, salgados e o tradicional chá da tarde.'
+    ],
+    fatos: ['☕ Desde 1894', '🪞 Espelhos de cristal', '🎨 Estilo art nouveau', '🍰 Doces e chá da tarde'],
+    preco: 'Grátis para entrar',
+    ingresso: [['Entrada no salão', 'Livre (consumo à parte)'], ['Chá da tarde', 'valor conforme o cardápio']],
+    ingressoNota: 'Não se cobra para entrar; os valores dependem do que for consumido. Confira o cardápio atualizado no local.',
+    dica: 'Vá fora do horário de almoço para evitar fila e ter mais calma para apreciar o salão. Confira os horários, que mudam nos fins de semana e feriados.',
+    mapa: 'Confeitaria Colombo, Rua Gonçalves Dias 32, Rio de Janeiro'
+  },
+  {
+    id: 'ccbb-rio',
+    busca: 'Centro Cultural Banco do Brasil Rio de Janeiro',
+    zona: 'centro',
+    nome: 'CCBB Rio',
+    categoria: 'Rua Primeiro de Março · Centro',
+    resumo: 'Um dos centros culturais mais visitados do país, num prédio histórico de 1906 com exposições, teatro e cinema.',
+    foto: 'Centro Cultural Banco do Brasil Rio de Janeiro.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Centro+Cultural+Banco+do+Brasil+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'O Centro Cultural Banco do Brasil funciona desde 1989 num prédio construído em 1906 para ser a sede do banco no Rio, na Rua Primeiro de Março. O edifício foi restaurado e é um dos belos exemplos da arquitetura do Centro.',
+      'O grande atrativo é o salão central, coberto por uma cúpula de vidro e aço. O CCBB reúne exposições de arte, teatro, cinema, música, biblioteca e café, e vale a visita mesmo para quem só quer conhecer o prédio.'
+    ],
+    fatos: ['🏛️ Prédio de 1906', '🖼️ Exposições e teatro', '🎬 Cinema e música', '🔮 Cúpula de vidro'],
+    preco: 'Entrada livre no prédio',
+    ingresso: [['Visitação ao prédio', 'Entrada livre'], ['Exposições e espetáculos', 'variam: gratuitos ou com ingresso']],
+    ingressoNota: 'A entrada no prédio é livre. Exposições e espetáculos podem ter ingresso; confira a programação e os valores no site oficial do CCBB.',
+    dica: 'Veja a programação antes de ir e reserve ingressos online quando houver exposição disputada. Costuma fechar às terças-feiras; confirme os horários.',
+    mapa: 'Centro Cultural Banco do Brasil, Rua Primeiro de Março 66, Rio de Janeiro'
+  },
+  {
+    id: 'mosteiro-de-sao-bento',
+    busca: 'Mosteiro de São Bento Rio de Janeiro',
+    zona: 'centro',
+    nome: 'Mosteiro de São Bento',
+    categoria: 'Morro de São Bento · Centro',
+    resumo: 'Uma joia do barroco no alto de um morro, com igreja toda revestida de talha dourada e missas com canto gregoriano.',
+    foto: 'Mosteiro de São Bento (Rio de Janeiro).jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Mosteiro+de+S%C3%A3o+Bento+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'Os monges beneditinos chegaram ao Rio em 1590 e começaram a construir o mosteiro no Morro de São Bento, de frente para a Baía de Guanabara. A igreja foi erguida ao longo dos séculos XVII e XVIII e é um dos principais exemplos do barroco brasileiro.',
+      'Por dentro, paredes, altares e teto são cobertos de talha dourada, um trabalho que impressiona pelo detalhe. O mosteiro ainda abriga monges e é conhecido pelas missas com canto gregoriano, abertas ao público.'
+    ],
+    fatos: ['⛪ Monges desde 1590', '✨ Talha dourada', '🎶 Canto gregoriano', '⛰️ Vista da baía'],
+    preco: 'Grátis',
+    ingresso: [['Visitação', 'Entrada livre'], ['Missa com canto gregoriano', 'Livre']],
+    ingressoNota: 'A visitação e as missas são gratuitas. Os horários de visita e de missa mudam, então confirme antes de ir.',
+    dica: 'Chegue cedo para a missa com canto gregoriano, que costuma atrair bastante gente. A entrada é pela Rua Dom Gerardo, onde há elevador. Vá com roupas adequadas a um templo e fale baixo.',
+    mapa: 'Mosteiro de São Bento, Rua Dom Gerardo 68, Rio de Janeiro'
+  },
+  {
+    id: 'paco-imperial',
+    busca: 'Paço Imperial Rio de Janeiro',
+    zona: 'centro',
+    nome: 'Paço Imperial',
+    categoria: 'Praça XV de Novembro · Centro',
+    resumo: 'O antigo palácio onde viveram e governaram os reis e imperadores do Brasil, hoje centro cultural gratuito.',
+    foto: 'Paço Imperial (Rio de Janeiro).jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Pa%C3%A7o+Imperial+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'O Paço Imperial foi construído em 1743 como residência dos governadores e, com a chegada da corte portuguesa, em 1808, passou a ser a casa de Dom João VI. Mais tarde serviu aos imperadores do Brasil e foi cenário de episódios importantes da Independência.',
+      'Hoje o prédio, na Praça XV de Novembro, é um centro cultural que recebe exposições, eventos e tem livraria e restaurante. A praça em frente, perto da estação das barcas, é um bom ponto de partida para um passeio pelo Centro histórico.'
+    ],
+    fatos: ['👑 Construído em 1743', '🇵🇹 Casa de Dom João VI', '🖼️ Exposições', '📍 Praça XV'],
+    preco: 'Grátis',
+    ingresso: [['Visitação e exposições', 'Entrada livre']],
+    ingressoNota: 'A entrada costuma ser gratuita. Algumas atividades e eventos podem ser cobrados; confira a programação.',
+    dica: 'Combine com a Praça XV, o Museu Histórico Nacional e a Confeitaria Colombo para um roteiro a pé pelo Centro histórico. Costuma abrir de terça a domingo; confirme os horários.',
+    mapa: 'Paço Imperial, Praça XV de Novembro 48, Rio de Janeiro'
+  },
+  {
     id: 'copacabana',
     busca: 'Praia de Copacabana',
     zona: 'sul',
@@ -1665,6 +1724,246 @@ var DICAS = [
     ingressoNota: 'Praia de acesso livre. Quiosques e estacionamento são cobrados à parte.',
     dica: 'Vá de manhã, com mar mais organizado e menos gente, e fique atento às bandeiras e às correntes. A orla já teve trechos danificados, então caminhe só pelas áreas liberadas.',
     mapa: 'Praia da Macumba, Recreio dos Bandeirantes, Rio de Janeiro'
+  },
+  {
+    id: 'praia-do-recreio',
+    busca: 'Praia do Recreio dos Bandeirantes Rio de Janeiro',
+    zona: 'sudoeste',
+    nome: 'Praia do Recreio',
+    categoria: 'Recreio dos Bandeirantes · Zona Sudoeste',
+    resumo: 'Praia extensa e mais tranquila que as da Zona Sul, com quiosques, ciclovia na orla e a Pedra do Pontal no fim da faixa de areia.',
+    foto: 'Praia do Recreio dos Bandeirantes.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Praia+do+Recreio+dos+Bandeirantes&ns6=1',
+    texto: [
+      'A Praia do Recreio dos Bandeirantes fica no bairro de mesmo nome, na Zona Sudoeste, e segue a orla da Avenida Lúcio Costa até a Pedra do Pontal. A areia é larga, o mar costuma ter ondas e o clima é mais descontraído que o das praias mais famosas da cidade.',
+      'A orla tem quiosques, ciclovia e calçadão, e a praia é muito usada para esportes como surfe, futevôlei e caminhada. No extremo, a Pedra do Pontal marca o fim da praia e é um bom lugar para ver o pôr do sol.'
+    ],
+    fatos: ['🏖️ Praia extensa', '🏄 Boas ondas', '🚴 Ciclovia na orla', '🌅 Pôr do sol na Pedra do Pontal'],
+    preco: 'Grátis',
+    ingresso: [['Acesso à praia', 'Livre']],
+    ingressoNota: 'O acesso é gratuito. Quiosques e aluguel de cadeiras e guarda-sóis são cobrados à parte.',
+    dica: 'Vá em dia de semana ou de manhã cedo para pegar a praia mais vazia. Preste atenção às bandeiras e às correntes, porque o mar pode ficar forte.',
+    mapa: 'Praia do Recreio dos Bandeirantes, Avenida Lúcio Costa, Rio de Janeiro'
+  },
+  {
+    id: 'parque-chico-mendes',
+    busca: 'Parque Natural Municipal Chico Mendes Rio de Janeiro',
+    zona: 'sudoeste',
+    nome: 'Parque Natural Municipal Chico Mendes',
+    categoria: 'Recreio dos Bandeirantes · Zona Sudoeste',
+    resumo: 'Reserva de restinga e manguezal à beira da Lagoa de Marapendi, com trilhas curtas e chance de ver jacarés e aves.',
+    foto: 'Parque Chico Mendes (Rio de Janeiro).jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Parque+Chico+Mendes+Recreio+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'O Parque Natural Municipal Chico Mendes protege um trecho de restinga e manguezal na região do Recreio, junto à Lagoa de Marapendi. É uma das áreas verdes mais importantes da Zona Sudoeste.',
+      'As trilhas são curtas e planas, boas para caminhar com calma e observar a vegetação. Entre os animais que costumam aparecer estão jacarés-do-papo-amarelo, capivaras e várias espécies de aves.'
+    ],
+    fatos: ['🌿 Restinga e manguezal', '🐊 Jacarés-do-papo-amarelo', '🐦 Observação de aves', '🥾 Trilhas curtas'],
+    preco: 'Grátis',
+    ingresso: [['Visitação', 'Entrada livre']],
+    ingressoNota: 'A visitação é gratuita. Os horários e as regras de uso podem mudar, então confirme antes de ir.',
+    dica: 'Leve repelente, água e protetor solar, e use calçado fechado. Não alimente nem se aproxime dos animais e vá de manhã, quando eles costumam estar mais ativos.',
+    mapa: 'Parque Natural Municipal Chico Mendes, Avenida Salvador Allende, Rio de Janeiro'
+  },
+  {
+    id: 'praia-do-perigoso',
+    busca: 'Praia do Perigoso Rio de Janeiro',
+    zona: 'sudoeste',
+    nome: 'Praia do Perigoso',
+    categoria: 'Entre Grumari e Barra de Guaratiba · Zona Sudoeste',
+    resumo: 'Uma praia selvagem e quase deserta, cercada de mata, a que se chega por trilha.',
+    foto: 'Praia do Perigoso.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Praia+do+Perigoso+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'A Praia do Perigoso fica entre Grumari e Barra de Guaratiba, em uma área de mata preservada. Por ser de acesso mais difícil, costuma ter poucos frequentadores e mantém um clima bem natural.',
+      'O caminho é feito por trilha, e o mar tem ondas fortes e correntes, por isso a praia é mais indicada para quem gosta de natureza e caminhada do que para um dia de mergulho tranquilo.'
+    ],
+    fatos: ['🌴 Praia selvagem', '🥾 Acesso por trilha', '🌊 Mar forte', '🧘 Pouco movimento'],
+    preco: 'Grátis',
+    ingresso: [['Acesso à praia', 'Livre']],
+    ingressoNota: 'O acesso é gratuito. Não há estrutura de apoio, então leve o que for precisar.',
+    dica: 'Leve água, lanche e protetor solar, volte antes de escurecer e, se possível, vá acompanhado ou com guia. Não entre no mar além da linha onde dá pé e confira as condições do tempo.',
+    mapa: 'Praia do Perigoso, Barra de Guaratiba, Rio de Janeiro'
+  },
+  {
+    id: 'barra-de-guaratiba',
+    busca: 'Barra de Guaratiba Rio de Janeiro',
+    zona: 'sudoeste',
+    nome: 'Barra de Guaratiba',
+    categoria: 'Vila de pescadores · Zona Sudoeste',
+    resumo: 'Vila de pescadores com restaurantes de frutos do mar, barcos e vistas para a restinga e a baía.',
+    foto: 'Barra de Guaratiba.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Barra+de+Guaratiba+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'Barra de Guaratiba é uma pequena comunidade de pescadores no extremo da Zona Sudoeste, junto a manguezais e à Restinga da Marambaia. O ritmo é calmo, com barcos ancorados e vista aberta para a baía.',
+      'A região é conhecida pelos restaurantes de frutos do mar, onde se come peixe e camarão fresquinhos, e fica perto de outros atrativos, como o Sítio Roberto Burle Marx e a Pedra de Guaratiba, que tem mirante.'
+    ],
+    fatos: ['🎣 Vila de pescadores', '🦐 Frutos do mar', '🌿 Manguezal', '📍 Perto do Sítio Burle Marx'],
+    preco: 'Grátis',
+    ingresso: [['Passeio pela vila', 'Livre']],
+    ingressoNota: 'Caminhar pela vila é gratuito. Refeições e passeios de barco são cobrados à parte.',
+    dica: 'Vá para almoçar e aproveite a tarde para ver o pôr do sol. Nos fins de semana os restaurantes ficam cheios, então chegue cedo e confirme os horários.',
+    mapa: 'Barra de Guaratiba, Rio de Janeiro'
+  },
+  {
+    id: 'praia-da-barra',
+    busca: 'Praia da Barra da Tijuca Rio de Janeiro',
+    zona: 'oeste',
+    nome: 'Praia da Barra da Tijuca',
+    categoria: 'Barra da Tijuca · Zona Oeste',
+    resumo: 'Uma das maiores praias urbanas do Brasil, com cerca de 18 km de areia, mar de ondas e orla com ciclovia e quiosques.',
+    foto: 'Praia da Barra da Tijuca.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Praia+da+Barra+da+Tijuca&ns6=1',
+    texto: [
+      'A Praia da Barra da Tijuca tem cerca de 18 quilômetros de extensão e acompanha toda a orla do bairro, na Zona Oeste. A faixa de areia é larga e o mar costuma ter ondas, o que atrai surfistas, kitesurfistas e quem gosta de praia mais espaçosa.',
+      'A orla tem ciclovia, calçadão e muitos quiosques, e cada trecho tem um clima próprio: há partes mais familiares, outras mais voltadas ao esporte. Também é um bom lugar para ver o pôr do sol com a Pedra da Gávea ao fundo.'
+    ],
+    fatos: ['🏖️ ~18 km de praia', '🏄 Surfe e kitesurf', '🚴 Ciclovia na orla', '🌅 Pôr do sol'],
+    preco: 'Grátis',
+    ingresso: [['Acesso à praia', 'Livre']],
+    ingressoNota: 'O acesso é gratuito. Quiosques e aluguel de cadeiras e guarda-sóis são cobrados à parte.',
+    dica: 'Escolha o trecho conforme o que procura: perto dos quiosques para mais estrutura ou áreas mais calmas para relaxar. Confira as bandeiras, porque o mar pode ter correnteza.',
+    mapa: 'Praia da Barra da Tijuca, Avenida Lúcio Costa, Rio de Janeiro'
+  },
+  {
+    id: 'cidade-das-artes',
+    busca: 'Cidade das Artes Barra da Tijuca Rio de Janeiro',
+    zona: 'oeste',
+    nome: 'Cidade das Artes',
+    categoria: 'Barra da Tijuca · Zona Oeste',
+    resumo: 'Um dos maiores centros culturais do país, com grande sala de concertos e arquitetura marcante, projetada por Christian de Portzamparc.',
+    foto: 'Cidade das Artes.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Cidade+das+Artes+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'A Cidade das Artes, na Avenida das Américas, foi projetada pelo arquiteto francês Christian de Portzamparc e inaugurada em 2013. O conjunto reúne salas de concerto, teatro, estúdios e espaços de ensaio.',
+      'A sala de concertos principal tem cerca de 1.800 lugares e é uma das maiores do país. O prédio chama atenção pelas formas modernas e pela estrutura aberta, e o terraço oferece uma vista ampla da região da Barra e da Lagoa de Marapendi.'
+    ],
+    fatos: ['🎻 Sala de concertos', '🏛️ Projeto de Portzamparc', '📅 Inaugurada em 2013', '🌇 Terraço com vista'],
+    preco: 'Entrada livre no prédio',
+    ingresso: [['Visitação ao prédio', 'Entrada livre'], ['Concertos e espetáculos', 'ingresso conforme a programação']],
+    ingressoNota: 'A circulação pelo prédio costuma ser livre. Concertos e espetáculos têm ingresso; confira a programação oficial.',
+    dica: 'Veja a programação antes de ir para não perder um concerto e confirme se o terraço está aberto à visitação. Leve um agasalho leve, porque os salões têm ar-condicionado.',
+    mapa: 'Cidade das Artes, Avenida das Américas 5300, Rio de Janeiro'
+  },
+  {
+    id: 'parque-olimpico',
+    busca: 'Parque Olímpico da Barra Rio de Janeiro',
+    zona: 'oeste',
+    nome: 'Parque Olímpico da Barra',
+    categoria: 'Barra da Tijuca · Zona Oeste',
+    resumo: 'O complexo esportivo dos Jogos Olímpicos de 2016, que hoje recebe eventos, shows e treinos.',
+    foto: 'Parque Olímpico da Barra.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Parque+Ol%C3%ADmpico+da+Barra+Rio+de+Janeiro&ns6=1',
+    texto: [
+      'O Parque Olímpico foi construído para os Jogos Olímpicos e Paralímpicos Rio 2016 e fica na Barra da Tijuca, junto à Lagoa de Jacarepaguá. Reúne arenas esportivas, como a Arena Carioca e o Velódromo, além do Estádio Aquático.',
+      'Depois dos Jogos, o complexo passou a abrigar competições, treinos de atletas e grandes eventos, como shows e festivais. Mesmo quando não há evento, algumas áreas externas permitem conhecer a arquitetura e a estrutura montadas para a Olimpíada.'
+    ],
+    fatos: ['🏅 Jogos Rio 2016', '🏟️ Arenas e Velódromo', '🏊 Estádio Aquático', '🎶 Shows e eventos'],
+    preco: 'Varia',
+    ingresso: [['Áreas externas', 'conforme a abertura do parque'], ['Eventos e shows', 'ingresso conforme o evento']],
+    ingressoNota: 'O acesso e os valores variam conforme o dia e o evento. Confira a programação oficial antes de ir.',
+    dica: 'Vá em dia de evento para aproveitar a estrutura em uso e confirme o horário de abertura. Prefira chegar de transporte público ou por aplicativo, porque o estacionamento pode ser limitado.',
+    mapa: 'Parque Olímpico da Barra, Avenida Embaixador Abelardo Bueno, Rio de Janeiro'
+  },
+  {
+    id: 'museu-aeroespacial',
+    busca: 'Museu Aeroespacial Campo dos Afonsos Rio de Janeiro',
+    zona: 'oeste',
+    nome: 'Museu Aeroespacial',
+    categoria: 'Campo dos Afonsos · Zona Oeste',
+    resumo: 'Um dos principais museus de aviação do país, com dezenas de aeronaves expostas e entrada gratuita.',
+    foto: 'Museu Aeroespacial.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Museu+Aeroespacial+Campo+dos+Afonsos&ns6=1',
+    texto: [
+      'O Museu Aeroespacial, o MUSAL, fica no Campo dos Afonsos, onde funciona uma base da Força Aérea Brasileira. Foi inaugurado em 1976 e conta a história da aviação brasileira.',
+      'O acervo reúne dezenas de aeronaves, entre aviões históricos, de combate e de transporte, além de réplicas, como a do 14-Bis, de Santos Dumont. Boa parte das aeronaves fica em hangares e em áreas abertas, o que facilita ver tudo de perto.'
+    ],
+    fatos: ['✈️ Dezenas de aeronaves', '🇧🇷 História da aviação', '🛩️ Réplica do 14-Bis', '🆓 Entrada gratuita'],
+    preco: 'Grátis',
+    ingresso: [['Visitação', 'Entrada livre']],
+    ingressoNota: 'A visitação é gratuita. Por ficar em área militar, pode ser exigido documento com foto na entrada.',
+    dica: 'Leve documento com foto, chapéu e protetor solar, porque boa parte do passeio é ao ar livre. Confirme os dias e horários de funcionamento e vá de carro ou aplicativo.',
+    mapa: 'Museu Aeroespacial, Avenida Marechal Fontenelle 2000, Rio de Janeiro'
+  },
+  {
+    id: 'museu-do-samba',
+    busca: 'Museu do Samba Mangueira Rio de Janeiro',
+    zona: 'norte',
+    nome: 'Museu do Samba',
+    categoria: 'Mangueira · Zona Norte',
+    resumo: 'Museu dedicado à história do samba, no bairro da Mangueira, ao lado da quadra da escola de samba mais querida da cidade.',
+    foto: 'Museu do Samba Rio de Janeiro.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Museu+do+Samba+Mangueira&ns6=1',
+    texto: [
+      'O Museu do Samba fica no bairro da Mangueira, na Zona Norte, e conta a história do samba carioca e das escolas de samba, com destaque para a trajetória da Estação Primeira de Mangueira.',
+      'O acervo reúne fantasias, instrumentos, fotografias e objetos ligados ao carnaval e aos grandes nomes do samba. A visita combina bem com um passeio pelo bairro, que tem forte tradição musical.'
+    ],
+    fatos: ['🥁 História do samba', '💚 Estação Primeira de Mangueira', '🎭 Fantasias e instrumentos', '📍 Zona Norte'],
+    preco: 'Confira no local',
+    ingresso: [['Visitação', 'confirme valor e horários no site oficial']],
+    ingressoNota: 'Os valores e a gratuidade podem mudar. Confirme com o museu antes de ir.',
+    dica: 'Confira os dias e horários de funcionamento e, se possível, visite o bairro em dia de ensaio da escola para sentir o clima. Prefira ir de carro ou aplicativo e fique atento ao entorno.',
+    mapa: 'Museu do Samba, Rua Visconde de Niterói 1296, Rio de Janeiro'
+  },
+  {
+    id: 'estadio-nilton-santos',
+    busca: 'Estádio Olímpico Nilton Santos Engenhão Rio de Janeiro',
+    zona: 'norte',
+    nome: 'Estádio Nilton Santos',
+    categoria: 'Engenho de Dentro · Zona Norte',
+    resumo: 'O Engenhão, estádio olímpico inaugurado para o Pan de 2007, casa do Botafogo e palco de grandes jogos e shows.',
+    foto: 'Estádio Nilton Santos.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Est%C3%A1dio+Nilton+Santos+Engenh%C3%A3o&ns6=1',
+    texto: [
+      'O Estádio Olímpico Nilton Santos, conhecido como Engenhão, fica em Engenho de Dentro, na Zona Norte. Foi inaugurado em 2007 para os Jogos Pan-Americanos e sediou o atletismo nos Jogos Olímpicos de 2016.',
+      'Hoje é a casa do Botafogo e recebe jogos de futebol, atividades esportivas e shows. A arquitetura chama atenção pela cobertura e pelas arquibancadas, que tornam o estádio um dos mais modernos da cidade.'
+    ],
+    fatos: ['⚽ Casa do Botafogo', '🏅 Atletismo Rio 2016', '📅 Inaugurado em 2007', '🎤 Shows e eventos'],
+    preco: 'Conforme o evento',
+    ingresso: [['Jogos e shows', 'ingresso conforme o evento']],
+    ingressoNota: 'Os valores variam conforme a partida ou o show. Confira os canais oficiais do clube e da bilheteria.',
+    dica: 'Chegue com antecedência em dia de jogo e, se puder, use trem ou metrô até a região, pois o entorno costuma ficar cheio. Confira se há visitas guiadas ao estádio nos canais oficiais.',
+    mapa: 'Estádio Olímpico Nilton Santos, Rua José dos Reis 425, Rio de Janeiro'
+  },
+  {
+    id: 'museu-do-trem',
+    busca: 'Museu do Trem Engenho de Dentro Rio de Janeiro',
+    zona: 'norte',
+    nome: 'Museu do Trem',
+    categoria: 'Engenho de Dentro · Zona Norte',
+    resumo: 'Museu da ferrovia instalado em antigas oficinas, com locomotivas e vagões de épocas diferentes.',
+    foto: 'Museu do Trem Engenho de Dentro.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Museu+do+Trem+Engenho+de+Dentro&ns6=1',
+    texto: [
+      'O Museu do Trem fica em Engenho de Dentro, em construções ligadas à história da ferrovia no Rio, e preserva a memória dos trens de passageiros e de carga da região.',
+      'O acervo inclui locomotivas, vagões e peças ferroviárias, que dão uma ideia de como o trem marcou o crescimento dos bairros da Zona Norte. É um programa interessante para famílias e para quem gosta de história dos transportes.'
+    ],
+    fatos: ['🚂 Locomotivas e vagões', '🛤️ História da ferrovia', '🏭 Antigas oficinas', '👨‍👩‍👧 Bom para famílias'],
+    preco: 'Confira no local',
+    ingresso: [['Visitação', 'confirme valor e horários antes de ir']],
+    ingressoNota: 'Os valores e os horários de visita podem mudar. Confirme com o museu antes de ir.',
+    dica: 'Combine a visita com o Estádio Nilton Santos, que fica perto, e confirme os dias de funcionamento. Leve protetor solar, porque parte do acervo fica em área aberta.',
+    mapa: 'Museu do Trem, Rua Arquias Cordeiro 1046, Rio de Janeiro'
+  },
+  {
+    id: 'praca-saens-pena',
+    busca: 'Praça Saens Peña Tijuca Rio de Janeiro',
+    zona: 'norte',
+    nome: 'Praça Saens Peña',
+    categoria: 'Tijuca · Zona Norte',
+    resumo: 'O coração do bairro da Tijuca, com comércio tradicional, bares, cinemas históricos e estação de metrô.',
+    foto: 'Praça Saens Peña.jpg',
+    credito: 'https://commons.wikimedia.org/w/index.php?search=Pra%C3%A7a+Saens+Pe%C3%B1a+Tijuca&ns6=1',
+    texto: [
+      'A Praça Saens Peña é o ponto central da Tijuca, um dos bairros mais tradicionais da Zona Norte. Fica ligada ao metrô e é cercada de lojas, restaurantes e bares.',
+      'O entorno concentra o comércio do bairro e dá uma boa ideia da vida cotidiana carioca fora do eixo turístico, com movimento intenso durante o dia e opções para comer e passear no fim da tarde.'
+    ],
+    fatos: ['🚇 Estação de metrô', '🛍️ Comércio tradicional', '🍽️ Bares e restaurantes', '🏘️ Coração da Tijuca'],
+    preco: 'Grátis',
+    ingresso: [['Passeio pela praça', 'Livre']],
+    ingressoNota: 'O passeio é gratuito. Consumo em bares e restaurantes é cobrado à parte.',
+    dica: 'Vá durante o dia para ver o comércio em movimento e fique atento aos seus pertences em áreas de grande circulação. Dá para combinar com um passeio pela Floresta da Tijuca.',
+    mapa: 'Praça Saens Peña, Tijuca, Rio de Janeiro'
   }
 ];
 
