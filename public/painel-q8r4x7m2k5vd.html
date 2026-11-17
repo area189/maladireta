@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel da Newsletter</title>
+<style>
+:root{color-scheme:dark;--bg:#170a33;--panel:#26104f;--ink:#f6f0ff;--mute:#bba9e8;--neon:#39ff14;--red:#e0201b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 system-ui,Arial,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+h1,h2{font-family:Impact,"Arial Black",sans-serif;font-weight:400;margin:0 0 12px;letter-spacing:.01em}
+h1{color:var(--neon);font-size:28px}
+h2{font-size:20px;color:var(--neon)}
+.card{background:var(--panel);border:3px solid var(--neon);border-radius:12px;padding:18px;margin:18px 0;box-shadow:5px 5px 0 #7a2cff}
+label{display:block;font-weight:700;margin:12px 0 4px;font-size:14px}
+input,textarea{width:100%;background:#12062b;color:var(--ink);border:2px solid #4a2a96;border-radius:8px;padding:11px 12px;font:inherit}
+input:focus,textarea:focus{outline:3px solid var(--neon);outline-offset:1px;border-color:var(--neon)}
+textarea{min-height:180px;resize:vertical}
+button{font:700 15px system-ui,Arial,sans-serif;background:var(--neon);color:#16181d;border:2px solid #16181d;border-radius:8px;padding:10px 16px;cursor:pointer;box-shadow:3px 3px 0 #16181d}
+button.sec{background:transparent;color:var(--ink);border-color:var(--neon);box-shadow:3px 3px 0 #7a2cff}
+button.del{background:var(--red);color:#fff;padding:5px 10px;font-size:13px;box-shadow:none}
+button:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:#12062b;border:2px solid #4a2a96;border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:26px;color:var(--neon)}
+.stat span{font-size:13px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px dashed #4a2a96;vertical-align:middle;word-break:break-word}
+th{color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.tw{overflow-x:auto;max-height:420px;overflow-y:auto}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;border:2px solid}
+.ok{color:var(--neon);border-color:var(--neon)}.pend{color:#ffd166;border-color:#ffd166}.off{color:#ff8a8a;border-color:#ff8a8a}
+.msg{margin:10px 0 0;font-weight:700}.msg.e{color:#ff8a8a}.msg.s{color:var(--neon)}
+.hint{color:var(--mute);font-size:13px;margin:6px 0 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Painel da Newsletter</h1>
+
+  <section id="login" class="card" style="max-width:420px">
+    <h2>Entrar</h2>
+    <form id="fLogin">
+      <label for="senha">Senha do administrador</label>
+      <input id="senha" type="password" autocomplete="current-password" required>
+      <p class="row" style="margin-top:14px"><button type="submit">Entrar</button></p>
+      <p id="loginMsg" class="msg e" role="alert"></p>
+    </form>
+  </section>
+
+  <div id="app" hidden>
+    <div class="row" style="justify-content:space-between">
+      <span class="hint">Área restrita · não compartilhe este endereço</span>
+      <button class="sec" id="sair" type="button">Sair</button>
+    </div>
+
+    <section class="card">
+      <h2>Resumo</h2>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <section class="card">
+      <h2>Enviar newsletter</h2>
+      <p class="hint">Vai somente para inscritos <b>confirmados</b> e ativos. Cada e-mail leva o link de descadastro automaticamente. Parágrafos separados por linha em branco.</p>
+      <form id="fEnvio">
+        <label for="assunto">Assunto</label>
+        <input id="assunto" maxlength="200" required>
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" required></textarea>
+        <label for="teste">E-mail para teste (opcional)</label>
+        <input id="teste" type="email" placeholder="seu@email.com">
+        <p class="row" style="margin-top:14px">
+          <button type="button" class="sec" id="btnTeste">Enviar teste</button>
+          <button type="submit" id="btnEnviar">Enviar para todos os confirmados</button>
+        </p>
+        <p id="envMsg" class="msg" role="status"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">Inscritos</h2>
+        <a href="/api/admin/exportar"><button type="button" class="sec">Baixar CSV</button></a>
+      </div>
+      <label for="busca">Buscar</label>
+      <input id="busca" placeholder="nome ou e-mail">
+      <div class="tw" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Nome</th><th>E-mail</th><th>Situação</th><th>Cadastro</th><th></th></tr></thead>
+          <tbody id="corpo"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Últimos envios</h2>
+      <div id="hist" class="hint">Nenhum envio ainda.</div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var dados={inscritos:[],historico:[]};
+  function req(url,opt){
+    opt=opt||{};opt.headers=Object.assign({'Content-Type':'application/json','X-Requested-With':'fetch'},opt.headers||{});
+    opt.credentials='same-origin';
+    return fetch(url,opt).then(function(r){return r.json().catch(function(){return{}}).then(function(j){j._status=r.status;return j;});});
+  }
+  function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+  function data(s){if(!s)return '';var d=new Date(s);return isNaN(d)?s:d.toLocaleString('pt-BR');}
+
+  function mostrar(logado){$('login').hidden=logado;$('app').hidden=!logado;}
+
+  $('fLogin').addEventListener('submit',function(e){
+    e.preventDefault();$('loginMsg').textContent='';
+    req('/api/admin/login',{method:'POST',body:JSON.stringify({senha:$('senha').value})}).then(function(r){
+      if(r.ok){$('senha').value='';carregar();}else $('loginMsg').textContent=r.erro||'Erro ao entrar.';
+    });
+  });
+  $('sair').addEventListener('click',function(){req('/api/admin/logout',{method:'POST',body:'{}'}).then(function(){mostrar(false);});});
+
+  function carregar(){
+    return req('/api/admin/inscritos').then(function(r){
+      if(r._status===401){mostrar(false);return;}
+      dados=r;mostrar(true);desenhar();
+    });
+  }
+  function desenhar(){
+    var ins=dados.inscritos||[];
+    var conf=ins.filter(function(i){return i.confirmado&&i.ativo}).length;
+    var pend=ins.filter(function(i){return !i.confirmado}).length;
+    var sai=ins.filter(function(i){return i.confirmado&&!i.ativo}).length;
+    $('stats').innerHTML='<div class="stat"><b>'+conf+'</b><span>confirmados (recebem)</span></div>'+
+      '<div class="stat"><b>'+pend+'</b><span>aguardando confirmação</span></div>'+
+      '<div class="stat"><b>'+sai+'</b><span>descadastrados</span></div>'+
+      '<div class="stat"><b>'+ins.length+'</b><span>total de cadastros</span></div>';
+    var q=$('busca').value.trim().toLowerCase();
+    $('corpo').innerHTML=ins.filter(function(i){return !q||(i.nome+' '+i.email).toLowerCase().indexOf(q)>=0;}).map(function(i){
+      var st=!i.confirmado?'<span class="tag pend">pendente</span>':(i.ativo?'<span class="tag ok">confirmado</span>':'<span class="tag off">saiu</span>');
+      return '<tr><td>'+esc(i.nome)+'</td><td>'+esc(i.email)+'</td><td>'+st+'</td><td>'+esc(data(i.criado_em))+'</td><td><button class="del" data-id="'+i.id+'" type="button">Remover</button></td></tr>';
+    }).join('')||'<tr><td colspan="5" class="hint">Nenhum inscrito.</td></tr>';
+    var h=dados.historico||[];
+    $('hist').innerHTML=h.length?h.map(function(x){return '• '+esc(data(x.criada_em))+' — <b>'+esc(x.assunto)+'</b> ('+x.enviados+' de '+x.total+' enviados'+(x.falhas?', '+x.falhas+' falhas':'')+')';}).join('<br>'):'Nenhum envio ainda.';
+    if(!dados.smtp_configurado){$('envMsg').className='msg e';$('envMsg').textContent='Atenção: GMAIL_APP_PASSWORD não está configurada no Vercel — não é possível enviar.';}
+  }
+  $('busca').addEventListener('input',desenhar);
+  $('corpo').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-id]');if(!b)return;
+    if(!confirm('Remover este inscrito definitivamente?'))return;
+    req('/api/admin/remover',{method:'POST',body:JSON.stringify({id:Number(b.dataset.id)})}).then(carregar);
+  });
+
+  var enviando=false;
+  window.addEventListener('beforeunload',function(e){if(enviando){e.preventDefault();e.returnValue='';}});
+  function travar(v){enviando=v;$('btnEnviar').disabled=$('btnTeste').disabled=v;}
+  function enviar(teste){
+    var m=$('envMsg');m.className='msg';m.textContent='';
+    var base={assunto:$('assunto').value,mensagem:$('mensagem').value};
+    if(!base.assunto.trim()||!base.mensagem.trim()){m.className='msg e';m.textContent='Preencha assunto e mensagem.';return;}
+    if(teste){
+      travar(true);
+      req('/api/admin/enviar',{method:'POST',body:JSON.stringify(Object.assign({teste:true,email_teste:$('teste').value},base))}).then(function(r){
+        m.className='msg '+(r.ok?'s':'e');m.textContent=r.ok?'Teste enviado. Confira sua caixa de entrada.':(r.erro||'Erro ao enviar.');travar(false);
+      });
+      return;
+    }
+    var n=(dados.inscritos||[]).filter(function(i){return i.confirmado&&i.ativo}).length;
+    if(!confirm('Enviar esta newsletter para '+n+' inscrito(s) confirmado(s)? Mantenha esta página aberta até terminar.'))return;
+    travar(true);
+    var campanha=null,cursor=0;
+    (function passo(){
+      var corpo=campanha?{campanha_id:campanha,cursor:cursor}:base;
+      if(campanha)corpo.cursor=cursor;
+      req('/api/admin/enviar',{method:'POST',body:JSON.stringify(corpo)}).then(function(r){
+        if(!r.ok){m.className='msg e';m.textContent=(r.erro||'Erro ao enviar.')+(campanha?' (envio interrompido; já enviados: veja o histórico)':'');travar(false);carregar();return;}
+        campanha=r.campanha_id;cursor=r.cursor;
+        if(!r.concluido){m.className='msg';m.textContent='Enviando… '+(r.enviados+r.falhas)+' de '+r.total+'. Não feche esta página.';passo();return;}
+        m.className=r.falhas?'msg e':'msg s';
+        m.textContent='Concluído: '+r.enviados+' enviado(s), '+r.falhas+' falha(s).'+(r.erros&&r.erros.length?' '+r.erros.join(' | '):'');
+        travar(false);carregar();
+      }).catch(function(){m.className='msg e';m.textContent='Conexão perdida. Veja o histórico antes de tentar de novo.';travar(false);});
+    })();
+  }
+  $('fEnvio').addEventListener('submit',function(e){e.preventDefault();enviar(false);});
+  $('btnTeste').addEventListener('click',function(){enviar(true);});
+  carregar();
+})();
+</script>
+</body>
+</html>

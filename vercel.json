@@ -1,0 +1,20 @@
+{
+  "cleanUrls": true,
+  "functions": {
+    "api/admin/enviar.js": { "maxDuration": 60 },
+    "api/newsletter/inscrever.js": { "maxDuration": 30 }
+  },
+  "headers": [
+    {
+      "source": "/painel-(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
+}

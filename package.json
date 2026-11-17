@@ -1,0 +1,10 @@
+{
+  "name": "ao-vivo-no-rio-newsletter",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": "22.x" },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "nodemailer": "^7.0.0"
+  }
+}
