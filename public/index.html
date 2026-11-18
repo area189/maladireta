@@ -921,6 +921,20 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       <iframe id="acIF" title="AdoroCinema" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe>
     </div>
   </div>
+  <div id="acWeb" class="ac-dlg ac-web" role="dialog" aria-modal="true" aria-labelledby="acWT" hidden>
+    <div class="ac-box ac-wbox">
+      <div class="ac-bar"><b id="acWT">AdoroCinema</b><a class="ac-b" id="acWN" target="_blank" rel="noopener noreferrer">Abrir em nova aba ↗</a><button type="button" class="ac-x" id="acWX" aria-label="Fechar janela">✕</button></div>
+      <p class="ac-hint">Se a página ficar em branco ou mostrar “recusou a conexão”, o AdoroCinema não permite ser exibido dentro de outros sites. Use “Abrir em nova aba”.</p>
+      <iframe id="acWF" title="AdoroCinema" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" src="about:blank"></iframe>
+    </div>
+  </div>
+  <style>
+  .ac-web{z-index:98}
+  .ac-wbox{height:100%;max-width:1100px;overflow:hidden}
+  .ac-wbox .ac-bar{flex-wrap:wrap}
+  .ac-wbox .ac-hint{padding:8px 14px}
+  #acWF{flex:1;min-height:0;width:100%;border:0;background:#fff}
+  </style>
   <style>
   .ac-links{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
   .ac-links a{color:var(--ink);text-decoration:none;font:700 13px Archivo,sans-serif;padding:7px 12px;border:2px solid var(--edge);border-radius:999px;background:var(--panel)}
@@ -1021,6 +1035,20 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     $('acX').addEventListener('click',fechar);
     dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
     document.addEventListener('keydown',function(e){if(!dlg.hidden&&e.key==='Escape')fechar();});
+
+    /* Popup do AdoroCinema: Em cartaz, Estreias, Mais esperados, Agenda, Trailers, Notícias */
+    var wd=$('acWeb'),wf=$('acWF'),wl=null;
+    function wFechar(){wd.hidden=true;wf.src='about:blank';if(!dlg.hidden)return;document.body.style.overflow='';if(wl&&wl.focus)wl.focus();}
+    document.querySelector('.ac-links').addEventListener('click',function(e){
+      var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;
+      if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      e.preventDefault();wl=a;
+      $('acWT').textContent=a.textContent.replace(/^[^A-Za-zÀ-ú]+/,'')+' · AdoroCinema';
+      $('acWN').href=a.href;wf.src=a.href;wd.hidden=false;document.body.style.overflow='hidden';$('acWX').focus({preventScroll:true});
+    });
+    $('acWX').addEventListener('click',wFechar);
+    wd.addEventListener('click',function(e){if(e.target===wd)wFechar();});
+    document.addEventListener('keydown',function(e){if(!wd.hidden&&e.key==='Escape'){e.stopImmediatePropagation();wFechar();}},true);
   })();
   </script>
 </section>
