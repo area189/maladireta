@@ -889,84 +889,138 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   </div>
 </section>
 <section id="panel-filmes" role="tabpanel" aria-labelledby="tab-filmes" hidden>
-  <div class="sec-title"><h2 id="fil-h">CINEMA NO RIO</h2></div>
-  <p class="fil-intro">Veja o que está em cartaz e onde assistir no Rio. As <b>sessões, horários e ingressos</b> são vendidos pelo <b>Ingresso.com</b>: toque em um botão e abrimos a página dele em uma nova aba.</p>
-  <div class="cn-hero">
-    <a class="cn-cta p" href="https://www.ingresso.com/filmes/em-cartaz?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🎟️</span><b>Filmes em cartaz</b><small>Sessões e ingressos no Rio</small></a>
-    <a class="cn-cta" href="https://www.ingresso.com/cinemas?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🏛️</span><b>Todos os cinemas</b><small>Salas, endereços e horários</small></a>
-    <a class="cn-cta" href="https://www.ingresso.com/noticias/lista-filmes-estreias-lancamentos-cinema-mes-novembro-2026?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🗓️</span><b>Estreias de novembro</b><small>Datas, sinopses e trailers</small></a>
+  <div class="sec-title"><h2 id="fil-h">FILMES · ADOROCINEMA</h2></div>
+  <p class="fil-intro">Estreias, filmes em cartaz e lançamentos mais esperados, com dados do <b>AdoroCinema</b> (atualizado em 18/11/2026). Toque em um filme para ver a ficha aqui mesmo; as <b>sessões</b> abrem no AdoroCinema.</p>
+  <div class="ac-links">
+    <a href="https://www.adorocinema.com/filmes/numero-cinemas/" target="_blank" rel="noopener noreferrer">🎟️ Em cartaz</a>
+    <a href="https://www.adorocinema.com/filmes/em-cartaz/estreias/" target="_blank" rel="noopener noreferrer">🆕 Estreias</a>
+    <a href="https://www.adorocinema.com/filmes/mais-esperados/" target="_blank" rel="noopener noreferrer">⏳ Mais esperados</a>
+    <a href="https://www.adorocinema.com/filmes/agenda/" target="_blank" rel="noopener noreferrer">🗓️ Agenda</a>
+    <a href="https://www.adorocinema.com/videos/trailers/" target="_blank" rel="noopener noreferrer">🎬 Trailers</a>
+    <a href="https://www.adorocinema.com/noticias/filmes/" target="_blank" rel="noopener noreferrer">📰 Notícias</a>
   </div>
-  <h3 class="fil-h3">🍿 Em destaque <small>seleção de 18/11/2026</small></h3>
-  <div class="cn-pills" role="group" aria-label="Filtrar filmes">
-    <button type="button" class="cn-pill" aria-pressed="true" data-f="">Todos</button>
-    <button type="button" class="cn-pill" aria-pressed="false" data-f="Estreia">Estreias</button>
-    <button type="button" class="cn-pill" aria-pressed="false" data-f="Nacional">Nacionais</button>
-    <button type="button" class="cn-pill" aria-pressed="false" data-f="Evento">Eventos</button>
+  <div class="ac-pills" role="group" aria-label="Filtrar filmes">
+    <button type="button" class="ac-pill" aria-pressed="true" data-f="">Todos</button>
+    <button type="button" class="ac-pill" aria-pressed="false" data-f="Estreia">Estreias</button>
+    <button type="button" class="ac-pill" aria-pressed="false" data-f="Em cartaz">Em cartaz</button>
+    <button type="button" class="ac-pill" aria-pressed="false" data-f="Em breve">Em breve</button>
   </div>
-  <div class="cn-grid" id="cnFilmes"></div>
-  <h3 class="fil-h3">🏛️ Cinemas no Rio <small>alguns endereços para começar</small></h3>
-  <div class="cn-grid cn-cin" id="cnCinemas"></div>
-  <p class="cn-more"><a class="cn-cta p" href="https://www.ingresso.com/cinemas?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🔎</span><b>Ver todos os cinemas do Rio</b><small>Lista completa no Ingresso.com</small></a></p>
-  <p class="mus-fine">Programação, preços e sessões: <a href="https://www.ingresso.com/?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer">Ingresso.com</a>. A seleção acima é editorial (fontes: imprensa e Ingresso.com, em 18/11/2026) e pode mudar; confirme sempre no site de vendas. Títulos e marcas pertencem aos seus detentores.</p>
-  <div id="cnPop" class="cn-dlg" role="dialog" aria-modal="true" aria-labelledby="cnPT" hidden>
-    <div class="cn-box">
-      <div class="cn-bar"><b id="cnPT">Ingresso.com</b><a class="cn-nb" id="cnPN" href="https://www.ingresso.com/?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer">Abrir em nova aba ↗</a><button type="button" class="cn-x" id="cnPX" aria-label="Fechar janela">✕</button>
-      <p class="cn-hint">Se a página não aparecer, o site pode bloquear a exibição dentro de outros sites. Nesse caso, use “Abrir em nova aba”.</p></div>
-      <iframe id="cnPF" title="Ingresso.com" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" src="about:blank"></iframe>
+  <div class="ac-grid" id="acGrid"></div>
+  <p class="mus-fine">Fonte: <a href="https://www.adorocinema.com/" target="_blank" rel="noopener noreferrer">AdoroCinema</a>. Notas de usuários, sessões e datas podem mudar; confirme sempre no site. Títulos, pôsteres e marcas pertencem aos seus detentores.</p>
+
+  <div id="acDlg" class="ac-dlg" role="dialog" aria-modal="true" aria-labelledby="acT" hidden>
+    <div class="ac-box">
+      <div class="ac-bar"><b id="acT">Filme</b><button type="button" class="ac-x" id="acX" aria-label="Fechar janela">✕</button></div>
+      <div class="ac-body" id="acBody"></div>
+      <div class="ac-act">
+        <a class="ac-b p" id="acS" target="_blank" rel="noopener noreferrer">🎟️ Ver sessões ↗</a>
+        <a class="ac-b" id="acF" target="_blank" rel="noopener noreferrer">Ficha completa ↗</a>
+        <button type="button" class="ac-b" id="acE">Tentar abrir aqui dentro</button>
+      </div>
+      <p class="ac-hint" id="acH" hidden>Se a área ficar em branco ou mostrar “recusou a conexão”, o AdoroCinema não permite ser exibido dentro de outros sites. Use “Ficha completa ↗”.</p>
+      <iframe id="acIF" title="AdoroCinema" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe>
     </div>
   </div>
+  <style>
+  .ac-links{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .ac-links a{color:var(--ink);text-decoration:none;font:700 13px Archivo,sans-serif;padding:7px 12px;border:2px solid var(--edge);border-radius:999px;background:var(--panel)}
+  .ac-links a:hover{background:var(--neon);color:#170a33}
+  .ac-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+  .ac-pill{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 14px;border:2px solid var(--edge);border-radius:999px;color:var(--ink);font:700 13px Archivo,sans-serif;background:var(--panel)}
+  .ac-pill[aria-pressed="true"]{background:var(--neon);color:#170a33;border-color:var(--neon)}
+  .ac-pill:focus-visible,.ac-card:focus-visible,.ac-b:focus-visible,.ac-x:focus-visible,.ac-links a:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+  .ac-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+  .ac-card{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:7px;min-width:0}
+  .ac-p{position:relative;aspect-ratio:3/4;overflow:hidden;border:2px solid var(--neon);border-radius:12px;box-shadow:4px 4px 0 #7a2cff;background:linear-gradient(165deg,hsl(var(--h),70%,38%),hsl(calc(var(--h) + 40),65%,14%));display:grid;place-items:center;padding:10px;text-align:center;font:800 14px/1.2 Archivo,sans-serif;color:#fff}
+  .ac-p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ac-p i{position:absolute;left:6px;top:6px;z-index:1;font:700 11px Archivo,sans-serif;font-style:normal;background:var(--neon);color:#170a33;padding:2px 8px;border-radius:999px}
+  .ac-card:hover .ac-p{transform:translate(1px,1px);box-shadow:3px 3px 0 #7a2cff}
+  .ac-card b{font-size:14px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ac-card small{color:var(--mute);font-size:12px}
+  .ac-dlg{position:fixed;inset:0;z-index:97;display:flex;background:rgba(10,3,28,.92);padding:max(10px,env(safe-area-inset-top,0px)) 10px max(10px,env(safe-area-inset-bottom,0px))}
+  .ac-dlg[hidden]{display:none}
+  .ac-box{display:flex;flex-direction:column;width:100%;max-width:900px;max-height:100%;margin:auto;overflow:auto;border:3px solid var(--neon);border-radius:14px;background:#170a33;box-shadow:6px 6px 0 #7a2cff}
+  .ac-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 14px;background:#26104f;border-bottom:2px solid var(--neon)}
+  .ac-bar b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ac-x{all:unset;box-sizing:border-box;cursor:pointer;width:38px;height:38px;display:grid;place-items:center;border-radius:999px;background:var(--neon);color:#170a33;font-size:18px;font-weight:700}
+  .ac-body{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:16px}
+  .ac-body .ac-p{box-shadow:4px 4px 0 #7a2cff}
+  .ac-body h3{font-size:22px;margin:0 0 6px}
+  .ac-body p{margin:6px 0;color:var(--mute);font-size:14px}
+  .ac-body p b{color:var(--ink)}
+  .ac-note{display:inline-block;margin-top:4px;font:700 13px Archivo,sans-serif;color:#170a33;background:var(--neon);padding:2px 10px;border-radius:999px}
+  .ac-act{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 14px}
+  .ac-b{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;min-height:40px;padding:6px 14px;border:2px solid var(--neon);border-radius:999px;color:var(--ink);font:700 13px Archivo,sans-serif}
+  .ac-b.p{background:var(--neon);color:#170a33}
+  .ac-hint{margin:0;padding:0 16px 10px;font-size:12px;color:var(--mute)}
+  #acIF{width:100%;height:60vh;min-height:320px;border:0;border-top:2px solid var(--neon);background:#fff}
+  #acIF[hidden]{display:none}
+  @media (max-width:600px){.ac-grid{grid-template-columns:1fr 1fr}.ac-body{grid-template-columns:1fr}.ac-body .ac-p{max-width:180px}.ac-dlg{padding:0}.ac-box{max-height:none;height:100%;border-radius:0;border-width:2px}}
+  </style>
   <script>
   (function(){
-    var EM='https://www.ingresso.com/filmes/em-cartaz?city=rio-de-janeiro';
+    var BASE='https://www.adorocinema.com/filmes/filme-',IMG='https://br.web.img3.acsta.net/c_310_420/img/';
+    /* t título, id, g categoria, i linha de info, dr direção, s sinopse, n nota, ss sessões no Brasil, p pôster */
     var F=[
-     {t:'Jogos Vorazes: Amanhecer na Colheita',e:'🏹',g:'Estreia',d:'Estreia em 19/11. Volta a Panem 24 anos antes da saga, na colheita dos 50º Jogos Vorazes.'},
-     {t:'Ebenezer e os Fantasmas do Natal',e:'👻',g:'Estreia',d:'Nova adaptação de “Um Conto de Natal”, de Charles Dickens.'},
-     {t:'Godzilla Minus Zero',e:'🦖',g:'Em cartaz',d:'Sequência de “Godzilla Minus One”, vencedor do Oscar de Efeitos Visuais.'},
-     {t:'100 Dias',e:'🇧🇷',g:'Nacional',d:'Filme brasileiro dirigido por Carlos Saldanha.'},
-     {t:'As Dez Vantagens de Morrer Depois de Você',e:'🎭',g:'Nacional',d:'Longa brasileiro com Giulia Be e Any Gabrielly.'},
-     {t:'Apenas Uma Ilusão',e:'🎞️',g:'Estreia',d:'Estreou em 12/11. Veja sinopse e sessões no Ingresso.com.'},
-     {t:'Noites de Cinema Saudita',e:'🌙',g:'Evento',d:'Quatro filmes inéditos, com diretores presentes. No Rio, dias 24 e 25/11, na Estação Claro Gávea.'}];
-    var C=[
-     {n:'Cine Odeon',z:'Centro',a:'Praça Floriano, 7 · Cinelândia',e:'🎬'},
-     {n:'Estação Claro Gávea',z:'Zona Sul',a:'Rua Marquês de São Vicente, 52 · Gávea',e:'🎥'},
-     {n:'Cinépolis Lagoon',z:'Zona Sul',a:'Av. Borges de Medeiros, 1426 · Lagoa',e:'🍿'},
-     {n:'Cinemark Village Mall',z:'Barra da Tijuca',a:'Av. das Américas, 3900 · Barra da Tijuca',e:'🎞️'}];
+     {t:'Ebenezer e os Fantasmas do Natal',id:'1000034007',g:'Estreia',i:'12/11/2026 · 1h 56min · Aventura, Drama, Fantasia',dr:'Ti West',c:'Johnny Depp, Rupert Grint, Daisy Ridley',n:'3,7',ss:572,p:'41/5a/415aecd9d5238491c9c7c119c27a914a.jpg',s:'Na véspera de Natal, Ebenezer Scrooge recebe a visita do fantasma de seu antigo parceiro e dos espíritos do Natal. Diante das consequências de suas escolhas, precisa decidir se ainda há tempo para mudar.'},
+     {t:'A Virada: Ignição da Alma',id:'1000044657',g:'Estreia',i:'12/11/2026 · 2h 04min · Drama',dr:'Alessandro Barros',c:'Mario Bregieira, Pérola Faria, Gui Tavares',n:'3,3',ss:451,p:'3e/db/3edbc651e8bd80f6d973b7c36bbd77fe.jpg',s:'Noah Silva vende carros usados no Rio de Janeiro com uma abordagem antiética, e sua vida profissional e pessoal desmorona.'},
+     {t:'Boiúna: Terror no Amazonas',id:'326752',g:'Estreia',i:'12/11/2026 · 1h 44min · Aventura, Ação, Suspense',dr:'Mike P. Nelson',c:'Kiana Madeira, Jessica Rothe, Logan Marshall-Green',n:'3,1',ss:82,p:'75/e1/75e115ee346c422fb295d4446c48bc3d.jpg',s:'Um grupo de médicos se aventura pela floresta amazônica para ajudar comunidades isoladas, mas nem todos recebem bem a chegada deles.'},
+     {t:'Lago dos Ossos',id:'1000009297',g:'Estreia',i:'12/11/2026 · 1h 35min · Suspense, Terror',dr:'Mercedes Bryce Morgan',c:'Maddie Hasson, Alex Roe, Marco Pigossi',n:'2,4',ss:70,s:'Dois casais alugam a mesma casa de veraneio e dividem o espaço. A viagem romântica vira uma teia de mentiras e desejos reprimidos.'},
+     {t:'Pinóquio: Maldição de Madeira',id:'325933',g:'Estreia',i:'12/11/2026 · 1h 22min · Suspense, Terror',dr:'Rhys Frake-Waterfield',c:'Robert Englund, Richard Brake, Jude Evan Lloyd',n:'2,6',ss:72,s:'Um marceneiro cria um boneco para consolar o neto, mas a criatura desenvolve uma obsessão por se tornar um menino de verdade.'},
+     {t:'Apenas uma Ilusão',id:'1000015954',g:'Estreia',i:'12/11/2026 · 1h 59min · Comédia dramática',dr:'Olivier Nakache, Eric Toledano',c:'Louis Garrel, Camille Cottin, Pierre Lottin',ss:29,s:'Em 1985, Vincent vive o primeiro amor e dúvidas sobre identidade e fé, enquanto enfrenta a convivência difícil com a família.'},
+     {t:'Deixe-me Viver',id:'1000046922',g:'Estreia',i:'12/11/2026 · 1h 43min · Drama',dr:'Walther Neto',c:'Mônica Carvalho, Cat Dantas, Humberto Martins',ss:35,s:'Ao receber o diagnóstico de um câncer terminal, Julia pede à mãe que interrompa o tratamento para viver plenamente o tempo que lhe resta.'},
+     {t:'Contos Paralelos',id:'1000023480',g:'Estreia',i:'12/11/2026 · 2h 21min · Drama',dr:'Asghar Farhadi',c:'Isabelle Huppert, Virginie Efira, Pierre Niney',n:'3,0',ss:27,s:'Em crise criativa, uma escritora francesa busca inspiração observando em segredo os vizinhos do prédio em frente.'},
+     {t:'Super Charlie',id:'326812',g:'Estreia',i:'12/11/2026 · 1h 20min · Animação, Aventura, Comédia',dr:'Jon Holmberg',c:'Orlando Wahlsteen, Silas Strand, Sven Björklund',s:'Um garoto de 10 anos que sempre sonhou com super-poderes descobre que o irmão recém-nascido tem poderes de verdade.'},
+     {t:'O Bosque Selvagem',id:'296439',g:'Em cartaz',i:'Em cartaz · Melhores do momento',dr:'Travis Knight',c:'Peyton Elizabeth Lee, Jacob Tremblay, Mahershala Ali',n:'4,3'},
+     {t:'Godzilla Minus Zero',id:'1000014492',g:'Em cartaz',i:'Em cartaz',dr:'Takashi Yamazaki',c:'Ryûnosuke Kamiki, Minami Hamabe, Yamada Yuki',n:'4,0'},
+     {t:'Cara-de-Barro',id:'1000016901',g:'Em cartaz',i:'Em cartaz',dr:'James Watkins',c:'Tom Rhys Harries, Naomi Ackie, Eddie Marsan',n:'3,8'},
+     {t:'Minha Melhor Amiga',id:'1000027736',g:'Em cartaz',i:'Em cartaz',dr:'Susana Garcia',c:'Ingrid Guimarães, Mônica Martelli, Giulia Benite',n:'3,6'},
+     {t:'Verity',id:'1000015739',g:'Em cartaz',i:'Em cartaz',dr:'Michael Showalter',c:'Anne Hathaway, Dakota Johnson, Josh Hartnett',n:'3,6'},
+     {t:'Os Farofeiros 3',id:'1000026046',g:'Em cartaz',i:'Em cartaz',dr:'Roberto Santucci'},
+     {t:'O Gatola da Cartola',id:'204864',g:'Em cartaz',i:'Em cartaz',dr:'Alessandro Carloni, Erica Rivinoja'},
+     {t:'Como Roubar Um Banco',id:'1000020289',g:'Em cartaz',i:'Em cartaz',dr:'David Leitch'},
+     {t:'Jogos Vorazes: Amanhecer na Colheita',id:'1000004528',g:'Em breve',i:'Estreia em 20/11/2026',dr:'Francis Lawrence',c:'Joseph Zada, Whitney Peak'},
+     {t:'Eu Sou o Rocky',id:'1000002678',g:'Em breve',i:'Estreia em 19/11/2026',dr:'Peter Farrelly'},
+     {t:'Josephine: Fragmentos de um Crime',id:'1000010349',g:'Em breve',i:'Estreia em 19/11/2026'},
+     {t:'Camisas Negras',id:'1000054001',g:'Em breve',i:'Estreia em 19/11/2026'},
+     {t:'Pecadora',id:'1000015824',g:'Em breve',i:'Estreia em 26/11/2026'},
+     {t:'Enfeitiçadas: Bem-Vindos a Hexe',id:'312529',g:'Em breve',i:'Estreia em 26/11/2026'},
+     {t:'Entrando Numa Grande Fria',id:'1000016814',g:'Em breve',i:'Estreia em 26/11/2026'},
+     {t:'Vingadores: Doutor Destino',id:'269068',g:'Em breve',i:'Estreia em 17/12/2026'},
+     {t:'A Bola Preta',id:'1000024810',g:'Em breve',i:'Estreia em 14/01/2027'}
+    ];
     function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
     function hue(t){var h=0;for(var i=0;i<t.length;i++)h+=t.charCodeAt(i);return (h*29)%360;}
-    var g=document.getElementById('cnFilmes'),pills=document.querySelectorAll('.cn-pill');
+    function poster(x,tag){return '<div class="ac-p" style="--h:'+hue(x.t)+'"><span>'+esc(x.t)+'</span>'+(x.p?'<img src="'+IMG+x.p+'" alt="Pôster de '+esc(x.t)+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'')+(tag?'<i>'+esc(x.g)+'</i>':'')+'</div>';}
+    var $=function(i){return document.getElementById(i);};
+    var grid=$('acGrid'),pills=document.querySelectorAll('.ac-pill'),dlg=$('acDlg'),ifr=$('acIF'),last=null;
     function draw(f){
-      g.innerHTML=F.filter(function(x){return !f||x.g===f;}).map(function(x){
-        return '<article class="cn-card"><div class="cn-art" style="--h:'+hue(x.t)+'" aria-hidden="true"><span>'+x.e+'</span><i>'+esc(x.g)+'</i></div><div class="cn-tx"><h4>'+esc(x.t)+'</h4><p>'+esc(x.d)+'</p><a class="cn-b" href="'+EM+'" target="_blank" rel="noopener noreferrer">🎟️ Ver sessões no Ingresso.com ↗</a></div></article>';
-      }).join('')||'<p class="musmsg">Nenhum título nesta categoria agora.</p>';
+      grid.innerHTML=F.map(function(x,k){return {x:x,k:k};}).filter(function(o){return !f||o.x.g===f;}).map(function(o){
+        var x=o.x;return '<button type="button" class="ac-card" data-k="'+o.k+'">'+poster(x,true)+'<b>'+esc(x.t)+'</b><small>'+esc(x.i.split(' · ')[0])+(x.n?' · ★ '+x.n:'')+'</small></button>';
+      }).join('');
       pills.forEach(function(p){p.setAttribute('aria-pressed',p.getAttribute('data-f')===f?'true':'false');});
     }
     pills.forEach(function(p){p.addEventListener('click',function(){draw(p.getAttribute('data-f'));});});
     draw('');
-    document.getElementById('cnCinemas').innerHTML=C.map(function(x){
-      return '<article class="cn-card"><div class="cn-art sm" style="--h:'+hue(x.n)+'" aria-hidden="true"><span>'+x.e+'</span><i>'+esc(x.z)+'</i></div><div class="cn-tx"><h4>'+esc(x.n)+'</h4><p>'+esc(x.a)+'</p><a class="cn-b" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(x.n+' Rio de Janeiro')+'" target="_blank" rel="noopener noreferrer">📍 Ver no mapa ↗</a></div></article>';
-    }).join('');
-
-    /* Popup dentro do site */
-    var panel=document.getElementById('panel-filmes'),dlg=document.getElementById('cnPop'),fr=document.getElementById('cnPF'),pt=document.getElementById('cnPT'),pn=document.getElementById('cnPN'),px=document.getElementById('cnPX'),last=null;
-    function abrir(url,titulo,de,embed){last=de;pt.textContent=titulo;pn.href=url;fr.src=embed||url;dlg.hidden=false;document.body.style.overflow='hidden';px.focus({preventScroll:true});}
-    function fechar(){dlg.hidden=true;fr.src='about:blank';document.body.style.overflow='';if(last&&last.focus)last.focus();}
-    panel.addEventListener('click',function(e){
-      var a=e.target.closest&&e.target.closest('a[href]');if(!a||!panel.contains(a)||dlg.contains(a))return;
-      if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-      var h=a.href,emb='',card=a.closest('.cn-card'),t;
-      if(h.indexOf('https://www.ingresso.com')===0){t=card?card.querySelector('h4').textContent+' · Ingresso.com':(a.querySelector('b')?a.querySelector('b').textContent:'Ingresso.com');}
-      else if(h.indexOf('https://www.google.com/maps/search/')===0){t=(card?card.querySelector('h4').textContent:'Mapa');try{emb='https://www.google.com/maps?output=embed&q='+encodeURIComponent(new URL(h).searchParams.get('query'));}catch(x){return;}}
-      else return;
-      e.preventDefault();abrir(h,t,a,emb);
-    });
-    px.addEventListener('click',fechar);
+    function abrir(k,de){
+      var x=F[k],u=BASE+x.id+'/';last=de;
+      $('acT').textContent=x.t;
+      $('acBody').innerHTML=poster(x,false)+'<div><h3>'+esc(x.t)+'</h3><p>'+esc(x.i)+'</p>'
+        +(x.dr?'<p><b>Direção:</b> '+esc(x.dr)+'</p>':'')+(x.c?'<p><b>Elenco:</b> '+esc(x.c)+'</p>':'')
+        +(x.s?'<p>'+esc(x.s)+'</p>':'<p>Sinopse, trailer e críticas na ficha completa do AdoroCinema.</p>')
+        +(x.n?'<span class="ac-note">★ '+x.n+' · usuários AdoroCinema</span>':'')+'</div>';
+      var s=$('acS');s.href=g_(x,u);s.style.display=x.g==='Em breve'?'none':'';
+      s.textContent='🎟️ Ver sessões'+(x.ss?' ('+x.ss+')':'')+' ↗';
+      $('acF').href=u;ifr.hidden=true;ifr.src='about:blank';$('acH').hidden=true;$('acE').hidden=false;
+      dlg.hidden=false;document.body.style.overflow='hidden';$('acX').focus({preventScroll:true});
+    }
+    function g_(x,u){return u+'programacao/';}
+    function fechar(){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;document.body.style.overflow='';if(last&&last.focus)last.focus();}
+    grid.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ac-card');if(b)abrir(+b.getAttribute('data-k'),b);});
+    $('acE').addEventListener('click',function(){ifr.src=$('acF').href;ifr.hidden=false;$('acH').hidden=false;this.hidden=true;ifr.scrollIntoView({block:'nearest'});});
+    $('acX').addEventListener('click',fechar);
     dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
-    document.addEventListener('keydown',function(e){
-      if(dlg.hidden)return;
-      if(e.key==='Escape'){fechar();return;}
-      if(e.key==='Tab'){var f=[pn,px],i=f.indexOf(document.activeElement);
-        if(e.shiftKey&&i<=0){e.preventDefault();f[1].focus();}else if(!e.shiftKey&&(i===1||i===-1)){e.preventDefault();f[0].focus();}}
-    });
+    document.addEventListener('keydown',function(e){if(!dlg.hidden&&e.key==='Escape')fechar();});
   })();
   </script>
 </section>
