@@ -552,7 +552,7 @@ footer{text-align:center}
 .rdcard .pl{position:absolute;right:4px;bottom:4px;width:26px;height:26px;border-radius:50%;background:var(--neon);color:#170a33;display:grid;place-items:center;font-size:12px;z-index:1}
 .rdcard b{font-size:14px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .rdcard small{color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rdnow{position:sticky;bottom:10px;z-index:3;display:flex;align-items:center;gap:12px;max-width:720px;margin:16px 0 0;padding:10px 12px;border:3px solid var(--neon);border-radius:14px;background:#170a33;box-shadow:5px 5px 0 #7a2cff}
+.rdnow{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:12px;max-width:720px;margin:0 auto;box-sizing:border-box;padding:10px 12px;border:3px solid var(--neon);border-radius:14px;background:#170a33;box-shadow:5px 5px 0 #7a2cff}
 .rdnow img{flex:none;width:48px;height:48px;border-radius:8px;object-fit:contain;background:#fff}
 .rdnowinfo{min-width:0;flex:1;display:grid;gap:2px}
 .rdnowinfo b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -560,6 +560,9 @@ footer{text-align:center}
 .rdlive{font-style:normal;font-weight:800;font-size:11px;color:#170a33;background:#ff4d4d;border-radius:4px;padding:1px 6px;margin-right:4px}
 .rdnow button{all:unset;box-sizing:border-box;flex:none;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:var(--neon);color:#170a33;font-size:18px;cursor:pointer}
 .rdnow button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.rdnow[hidden]{display:none}
+.rdnow .rdclose{background:transparent;color:var(--ink);border:2px solid var(--neon);font-size:16px;width:38px;height:38px}
+body.rd-on{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .rdnow input[type=range]{flex:0 1 110px;min-width:70px;accent-color:var(--neon)}
 @media (max-width:520px){.rdgrid{grid-template-columns:repeat(2,1fr)}.rdnow input[type=range]{display:none}}
 </style>
@@ -719,11 +722,12 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     <h3 class="rdh" id="rdTitle">Mais populares</h3>
     <p class="musmsg" id="rdMsg" role="status"></p>
     <div class="rdgrid" id="rdGrid"></div>
-    <div class="rdnow" id="rdNow" hidden>
+    <div class="rdnow" id="rdNow" role="region" aria-label="Rádio tocando" hidden>
       <img id="rdLogo" alt="" width="48" height="48">
       <div class="rdnowinfo"><b id="rdName"></b><span><i class="rdlive">AO VIVO</i> <span id="rdSub"></span></span></div>
       <button type="button" id="rdPlay" aria-label="Pausar">⏸</button>
       <input type="range" id="rdVol" min="0" max="100" value="80" aria-label="Volume">
+      <button type="button" class="rdclose" id="rdClose" aria-label="Fechar player e parar a rádio" title="Fechar">✕</button>
     </div>
     <p class="mus-fine">Diretório de rádios: <a href="https://www.radio-browser.info" target="_blank" rel="noopener">Radio Browser</a> (aberto e feito pela comunidade). As transmissões são de responsabilidade de cada emissora e podem ter anúncios próprios. Só aparecem rádios com conexão segura (https).</p>
   </div>
@@ -1955,7 +1959,6 @@ var DICAS = [
     window.scrollTo(0,0);
     if(name==='clima'&&window.loadClima)window.loadClima();
     if(name==='musicas'&&window.musicOpen)window.musicOpen();
-    if((name==='live'||name==='cameras')&&window.musicPause)window.musicPause(); // evita som duplicado com as transmissões
     if(name!=='cameras'&&window.stopCameras)window.stopCameras(); // para as transmissões ao sair da aba
     if(name==='live')setTimeout(function(){window.dispatchEvent(new Event('resize'));},50); // reajusta o mapa
   }
@@ -2180,6 +2183,7 @@ var DICAS = [
   if(!$('panel-musicas'))return;
   var radio=new Audio();radio.preload='none';radio.volume=.8;
   var aberta=false;
+  document.body.appendChild($('rdNow')); /* player fica fora da aba: aparece em todas */
 
   /* Rádios ao vivo (diretório Radio Browser: aberto, sem chave) */
   var RD_HOSTS=['https://de1.api.radio-browser.info','https://all.api.radio-browser.info','https://fi1.api.radio-browser.info'];
@@ -2230,7 +2234,7 @@ var DICAS = [
   }
   function rdTocar(s){
     rdCur=s;
-    $('rdNow').hidden=false;$('rdName').textContent=s.name.trim();
+    $('rdNow').hidden=false;document.body.classList.add('rd-on');$('rdName').textContent=s.name.trim();
     $('rdSub').textContent=[s.country,(s.codec||'').toUpperCase(),s.bitrate?s.bitrate+' kbps':''].filter(Boolean).join(' · ');
     var lg=$('rdLogo'),f=rdSafeImg(s.favicon);if(f){lg.src=f;lg.style.visibility='visible';}else{lg.removeAttribute('src');lg.style.visibility='hidden';}
     $('rdNow').dataset.src=s.url_resolved;
@@ -2242,7 +2246,7 @@ var DICAS = [
   }
   radio.addEventListener('playing',function(){rdSay('');$('rdPlay').textContent='⏸';$('rdPlay').setAttribute('aria-label','Pausar');});
   radio.addEventListener('pause',function(){$('rdPlay').textContent='▶';$('rdPlay').setAttribute('aria-label','Tocar');});
-  radio.addEventListener('error',function(){if(!radio.src||!rdCur)return;rdSay('Esta rádio não respondeu agora. Escolha outra da lista.',true);$('rdPlay').textContent='▶';});
+  radio.addEventListener('error',function(){if(!radio.src||!rdCur)return;rdSay('Esta rádio não respondeu agora. Escolha outra da lista.',true);$('rdSub').textContent='Esta rádio não respondeu. Escolha outra na aba MÚSICAS.';$('rdPlay').textContent='▶';});
   $('rdPlay').addEventListener('click',function(){if(!rdCur)return;if(radio.paused){radio.load();var p=radio.play();if(p&&p.catch)p.catch(function(){});}else radio.pause();});
   $('rdVol').addEventListener('input',function(){radio.volume=this.value/100;});
   $('rdForm').addEventListener('submit',function(e){e.preventDefault();rdQ=$('rdQ').value.trim();rdTag='';
@@ -2257,10 +2261,22 @@ var DICAS = [
     $('rdGen').appendChild(c);
   });
 
+  function rdFechar(){
+    radio.pause();radio.removeAttribute('src');try{radio.load();}catch(e){}
+    rdCur=null;$('rdNow').hidden=true;document.body.classList.remove('rd-on');rdSay('');
+    Array.prototype.forEach.call(document.querySelectorAll('.rdcard.on'),function(c){c.classList.remove('on');});
+    if('mediaSession' in navigator){try{navigator.mediaSession.metadata=null;}catch(e){}}
+  }
+  $('rdClose').addEventListener('click',rdFechar);
+  if('mediaSession' in navigator){try{
+    navigator.mediaSession.setActionHandler('play',function(){if(rdCur){radio.load();var p=radio.play();if(p&&p.catch)p.catch(function(){});}});
+    navigator.mediaSession.setActionHandler('pause',function(){radio.pause();});
+  }catch(e){}}
+
   window.musicOpen=function(){
     if(!aberta){aberta=true;rdLoaded=true;rdCarregar();}
   };
-  window.musicPause=function(){radio.pause();};
+  window.musicPause=function(){}; /* a rádio continua tocando ao trocar de aba; só para ao fechar o player (✕) */
   if(!$('panel-musicas').hidden)window.musicOpen(); /* aberto direto por #musicas */
 })();
 </script>
