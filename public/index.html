@@ -1101,6 +1101,26 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     .ac-b{min-height:40px}
   }
   </style>
+  <style>
+  /* ---- Popup do filme no celular: janela de no máximo 50% da tela, sem travar o site ---- */
+  @media (max-width:820px),(max-height:520px){
+    #acDlg{top:auto;bottom:0;height:auto;max-height:50vh;max-height:50dvh;padding:0;background:transparent;pointer-events:none;align-items:flex-end}
+    #acDlg .ac-box{pointer-events:auto;height:auto;max-height:50vh;max-height:50dvh;border:3px solid var(--neon);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.55)}
+    #acDlg .ac-bar{padding-top:8px}
+    #acDlg .ac-body{grid-template-columns:96px 1fr;gap:12px;padding:12px max(14px,env(safe-area-inset-right,0px)) 12px max(14px,env(safe-area-inset-left,0px))}
+    #acDlg .ac-body .ac-p{width:96px;margin:0}
+    #acDlg .ac-body h3{font-size:clamp(17px,5vw,21px)}
+    #acDlg .ac-body p{font-size:14px}
+    #acDlg .ac-act{flex-direction:row;flex-wrap:wrap;padding-top:8px}
+    #acDlg .ac-b{min-height:42px;flex:1 1 auto}
+    #acDlg.ac-dlg:not([hidden]) ~ *{}
+    body:has(#acDlg:not([hidden])){padding-bottom:50vh;padding-bottom:50dvh}
+  }
+  @media (max-height:520px) and (orientation:landscape){
+    #acDlg .ac-body{grid-template-columns:1fr}
+    #acDlg .ac-body .ac-p{display:none}
+  }
+  </style>
   <script>
   (function(){
     var BASE='https://www.adorocinema.com/filmes/filme-',IMG='https://br.web.img3.acsta.net/c_310_420/img/';
@@ -1156,7 +1176,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       var s=$('acS');s.href=g_(x,u);s.style.display=x.g==='Em breve'?'none':'';
       s.textContent='🎟️ Ver sessões'+(x.ss?' ('+x.ss+')':'')+' ↗';
       $('acF').href=u;ifr.hidden=true;ifr.src='about:blank';box.classList.remove('emb');$('acH').hidden=true;$('acE').hidden=false;
-      dlg.hidden=false;document.body.style.overflow='hidden';$('acX').focus({preventScroll:true});
+      dlg.hidden=false;document.body.style.overflow=window.matchMedia('(max-width:820px),(max-height:520px)').matches?'':'hidden';$('acX').focus({preventScroll:true});
     }
     function g_(x,u){return u+'programacao/';}
     function fechar(){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;box.classList.remove('emb');document.body.style.overflow='';if(last&&last.focus)last.focus();}
