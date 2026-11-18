@@ -668,6 +668,28 @@ body.rd-on{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .om-b.p{background:var(--neon);color:#170a33}.om-b:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 .om-load{margin:20px 0;text-align:center;color:var(--mute)}
 @media (max-width:600px){.om-item{width:128px}.om-grid{grid-template-columns:repeat(2,1fr)}.om-d{flex-direction:column;align-items:center}.om-dp{width:150px}.om-di{width:100%}.om-box{padding:14px}}
+
+/* ---- Cinema no Rio (Ingresso.com) ---- */
+.cn-hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:6px 0 4px}
+.cn-cta{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;padding:14px 16px;color:var(--ink);text-decoration:none;border:2px solid var(--neon);border-radius:14px;background:linear-gradient(160deg,#3b1a7a,#170a33);box-shadow:4px 4px 0 #7a2cff}
+.cn-cta span{grid-row:1/3;font-size:30px}.cn-cta b{font:800 16px Archivo,sans-serif}.cn-cta small{color:var(--mute);font-size:13px}
+.cn-cta.p{background:var(--neon);color:#170a33}.cn-cta.p small{color:#2b1a55}
+.cn-cta:hover,.cn-cta:focus-visible{transform:translate(1px,1px);box-shadow:3px 3px 0 #7a2cff;outline:none}
+.cn-cta:focus-visible,.cn-b:focus-visible,.cn-pill:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.cn-pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.cn-pill{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 14px;border:2px solid var(--edge);border-radius:999px;background:var(--panel);color:var(--ink);font:700 13px Archivo,sans-serif}
+.cn-pill[aria-pressed="true"]{background:var(--neon);border-color:var(--neon);color:#170a33}
+.cn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.cn-card{display:flex;gap:14px;padding:12px;border:2px solid var(--neon);border-radius:14px;background:linear-gradient(160deg,#2b1360,#170a33);box-shadow:4px 4px 0 #7a2cff}
+.cn-art{position:relative;flex:none;width:96px;min-height:130px;display:flex;align-items:center;justify-content:center;border:2px solid var(--neon);border-radius:10px;background:linear-gradient(165deg,hsl(var(--h),70%,40%),hsl(calc(var(--h) + 40),65%,15%))}
+.cn-art.sm{width:80px;min-height:96px}.cn-art span{font-size:38px}
+.cn-art i{position:absolute;left:4px;right:4px;bottom:4px;text-align:center;padding:2px 4px;border-radius:999px;background:rgba(10,3,28,.88);font:700 10px Archivo,sans-serif;font-style:normal}
+.cn-tx{min-width:0;display:flex;flex-direction:column;gap:6px}.cn-tx h4{margin:0;font:800 16px/1.2 Archivo,sans-serif}
+.cn-tx p{margin:0;color:var(--mute);font-size:13px;line-height:1.4}
+.cn-b{margin-top:auto;align-self:flex-start;display:inline-flex;min-height:38px;align-items:center;padding:6px 12px;border:2px solid var(--neon);border-radius:999px;color:var(--ink);text-decoration:none;font:700 12px Archivo,sans-serif;background:#26104f}
+.cn-b:hover{background:var(--neon);color:#170a33}
+.cn-more{margin:16px 0 4px;max-width:420px}
+@media (max-width:600px){.cn-grid{grid-template-columns:1fr}.cn-art{width:84px}}
 </style>
 </head>
 <body>
@@ -855,120 +877,55 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   </div>
 </section>
 <section id="panel-filmes" role="tabpanel" aria-labelledby="tab-filmes" hidden>
-  <div class="sec-title"><h2 id="fil-h">FILMES E SÉRIES</h2></div>
-  <p class="fil-intro">Pesquise qualquer <b>filme ou série</b> e veja capa, nota do IMDb, sinopse e elenco. Os dados vêm da <b>OMDb</b>; para saber <b>onde assistir</b>, abrimos o JustWatch em uma nova aba.</p>
-  <form class="musq om-q" id="omForm" role="search">
-    <input id="omQ" type="search" placeholder="Buscar filme ou série (ex.: Matrix)" aria-label="Buscar filme ou série" maxlength="80" required>
-    <select id="omT" aria-label="Tipo"><option value="">Tudo</option><option value="movie">Filmes</option><option value="series">Séries</option></select>
-    <button class="btn" type="submit">Buscar</button>
-  </form>
-  <div class="om-key" id="omKey" hidden>
-    <b>Falta a chave da OMDb.</b> Crie uma grátis em <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noopener noreferrer">omdbapi.com/apikey.aspx</a> e cole abaixo (o dono do site deve colocá-la no código, em <code>OMDB_KEY</code>).
-    <form class="musq om-q" id="omKF"><input id="omKI" type="text" placeholder="Sua chave (ex.: a1b2c3d4)" aria-label="Chave da OMDb" maxlength="20" autocomplete="off"><button class="btn" type="submit">Salvar</button></form>
+  <div class="sec-title"><h2 id="fil-h">CINEMA NO RIO</h2></div>
+  <p class="fil-intro">Veja o que está em cartaz e onde assistir no Rio. As <b>sessões, horários e ingressos</b> são vendidos pelo <b>Ingresso.com</b>: toque em um botão e abrimos a página dele em uma nova aba.</p>
+  <div class="cn-hero">
+    <a class="cn-cta p" href="https://www.ingresso.com/filmes/em-cartaz?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🎟️</span><b>Filmes em cartaz</b><small>Sessões e ingressos no Rio</small></a>
+    <a class="cn-cta" href="https://www.ingresso.com/cinemas?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🏛️</span><b>Todos os cinemas</b><small>Salas, endereços e horários</small></a>
+    <a class="cn-cta" href="https://www.ingresso.com/noticias/lista-filmes-estreias-lancamentos-cinema-mes-novembro-2026?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🗓️</span><b>Estreias de novembro</b><small>Datas, sinopses e trailers</small></a>
   </div>
-  <p class="musmsg" id="omMsg" role="status"></p>
-  <div id="omRes" hidden>
-    <h3 class="fil-h3" id="omRT">Resultados</h3>
-    <div class="om-grid" id="omGrid"></div>
-    <p class="om-more"><button type="button" class="btn" id="omMore" hidden>Carregar mais</button></p>
+  <h3 class="fil-h3">🍿 Em destaque <small>seleção de 18/11/2026</small></h3>
+  <div class="cn-pills" role="group" aria-label="Filtrar filmes">
+    <button type="button" class="cn-pill" aria-pressed="true" data-f="">Todos</button>
+    <button type="button" class="cn-pill" aria-pressed="false" data-f="Estreia">Estreias</button>
+    <button type="button" class="cn-pill" aria-pressed="false" data-f="Nacional">Nacionais</button>
+    <button type="button" class="cn-pill" aria-pressed="false" data-f="Evento">Eventos</button>
   </div>
-  <div id="omRows"></div>
-  <p class="mus-fine">Dados e capas: <a href="https://www.omdbapi.com" target="_blank" rel="noopener noreferrer">OMDb API</a> (base do IMDb). Onde assistir: <a href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer">JustWatch Brasil</a>. A OMDb só fornece sinopses em inglês. Títulos, capas e marcas pertencem aos seus detentores.</p>
-  <div id="omDlg" class="om-dlg" role="dialog" aria-modal="true" aria-labelledby="omDT" hidden>
-    <div class="om-box"><button type="button" class="om-x" id="omX" aria-label="Fechar">✕</button><div id="omBody"></div></div>
-  </div>
+  <div class="cn-grid" id="cnFilmes"></div>
+  <h3 class="fil-h3">🏛️ Cinemas no Rio <small>alguns endereços para começar</small></h3>
+  <div class="cn-grid cn-cin" id="cnCinemas"></div>
+  <p class="cn-more"><a class="cn-cta p" href="https://www.ingresso.com/cinemas?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🔎</span><b>Ver todos os cinemas do Rio</b><small>Lista completa no Ingresso.com</small></a></p>
+  <p class="mus-fine">Programação, preços e sessões: <a href="https://www.ingresso.com/?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer">Ingresso.com</a>. A seleção acima é editorial (fontes: imprensa e Ingresso.com, em 18/11/2026) e pode mudar; confirme sempre no site de vendas. Títulos e marcas pertencem aos seus detentores.</p>
   <script>
   (function(){
-    var OMDB_KEY='65c8e6d0'; /* cole aqui sua chave gratuita: omdbapi.com/apikey.aspx */
-    var ROWS=[
-     {t:'🇧🇷 Cinema brasileiro',i:[['tt0317248','Cidade de Deus'],['tt0861739','Tropa de Elite'],['tt1555149','Tropa de Elite 2'],['tt0120524','Central do Brasil'],['tt0297721','O Auto da Compadecida'],['tt2762506','Bacurau'],['tt14961016','Ainda Estou Aqui']]},
-     {t:'🔥 Aclamados recentes',i:[['tt15398776','Oppenheimer'],['tt6751668','Parasita'],['tt0816692','Interestelar'],['tt15239678','Duna: Parte Dois'],['tt7286456','Coringa'],['tt9362722','Homem-Aranha: Através do Aranhaverso'],['tt22022452','Divertida Mente 2'],['tt1517268','Barbie']]},
-     {t:'🏆 Clássicos imperdíveis',i:[['tt0068646','O Poderoso Chefão'],['tt0110912','Pulp Fiction'],['tt0137523','Clube da Luta'],['tt0109830','Forrest Gump'],['tt0133093','Matrix'],['tt0120338','Titanic'],['tt0172495','Gladiador']]},
-     {t:'📺 Séries para maratonar',i:[['tt0903747','Breaking Bad'],['tt0944947','Game of Thrones'],['tt4574334','Stranger Things'],['tt3581920','The Last of Us'],['tt10919420','Round 6'],['tt7660850','Succession'],['tt14452776','The Bear'],['tt5753856','Dark'],['tt7366338','Chernobyl'],['tt2085059','Black Mirror']]}];
-    var PT={};ROWS.forEach(function(r){r.i.forEach(function(x){PT[x[0]]=x[1];});});
-    function $(i){return document.getElementById(i);}
+    var EM='https://www.ingresso.com/filmes/em-cartaz?city=rio-de-janeiro';
+    var F=[
+     {t:'Jogos Vorazes: Amanhecer na Colheita',e:'🏹',g:'Estreia',d:'Estreia em 19/11. Volta a Panem 24 anos antes da saga, na colheita dos 50º Jogos Vorazes.'},
+     {t:'Ebenezer e os Fantasmas do Natal',e:'👻',g:'Estreia',d:'Nova adaptação de “Um Conto de Natal”, de Charles Dickens.'},
+     {t:'Godzilla Minus Zero',e:'🦖',g:'Em cartaz',d:'Sequência de “Godzilla Minus One”, vencedor do Oscar de Efeitos Visuais.'},
+     {t:'100 Dias',e:'🇧🇷',g:'Nacional',d:'Filme brasileiro dirigido por Carlos Saldanha.'},
+     {t:'As Dez Vantagens de Morrer Depois de Você',e:'🎭',g:'Nacional',d:'Longa brasileiro com Giulia Be e Any Gabrielly.'},
+     {t:'Apenas Uma Ilusão',e:'🎞️',g:'Estreia',d:'Estreou em 12/11. Veja sinopse e sessões no Ingresso.com.'},
+     {t:'Noites de Cinema Saudita',e:'🌙',g:'Evento',d:'Quatro filmes inéditos, com diretores presentes. No Rio, dias 24 e 25/11, na Estação Claro Gávea.'}];
+    var C=[
+     {n:'Cine Odeon',z:'Centro',a:'Praça Floriano, 7 · Cinelândia',e:'🎬'},
+     {n:'Estação Claro Gávea',z:'Zona Sul',a:'Rua Marquês de São Vicente, 52 · Gávea',e:'🎥'},
+     {n:'Cinépolis Lagoon',z:'Zona Sul',a:'Av. Borges de Medeiros, 1426 · Lagoa',e:'🍿'},
+     {n:'Cinemark Village Mall',z:'Barra da Tijuca',a:'Av. das Américas, 3900 · Barra da Tijuca',e:'🎞️'}];
     function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    function ok(v){return v&&v!=='N/A';}
-    function key(){var k=OMDB_KEY;if(!k){try{k=localStorage.getItem('omdbkey')||'';}catch(e){}}return k;}
-    function api(p){
-      var k=key();if(!k)return Promise.reject('nokey');
-      return fetch('https://www.omdbapi.com/?apikey='+encodeURIComponent(k)+'&'+p).then(function(r){return r.json();}).then(function(d){
-        if(d.Response==='False'&&/api key|limit/i.test(d.Error||''))throw d.Error;return d;});
+    function hue(t){var h=0;for(var i=0;i<t.length;i++)h+=t.charCodeAt(i);return (h*29)%360;}
+    var g=document.getElementById('cnFilmes'),pills=document.querySelectorAll('.cn-pill');
+    function draw(f){
+      g.innerHTML=F.filter(function(x){return !f||x.g===f;}).map(function(x){
+        return '<article class="cn-card"><div class="cn-art" style="--h:'+hue(x.t)+'" aria-hidden="true"><span>'+x.e+'</span><i>'+esc(x.g)+'</i></div><div class="cn-tx"><h4>'+esc(x.t)+'</h4><p>'+esc(x.d)+'</p><a class="cn-b" href="'+EM+'" target="_blank" rel="noopener noreferrer">🎟️ Ver sessões no Ingresso.com ↗</a></div></article>';
+      }).join('')||'<p class="musmsg">Nenhum título nesta categoria agora.</p>';
+      pills.forEach(function(p){p.setAttribute('aria-pressed',p.getAttribute('data-f')===f?'true':'false');});
     }
-    var TTL=7*864e5;
-    function get(id){
-      try{var c=JSON.parse(localStorage.getItem('om:'+id)||'null');if(c&&Date.now()-c.t<TTL)return Promise.resolve(c.d);}catch(e){}
-      return api('plot=short&i='+encodeURIComponent(id)).then(function(d){if(d.Response!=='False'){try{localStorage.setItem('om:'+id,JSON.stringify({t:Date.now(),d:d}));}catch(e){}}return d;});
-    }
-    function hue(id){var h=0;for(var i=0;i<id.length;i++)h+=id.charCodeAt(i);return (h*37)%360;}
-    function ini(t){var w=String(t).replace(/[:\-–].*$/,'').split(/\s+/).filter(function(x){return x.length>2||/^\d/.test(x);});return esc((w[0]||t).charAt(0)+(w[1]?w[1].charAt(0):'')).toUpperCase();}
-    function kind(t){return t==='series'?'Série':t==='movie'?'Filme':t==='episode'?'Episódio':'';}
-    function card(o){
-      var img=ok(o.p)?'<img src="'+esc(o.p)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'';
-      return '<button type="button" class="om-card" data-id="'+esc(o.id)+'"><span class="om-poster" style="--h:'+hue(o.id)+'">'+img+'<em>'+ini(o.t)+'</em>'+(o.k?'<i>'+esc(o.k)+'</i>':'')+'</span><b>'+esc(o.t)+'</b><small>'+esc([ok(o.y)?o.y:'',ok(o.r)?'★ '+o.r:''].filter(Boolean).join(' · '))+'</small></button>';
-    }
-    function msg(t){$('omMsg').textContent=t||'';}
-    function fail(e){
-      if(e==='nokey'){$('omKey').hidden=false;msg('');}
-      else{msg(/limit/i.test(String(e))?'O limite diário da OMDb foi atingido. Tente novamente amanhã.':/api key/i.test(String(e))?'Chave da OMDb inválida ou ainda não ativada (confirme o e-mail da OMDb).':'Não foi possível consultar a OMDb agora. Tente novamente.');}
-    }
-    /* Vitrines */
-    var rowsEl=$('omRows'),loaded=false;
-    ROWS.forEach(function(r,ri){
-      rowsEl.insertAdjacentHTML('beforeend','<h3 class="fil-h3">'+r.t+'</h3><div class="om-row" data-ri="'+ri+'">'+r.i.map(function(x){return '<div class="om-item" data-id="'+x[0]+'">'+card({id:x[0],t:x[1]})+'</div>';}).join('')+'</div>');
-    });
-    function fillRow(el){
-      if(el._done)return;if(!key()){fail('nokey');return;}el._done=true;
-      var its=[].slice.call(el.querySelectorAll('.om-item')),i=0;
-      (function next(){
-        if(i>=its.length)return;var it=its[i++],id=it.getAttribute('data-id');
-        get(id).then(function(d){
-          if(d.Response!=='False')it.innerHTML=card({id:id,t:PT[id],y:d.Year,r:d.imdbRating,p:d.Poster,k:kind(d.Type)});
-        }).catch(function(e){el._done=false;fail(e);i=its.length;}).then(function(){next();});
-      })();
-    }
-    var rowEls=[].slice.call(rowsEl.querySelectorAll('.om-row'));
-    function loadAll(){rowEls.forEach(function(e){e._done=false;});go();}
-    var io=window.IntersectionObserver?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)fillRow(e.target);});},{rootMargin:'200px'}):null;
-    function go(){rowEls.forEach(function(e){if(io){io.unobserve(e);io.observe(e);}else fillRow(e);});}
-    go();
-    /* Busca */
-    var S={q:'',t:'',pg:1,n:0,seen:{}};
-    function busca(reset){
-      if(reset){S.pg=1;S.n=0;S.seen={};$('omGrid').innerHTML='';}
-      msg('Buscando…');
-      api('s='+encodeURIComponent(S.q)+(S.t?'&type='+S.t:'')+'&page='+S.pg).then(function(d){
-        $('omRes').hidden=false;$('omRT').textContent='Resultados para “'+S.q+'”';
-        if(d.Response==='False'){msg(d.Error==='Movie not found!'?'Nada encontrado. Tente outro nome (em inglês costuma dar mais resultado).':'Refine a busca com mais letras.');$('omMore').hidden=true;return;}
-        msg('');var h='';
-        d.Search.forEach(function(x){if(S.seen[x.imdbID])return;S.seen[x.imdbID]=1;S.n++;h+=card({id:x.imdbID,t:x.Title,y:x.Year,p:x.Poster,k:kind(x.Type)});});
-        $('omGrid').insertAdjacentHTML('beforeend',h);
-        $('omMore').hidden=!(S.n<parseInt(d.totalResults,10));
-      }).catch(fail);
-    }
-    $('omForm').addEventListener('submit',function(e){e.preventDefault();S.q=$('omQ').value.trim();S.t=$('omT').value;if(S.q)busca(true);});
-    $('omMore').addEventListener('click',function(){S.pg++;busca(false);});
-    $('omKF').addEventListener('submit',function(e){e.preventDefault();var v=$('omKI').value.trim();if(!v)return;try{localStorage.setItem('omdbkey',v);}catch(x){}$('omKey').hidden=true;msg('');loadAll();});
-    /* Ficha do título */
-    var dlg=$('omDlg'),body=$('omBody'),last=null;
-    function fechar(){dlg.hidden=true;document.body.style.overflow='';if(last&&last.focus)last.focus();}
-    function row(l,v){return ok(v)?'<p class="om-r"><b>'+l+':</b> '+esc(v)+'</p>':'';}
-    function ficha(d){
-      var id=d.imdbID,pt=PT[id]||d.Title,ch='';
-      (d.Ratings||[]).forEach(function(r){var n=r.Source==='Internet Movie Database'?'IMDb':r.Source==='Rotten Tomatoes'?'Rotten Tomatoes':r.Source==='Metacritic'?'Metacritic':r.Source;ch+='<span class="om-chip"><b>'+esc(r.Value)+'</b> '+esc(n)+'</span>';});
-      var jw='https://br.justwatch.com/br/busca?q='+encodeURIComponent(d.Title);
-      body.innerHTML='<div class="om-d"><div class="om-dp" style="--h:'+hue(id)+'">'+(ok(d.Poster)?'<img src="'+esc(d.Poster)+'" alt="Capa de '+esc(pt)+'" referrerpolicy="no-referrer" onerror="this.remove()">':'<em>'+ini(pt)+'</em>')+'</div><div class="om-di"><h3 id="omDT">'+esc(pt)+'</h3><p class="om-sub">'+esc([pt!==d.Title?d.Title:'',ok(d.Year)?d.Year:'',ok(d.Rated)?d.Rated:'',ok(d.Runtime)?d.Runtime:'',kind(d.Type)].filter(Boolean).join(' · '))+'</p>'+(ch?'<p class="om-chips">'+ch+'</p>':'')+row('Gênero',d.Genre)+(ok(d.Plot)?'<p class="om-r"><b>Sinopse (em inglês):</b> '+esc(d.Plot)+'</p>':'')+row('Direção',d.Director)+row('Elenco',d.Actors)+row('País',d.Country)+row('Prêmios',d.Awards)+'<p class="om-acts"><a class="om-b p" href="https://www.imdb.com/pt/title/'+esc(id)+'/" target="_blank" rel="noopener noreferrer">Ver no IMDb ↗</a><a class="om-b" href="'+jw+'" target="_blank" rel="noopener noreferrer">Onde assistir ↗</a></p></div></div>';
-    }
-    $('panel-filmes').addEventListener('click',function(e){
-      var b=e.target.closest&&e.target.closest('.om-card');if(!b)return;
-      last=b;dlg.hidden=false;document.body.style.overflow='hidden';body.innerHTML='<p class="om-load">Carregando…</p>';$('omX').focus({preventScroll:true});
-      get(b.getAttribute('data-id')).then(function(d){if(d.Response==='False')throw d.Error;ficha(d);}).catch(function(err){
-        if(err==='nokey'){fechar();fail('nokey');return;}
-        body.innerHTML='<p class="om-load">Não foi possível carregar esta ficha agora.</p>';});
-    });
-    $('omX').addEventListener('click',fechar);
-    dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
-    document.addEventListener('keydown',function(e){if(!dlg.hidden&&e.key==='Escape')fechar();});
+    pills.forEach(function(p){p.addEventListener('click',function(){draw(p.getAttribute('data-f'));});});
+    draw('');
+    document.getElementById('cnCinemas').innerHTML=C.map(function(x){
+      return '<article class="cn-card"><div class="cn-art sm" style="--h:'+hue(x.n)+'" aria-hidden="true"><span>'+x.e+'</span><i>'+esc(x.z)+'</i></div><div class="cn-tx"><h4>'+esc(x.n)+'</h4><p>'+esc(x.a)+'</p><a class="cn-b" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(x.n+' Rio de Janeiro')+'" target="_blank" rel="noopener noreferrer">📍 Ver no mapa ↗</a></div></article>';
+    }).join('');
   })();
   </script>
 </section>
