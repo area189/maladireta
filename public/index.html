@@ -523,49 +523,17 @@ footer{text-align:center}
 .ddist .nt{margin:8px 0 0;font-size:12px;color:var(--mute)}
 
 .mus-intro{margin:10px 0 16px;color:var(--mute);max-width:66ch}
-.musmodes{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
-.musmodes .btn{width:auto;margin:0}
-.musmodes .btn[aria-pressed="false"]{background:transparent;color:var(--ink);border-color:var(--neon);box-shadow:3px 3px 0 #7a2cff}
 .musq{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
 .musq input{flex:1 1 220px;min-width:0;font:600 15px Archivo,sans-serif;color:var(--ink);background:rgba(23,10,51,.8);border:2px solid var(--neon);border-radius:8px;padding:11px 12px}
 .musq .btn{width:auto;margin:0}
-.musplayer{display:flex;gap:14px;align-items:center;max-width:720px;padding:14px;background:linear-gradient(160deg,#3b1a7a 0%,#26104f 55%,#170a33 100%);border:3px solid var(--neon);border-radius:14px;box-shadow:6px 6px 0 #7a2cff}
-.musplayer img{flex:none;width:120px;height:120px;object-fit:cover;border-radius:10px;border:2px solid var(--neon);background:#2e1065}
-.musinfo{min-width:0;flex:1;display:grid;gap:4px}
-.musinfo b{font-size:18px;line-height:1.2;overflow-wrap:anywhere}
-.musinfo span{color:var(--mute);font-size:14px}
-.musinfo a{color:var(--neon)}
-.musctl{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
-.musctl button{all:unset;box-sizing:border-box;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--neon);color:var(--neon);font-size:18px;cursor:pointer}
-.musctl button#mPlay{background:var(--neon);color:#170a33}
-.musctl button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
-.musctl input[type=range]{flex:1 1 120px;min-width:90px;accent-color:var(--neon)}
-.mtime{font:600 12px Archivo,sans-serif;color:var(--mute);min-width:34px}
 .musmsg{margin:12px 0 0;font-size:14px;color:var(--mute)}
 .musmsg.err{color:#ff8a8a}
-.musq-list{list-style:none;margin:14px 0 0;padding:0;max-width:720px;display:grid;gap:6px}
-.musq-list button{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;border:2px solid transparent;cursor:pointer}
-.musq-list button:hover,.musq-list button:focus-visible{background:rgba(57,255,20,.1);outline:none}
-.musq-list li.on button{border-color:var(--neon);background:rgba(57,255,20,.12)}
-.musq-list .n{color:var(--mute);font-size:13px;text-align:center}
-.musq-list .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.musq-list .t small{display:block;color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis}
-.musq-list .d{color:var(--mute);font-size:12px}
 .mus-fine{margin:14px 0 0;font-size:12px;color:var(--mute)}
 .mus-fine a{color:var(--neon)}
-.ytwrap{max-width:720px}
-.ytwrap iframe{display:block;width:100%;aspect-ratio:16/9;border:3px solid var(--neon);border-radius:12px;background:#000}
-@media (max-width:520px){.musplayer{flex-direction:column;text-align:center}.musctl{justify-content:center}}
 
 .musq .btn.ghost{background:transparent;color:var(--ink);border-color:var(--neon);box-shadow:3px 3px 0 #7a2cff}
 
-.spwrap{max-width:720px}
-.spwrap iframe{display:block;width:100%;border:0;border-radius:12px;background:#121212}
 
-.musapp{max-width:720px;margin:22px 0 0;padding:14px 16px;border:2px dashed #7a2cff;border-radius:12px;background:rgba(122,44,255,.1)}
-.musapp h3{margin:0 0 6px;font:700 16px Archivo,sans-serif}
-.musapp p{margin:0 0 12px;font-size:14px;color:var(--mute)}
-.musapp .btn{display:inline-block;width:auto;margin:0;text-decoration:none}
 
 .rdtop{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0 0 6px}
 .rdtop .musq{flex:1 1 280px;margin:0}
@@ -732,60 +700,10 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   <p class="cam-note"><b>Dica:</b> se uma câmera aparecer fora do ar, o canal pode estar em manutenção ou fora do horário. Use o botão do YouTube ou do site para tentar de novo mais tarde.</p>
 </section>
 <section id="panel-musicas" role="tabpanel" aria-labelledby="tab-musicas" hidden>
-  <div class="sec-title"><h2 id="mus-h">MÚSICAS</h2></div>
-  <p class="mus-intro">Escolha como ouvir. A <b>Audius</b> toca sem anúncios; o <b>YouTube</b> e o <b>Spotify</b> usam os players oficiais, que podem ter anúncios. Em <b>Rádios</b>, você ouve emissoras ao vivo de todo o mundo.</p>
-  <div class="musmodes" role="group" aria-label="Fonte da música">
-    <button type="button" class="btn" id="mAud" aria-pressed="true">🎧 Audius · sem anúncios</button>
-    <button type="button" class="btn ghost" id="mYt" aria-pressed="false">▶️ YouTube · pode ter anúncios</button>
-    <button type="button" class="btn ghost" id="mSp" aria-pressed="false">🟢 Spotify · pode ter anúncios</button>
-    <button type="button" class="btn ghost" id="mRd" aria-pressed="false">📻 Rádios · ao vivo</button>
-  </div>
+  <div class="sec-title"><h2 id="mus-h">RÁDIOS AO VIVO</h2></div>
+  <p class="mus-intro">Ouça emissoras de rádio <b>ao vivo</b> do Brasil e de todo o mundo. Escolha um gênero ou busque a rádio pelo nome.</p>
 
-  <div id="musAud">
-    <form class="musq" id="musForm" role="search">
-      <input id="musQ" type="search" placeholder="Buscar música ou artista na Audius" aria-label="Buscar música ou artista" maxlength="80">
-      <button class="btn" type="submit">Buscar</button>
-      <button class="btn ghost" type="button" id="musTop">Mais tocadas</button>
-    </form>
-    <div class="musplayer" id="musPlayer">
-      <img id="musCover" alt="" width="120" height="120" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%232e1065'/%3E%3Ctext x='60' y='78' font-size='56' text-anchor='middle'%3E%F0%9F%8E%B5%3C/text%3E%3C/svg%3E">
-      <div class="musinfo">
-        <b id="musTitle">Carregando as mais tocadas...</b>
-        <span id="musArtist"></span>
-        <div class="musctl">
-          <button type="button" id="mPrev" aria-label="Faixa anterior">⏮</button>
-          <button type="button" id="mPlay" aria-label="Tocar">▶</button>
-          <button type="button" id="mNext" aria-label="Próxima faixa">⏭</button>
-          <span class="mtime" id="mCur">0:00</span>
-          <input type="range" id="mSeek" min="0" max="1000" value="0" aria-label="Posição da música">
-          <span class="mtime" id="mDur">0:00</span>
-        </div>
-      </div>
-    </div>
-    <p class="musmsg" id="musMsg" role="status"></p>
-    <ol class="musq-list" id="musList" aria-label="Lista de músicas"></ol>
-    <p class="mus-fine">Músicas da <a href="https://audius.co" target="_blank" rel="noopener">Audius</a>, com créditos aos artistas. Toque no nome para ver a faixa na Audius.</p>
-  </div>
-
-  <div id="musYtBox" hidden>
-    <form class="musq" id="ytForm">
-      <input id="ytUrl" type="url" inputmode="url" placeholder="Cole o link de uma playlist ou vídeo do YouTube ou YouTube Music" aria-label="Link do YouTube" maxlength="300">
-      <button class="btn" type="submit">Carregar</button>
-    </form>
-    <p class="musmsg" id="ytMsg" role="status">Cole um link para tocar aqui. O YouTube controla os anúncios, e quem tem YouTube Premium e está logado costuma não vê-los.</p>
-    <div class="ytwrap" id="ytWrap"></div>
-  </div>
-
-  <div id="musSpBox" hidden>
-    <form class="musq" id="spForm">
-      <input id="spUrl" type="url" inputmode="url" placeholder="Cole o link de uma música, álbum, playlist ou artista do Spotify" aria-label="Link do Spotify" maxlength="300">
-      <button class="btn" type="submit">Carregar</button>
-    </form>
-    <p class="musmsg" id="spMsg" role="status">Cole um link do Spotify (em “Compartilhar → Copiar link”). Sem login, o Spotify toca só trechos; quem está logado ouve a música inteira, e a conta gratuita pode ter anúncios.</p>
-    <div class="spwrap" id="spWrap"></div>
-  </div>
-
-  <div id="musRdBox" hidden>
+  <div id="musRdBox">
     <div class="rdtop">
       <div class="rdscope" role="group" aria-label="Região das rádios">
         <button type="button" class="chip on" data-scope="BR" aria-pressed="true">🇧🇷 Brasil</button>
@@ -809,12 +727,6 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     </div>
     <p class="mus-fine">Diretório de rádios: <a href="https://www.radio-browser.info" target="_blank" rel="noopener">Radio Browser</a> (aberto e feito pela comunidade). As transmissões são de responsabilidade de cada emissora e podem ter anúncios próprios. Só aparecem rádios com conexão segura (https).</p>
   </div>
-
-  <aside class="musapp" aria-labelledby="musapp-h">
-    <h3 id="musapp-h">💻 Prefere ouvir no computador?</h3>
-    <p>O <b>YouTube Music Desktop App</b> é um aplicativo gratuito e de código aberto, feito pela comunidade (não é do Google), para Windows, macOS e Linux. Baixe sempre pela página oficial do projeto.</p>
-    <a class="btn" href="https://github.com/ytmdesktop/ytmdesktop/releases" target="_blank" rel="noopener noreferrer">⬇️ Baixar na página oficial</a>
-  </aside>
 </section>
 <section id="panel-newsletter" role="tabpanel" aria-labelledby="tab-newsletter" hidden>
   <div class="sec-title"><h2 id="news-h">NEWSLETTER AO VIVO NO RIO</h2></div>
@@ -2262,150 +2174,12 @@ var DICAS = [
 })();
 </script>
 <script>
-/* Aba MÚSICAS: Audius (sem anúncios) + player oficial do YouTube. */
+/* Aba RÁDIOS AO VIVO (diretório Radio Browser, aberto e sem chave). */
 (function(){
-  /* CONFIGURAÇÃO (opcional) */
-  var AUDIUS_APP='AoVivoNoRio';      /* nome do app enviado à Audius */
-  var AUDIUS_API_KEY='';             /* chave grátis em https://api.audius.co/plans (se a Audius pedir) */
-  var SP_PADRAO='';                  /* link ou ID de um item do Spotify para abrir já carregado, ex.: playlist/ID */
-  var YT_PADRAO='';                  /* ID de uma playlist do YouTube para abrir já carregada (parte depois de list=) */
-  var HOSTS=['https://api.audius.co','https://discoveryprovider.audius.co'];
-
   function $(i){return document.getElementById(i);}
   if(!$('panel-musicas'))return;
-  var host=HOSTS[0],lista=[],idx=-1,aberta=false,erros=0,seeking=false,modo='aud',ytSrc='',spSrc='',spH=352;
   var radio=new Audio();radio.preload='none';radio.volume=.8;
-  var SEMCAPA=$('musCover').getAttribute('src');
-  var audio=new Audio();audio.preload='none';
-  var msg=$('musMsg'),ul=$('musList');
-
-  function say(t,err){msg.textContent=t||'';msg.className='musmsg'+(err?' err':'');}
-  function mmss(s){s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+('0'+(s%60)).slice(-2);}
-  function qs(o){o.app_name=AUDIUS_APP;if(AUDIUS_API_KEY)o.api_key=AUDIUS_API_KEY;
-    return Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]);}).join('&');}
-  function api(path,o,i){
-    i=i||0;var h=HOSTS[i];
-    return fetch(h+path+'?'+qs(o)).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
-      .then(function(j){host=h;return j;})
-      .catch(function(e){if(i+1<HOSTS.length)return api(path,o,i+1);throw e;});
-  }
-  function limpar(arr){return (arr||[]).filter(function(t){return t&&t.id&&t.title&&!t.is_stream_gated&&t.is_streamable!==false;});}
-
-  function render(){
-    ul.textContent='';
-    lista.forEach(function(t,i){
-      var li=document.createElement('li');if(i===idx)li.className='on';
-      var b=document.createElement('button');b.type='button';
-      var n=document.createElement('span');n.className='n';n.textContent=String(i+1);
-      var tt=document.createElement('span');tt.className='t';tt.textContent=t.title;
-      var sm=document.createElement('small');sm.textContent=(t.user&&t.user.name)||'';tt.appendChild(sm);
-      var d=document.createElement('span');d.className='d';d.textContent=mmss(t.duration);
-      b.appendChild(n);b.appendChild(tt);b.appendChild(d);
-      b.addEventListener('click',function(){tocar(i);});
-      li.appendChild(b);ul.appendChild(li);
-    });
-  }
-  function mostrar(t){
-    $('musTitle').textContent=t.title;
-    var a=$('musArtist');a.textContent='';
-    var nome=(t.user&&t.user.name)||'Artista';
-    if(t.permalink){var l=document.createElement('a');l.href='https://audius.co'+t.permalink;l.target='_blank';l.rel='noopener';l.textContent=nome+' ↗';a.appendChild(l);}
-    else a.textContent=nome;
-    var cv=t.artwork&&(t.artwork['480x480']||t.artwork['1000x1000']||t.artwork['150x150']);
-    var im=$('musCover');if(cv){im.src=cv;im.alt='Capa de '+t.title;}else{im.src=SEMCAPA;im.alt='';}
-    if('mediaSession' in navigator&&window.MediaMetadata){
-      try{navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:nome,artwork:cv?[{src:cv,sizes:'480x480',type:'image/jpeg'}]:[]});}catch(e){}
-    }
-  }
-  function tocar(i){
-    if(i<0||i>=lista.length)return;
-    idx=i;var t=lista[i];mostrar(t);render();say('');
-    audio.src=host+'/v1/tracks/'+encodeURIComponent(t.id)+'/stream?'+qs({});
-    var pr=audio.play();
-    if(pr&&pr.catch)pr.catch(function(){$('mPlay').textContent='▶';say('Toque em ▶ para começar.');});
-  }
-  function prox(d){if(!lista.length)return;tocar((idx+d+lista.length)%lista.length);}
-  function carregar(path,o,vazio){
-    say('Buscando músicas...');
-    return api(path,o).then(function(j){
-      lista=limpar(j&&j.data);idx=-1;render();
-      if(!lista.length){say(vazio||'Nada encontrado.',false);return;}
-      mostrar(lista[0]);$('mPlay').textContent='▶';say('');
-    }).catch(function(){
-      say('Não consegui carregar a Audius agora. Tente de novo em instantes ou use o modo YouTube.',true);
-    });
-  }
-  function trending(){return carregar('/v1/tracks/trending',{limit:25,time:'week'},'Nenhuma música encontrada agora.');}
-
-  audio.addEventListener('play',function(){$('mPlay').textContent='⏸';$('mPlay').setAttribute('aria-label','Pausar');});
-  audio.addEventListener('pause',function(){$('mPlay').textContent='▶';$('mPlay').setAttribute('aria-label','Tocar');});
-  audio.addEventListener('playing',function(){erros=0;});
-  audio.addEventListener('ended',function(){prox(1);});
-  audio.addEventListener('error',function(){
-    if(!audio.src||idx<0)return;
-    erros++;
-    if(erros>=Math.min(lista.length,4)){say('Não foi possível tocar as músicas agora. Tente de novo mais tarde ou use o modo YouTube.',true);return;}
-    say('Esta faixa não pôde tocar. Indo para a próxima...');prox(1);
-  });
-  audio.addEventListener('loadedmetadata',function(){$('mDur').textContent=mmss(audio.duration);});
-  audio.addEventListener('timeupdate',function(){
-    $('mCur').textContent=mmss(audio.currentTime);
-    if(!seeking&&audio.duration)$('mSeek').value=Math.round(audio.currentTime/audio.duration*1000);
-  });
-  var sk=$('mSeek');
-  sk.addEventListener('input',function(){seeking=true;if(audio.duration)$('mCur').textContent=mmss(sk.value/1000*audio.duration);});
-  sk.addEventListener('change',function(){if(audio.duration)audio.currentTime=sk.value/1000*audio.duration;seeking=false;});
-  $('mPlay').addEventListener('click',function(){
-    if(idx<0){if(lista.length)tocar(0);return;}
-    if(audio.paused){var p=audio.play();if(p&&p.catch)p.catch(function(){});}else audio.pause();
-  });
-  $('mPrev').addEventListener('click',function(){if(audio.currentTime>5){audio.currentTime=0;}else prox(-1);});
-  $('mNext').addEventListener('click',function(){prox(1);});
-  if('mediaSession' in navigator){try{
-    navigator.mediaSession.setActionHandler('play',function(){audio.play();});
-    navigator.mediaSession.setActionHandler('pause',function(){audio.pause();});
-    navigator.mediaSession.setActionHandler('previoustrack',function(){prox(-1);});
-    navigator.mediaSession.setActionHandler('nexttrack',function(){prox(1);});
-  }catch(e){}}
-  $('musForm').addEventListener('submit',function(e){
-    e.preventDefault();var q=$('musQ').value.trim();
-    if(!q){trending();return;}
-    carregar('/v1/tracks/search',{query:q,limit:25},'Nada encontrado para "'+q+'".');
-  });
-  $('musTop').addEventListener('click',function(){$('musQ').value='';trending();});
-
-  /* YouTube (player oficial; os anúncios são controlados pelo YouTube) */
-  function ytParse(s){
-    var u;try{u=new URL((s||'').trim());}catch(e){return null;}
-    var h=u.hostname.replace(/^www\.|^m\.|^music\./,'');
-    if(h!=='youtube.com'&&h!=='youtu.be'&&h!=='youtube-nocookie.com')return null;
-    var list=u.searchParams.get('list'),v=u.searchParams.get('v');
-    if(h==='youtu.be')v=u.pathname.slice(1);
-    if(list&&!/^[A-Za-z0-9_-]{10,64}$/.test(list))list=null;
-    if(v&&!/^[A-Za-z0-9_-]{11}$/.test(v))v=null;
-    if(!list&&!v)return null;
-    return {list:list,v:v};
-  }
-  function ytUrl(r){
-    var base='https://www.youtube.com/embed/';
-    if(r.list&&r.v)return base+r.v+'?list='+r.list+'&rel=0';
-    if(r.list)return base+'videoseries?list='+r.list+'&rel=0';
-    return base+r.v+'?rel=0';
-  }
-  function ytCarregar(src){
-    var w=$('ytWrap');w.textContent='';
-    var f=document.createElement('iframe');f.title='Player do YouTube';
-    f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;
-    f.referrerPolicy='strict-origin-when-cross-origin';f.src=src;w.appendChild(f);ytSrc=src;
-  }
-  $('ytForm').addEventListener('submit',function(e){
-    e.preventDefault();var r=ytParse($('ytUrl').value);
-    var m=$('ytMsg');
-    if(!r){m.textContent='Link inválido. Cole um link de vídeo ou de playlist do YouTube ou do YouTube Music.';m.className='musmsg err';return;}
-    m.textContent='Se o vídeo não abrir, o dono pode ter bloqueado a reprodução fora do YouTube. Tente outro link.';m.className='musmsg';
-    audio.pause();ytCarregar(ytUrl(r));
-  });
-
+  var aberta=false;
 
   /* Rádios ao vivo (diretório Radio Browser: aberto, sem chave) */
   var RD_HOSTS=['https://de1.api.radio-browser.info','https://all.api.radio-browser.info','https://fi1.api.radio-browser.info'];
@@ -2455,7 +2229,7 @@ var DICAS = [
     }).catch(function(){if(n===rdReq)rdSay('Não consegui carregar o diretório de rádios agora. Tente de novo em instantes.',true);});
   }
   function rdTocar(s){
-    rdCur=s;audio.pause();
+    rdCur=s;
     $('rdNow').hidden=false;$('rdName').textContent=s.name.trim();
     $('rdSub').textContent=[s.country,(s.codec||'').toUpperCase(),s.bitrate?s.bitrate+' kbps':''].filter(Boolean).join(' · ');
     var lg=$('rdLogo'),f=rdSafeImg(s.favicon);if(f){lg.src=f;lg.style.visibility='visible';}else{lg.removeAttribute('src');lg.style.visibility='hidden';}
@@ -2483,68 +2257,10 @@ var DICAS = [
     $('rdGen').appendChild(c);
   });
 
-  /* Spotify (embed oficial; não precisa de login nem de chave) */
-  var SPT={track:152,episode:152,album:352,playlist:352,artist:352,show:352};
-  function spParse(s){
-    s=(s||'').trim();var m=s.match(/^spotify:(track|album|playlist|artist|episode|show):([A-Za-z0-9]{22})$/);
-    if(m)return {t:m[1],id:m[2]};
-    var u;try{u=new URL(s);}catch(e){return null;}
-    if(u.hostname!=='open.spotify.com')return null;
-    var seg=u.pathname.split('/').filter(Boolean);
-    if(seg.length&&/^intl-[a-z]{2}(-[A-Za-z]{2})?$/.test(seg[0]))seg.shift();
-    if(seg[0]==='embed')seg.shift();
-    if(seg.length<2||!SPT[seg[0]]||!/^[A-Za-z0-9]{22}$/.test(seg[1]))return null;
-    return {t:seg[0],id:seg[1]};
-  }
-  function spCarregar(r){
-    var w=$('spWrap');w.textContent='';
-    var f=document.createElement('iframe');f.title='Player do Spotify';
-    f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-    f.loading='lazy';f.style.height=SPT[r.t]+'px';
-    f.src='https://open.spotify.com/embed/'+r.t+'/'+r.id+'?utm_source=generator';
-    w.appendChild(f);spSrc=r;
-  }
-  $('spForm').addEventListener('submit',function(e){
-    e.preventDefault();var r=spParse($('spUrl').value),m=$('spMsg');
-    if(!r){m.textContent='Link inválido. Cole um link do Spotify (open.spotify.com) de música, álbum, playlist, artista ou podcast.';m.className='musmsg err';return;}
-    m.textContent='Se o player não abrir, confira se o link é público e tente de novo.';m.className='musmsg';
-    audio.pause();spCarregar(r);
-  });
-
-  function setModo(m){
-    modo=m;
-    var map={aud:['mAud','musAud'],yt:['mYt','musYtBox'],sp:['mSp','musSpBox'],rd:['mRd','musRdBox']};
-    Object.keys(map).forEach(function(k){
-      var on=k===m;$(map[k][0]).setAttribute('aria-pressed',on);$(map[k][0]).className='btn'+(on?'':' ghost');$(map[k][1]).hidden=!on;
-    });
-    if(m!=='aud')audio.pause();
-    if(m!=='rd')radio.pause();
-    if(m!=='yt'){var f=$('ytWrap').querySelector('iframe');if(f)f.remove();}
-    if(m!=='sp'){var g=$('spWrap').querySelector('iframe');if(g)g.remove();}
-    if(m==='yt'){
-      if(!ytSrc&&YT_PADRAO)ytCarregar('https://www.youtube.com/embed/videoseries?list='+encodeURIComponent(YT_PADRAO)+'&rel=0');
-      else if(ytSrc)ytCarregar(ytSrc);
-    }
-    if(m==='sp'){
-      if(!spSrc&&SP_PADRAO){var r=spParse(/^https?:|^spotify:/.test(SP_PADRAO)?SP_PADRAO:'https://open.spotify.com/'+SP_PADRAO);if(r)spCarregar(r);}
-      else if(spSrc)spCarregar(spSrc);
-    }
-  }
-  $('mAud').addEventListener('click',function(){setModo('aud');});
-  $('mYt').addEventListener('click',function(){setModo('yt');});
-  $('mSp').addEventListener('click',function(){setModo('sp');});
-  $('mRd').addEventListener('click',function(){setModo('rd');if(!rdLoaded){rdLoaded=true;rdCarregar();}});
-
   window.musicOpen=function(){
-    if(!aberta){aberta=true;trending();}
-    if(modo==='yt'&&ytSrc&&!$('ytWrap').querySelector('iframe'))ytCarregar(ytSrc);
-    if(modo==='sp'&&spSrc&&!$('spWrap').querySelector('iframe'))spCarregar(spSrc);
+    if(!aberta){aberta=true;rdLoaded=true;rdCarregar();}
   };
-  window.musicPause=function(){
-    audio.pause();radio.pause();
-    var f=$('ytWrap').querySelector('iframe');if(f)f.remove(); /* para o som; volta ao reabrir a aba */
-    var g=$('spWrap').querySelector('iframe');if(g)g.remove();
-  };
+  window.musicPause=function(){radio.pause();};
   if(!$('panel-musicas').hidden)window.musicOpen(); /* aberto direto por #musicas */
 })();
 </script>
