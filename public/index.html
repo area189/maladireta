@@ -558,6 +558,14 @@ footer{text-align:center}
 @media (max-width:520px){.musplayer{flex-direction:column;text-align:center}.musctl{justify-content:center}}
 
 .musq .btn.ghost{background:transparent;color:var(--ink);border-color:var(--neon);box-shadow:3px 3px 0 #7a2cff}
+
+.spwrap{max-width:720px}
+.spwrap iframe{display:block;width:100%;border:0;border-radius:12px;background:#121212}
+
+.musapp{max-width:720px;margin:22px 0 0;padding:14px 16px;border:2px dashed #7a2cff;border-radius:12px;background:rgba(122,44,255,.1)}
+.musapp h3{margin:0 0 6px;font:700 16px Archivo,sans-serif}
+.musapp p{margin:0 0 12px;font-size:14px;color:var(--mute)}
+.musapp .btn{display:inline-block;width:auto;margin:0;text-decoration:none}
 </style>
 </head>
 <body>
@@ -697,10 +705,11 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </section>
 <section id="panel-musicas" role="tabpanel" aria-labelledby="tab-musicas" hidden>
   <div class="sec-title"><h2 id="mus-h">MÚSICAS</h2></div>
-  <p class="mus-intro">Escolha como ouvir. A <b>Audius</b> toca sem anúncios; o <b>YouTube</b> usa o player oficial, que pode ter anúncios.</p>
+  <p class="mus-intro">Escolha como ouvir. A <b>Audius</b> toca sem anúncios; o <b>YouTube</b> e o <b>Spotify</b> usam os players oficiais, que podem ter anúncios.</p>
   <div class="musmodes" role="group" aria-label="Fonte da música">
     <button type="button" class="btn" id="mAud" aria-pressed="true">🎧 Audius · sem anúncios</button>
     <button type="button" class="btn ghost" id="mYt" aria-pressed="false">▶️ YouTube · pode ter anúncios</button>
+    <button type="button" class="btn ghost" id="mSp" aria-pressed="false">🟢 Spotify · pode ter anúncios</button>
   </div>
 
   <div id="musAud">
@@ -737,6 +746,21 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     <p class="musmsg" id="ytMsg" role="status">Cole um link para tocar aqui. O YouTube controla os anúncios, e quem tem YouTube Premium e está logado costuma não vê-los.</p>
     <div class="ytwrap" id="ytWrap"></div>
   </div>
+
+  <div id="musSpBox" hidden>
+    <form class="musq" id="spForm">
+      <input id="spUrl" type="url" inputmode="url" placeholder="Cole o link de uma música, álbum, playlist ou artista do Spotify" aria-label="Link do Spotify" maxlength="300">
+      <button class="btn" type="submit">Carregar</button>
+    </form>
+    <p class="musmsg" id="spMsg" role="status">Cole um link do Spotify (em “Compartilhar → Copiar link”). Sem login, o Spotify toca só trechos; quem está logado ouve a música inteira, e a conta gratuita pode ter anúncios.</p>
+    <div class="spwrap" id="spWrap"></div>
+  </div>
+
+  <aside class="musapp" aria-labelledby="musapp-h">
+    <h3 id="musapp-h">💻 Prefere ouvir no computador?</h3>
+    <p>O <b>YouTube Music Desktop App</b> é um aplicativo gratuito e de código aberto, feito pela comunidade (não é do Google), para Windows, macOS e Linux. Baixe sempre pela página oficial do projeto.</p>
+    <a class="btn" href="https://github.com/ytmdesktop/ytmdesktop/releases" target="_blank" rel="noopener noreferrer">⬇️ Baixar na página oficial</a>
+  </aside>
 </section>
 <section id="panel-newsletter" role="tabpanel" aria-labelledby="tab-newsletter" hidden>
   <div class="sec-title"><h2 id="news-h">NEWSLETTER AO VIVO NO RIO</h2></div>
@@ -2189,12 +2213,13 @@ var DICAS = [
   /* CONFIGURAÇÃO (opcional) */
   var AUDIUS_APP='AoVivoNoRio';      /* nome do app enviado à Audius */
   var AUDIUS_API_KEY='';             /* chave grátis em https://api.audius.co/plans (se a Audius pedir) */
+  var SP_PADRAO='';                  /* link ou ID de um item do Spotify para abrir já carregado, ex.: playlist/ID */
   var YT_PADRAO='';                  /* ID de uma playlist do YouTube para abrir já carregada (parte depois de list=) */
   var HOSTS=['https://api.audius.co','https://discoveryprovider.audius.co'];
 
   function $(i){return document.getElementById(i);}
   if(!$('panel-musicas'))return;
-  var host=HOSTS[0],lista=[],idx=-1,aberta=false,erros=0,seeking=false,modo='aud',ytSrc='';
+  var host=HOSTS[0],lista=[],idx=-1,aberta=false,erros=0,seeking=false,modo='aud',ytSrc='',spSrc='',spH=352;
   var SEMCAPA=$('musCover').getAttribute('src');
   var audio=new Audio();audio.preload='none';
   var msg=$('musMsg'),ul=$('musList');
@@ -2326,26 +2351,65 @@ var DICAS = [
     audio.pause();ytCarregar(ytUrl(r));
   });
 
+  /* Spotify (embed oficial; não precisa de login nem de chave) */
+  var SPT={track:152,episode:152,album:352,playlist:352,artist:352,show:352};
+  function spParse(s){
+    s=(s||'').trim();var m=s.match(/^spotify:(track|album|playlist|artist|episode|show):([A-Za-z0-9]{22})$/);
+    if(m)return {t:m[1],id:m[2]};
+    var u;try{u=new URL(s);}catch(e){return null;}
+    if(u.hostname!=='open.spotify.com')return null;
+    var seg=u.pathname.split('/').filter(Boolean);
+    if(seg.length&&/^intl-[a-z]{2}(-[A-Za-z]{2})?$/.test(seg[0]))seg.shift();
+    if(seg[0]==='embed')seg.shift();
+    if(seg.length<2||!SPT[seg[0]]||!/^[A-Za-z0-9]{22}$/.test(seg[1]))return null;
+    return {t:seg[0],id:seg[1]};
+  }
+  function spCarregar(r){
+    var w=$('spWrap');w.textContent='';
+    var f=document.createElement('iframe');f.title='Player do Spotify';
+    f.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+    f.loading='lazy';f.style.height=SPT[r.t]+'px';
+    f.src='https://open.spotify.com/embed/'+r.t+'/'+r.id+'?utm_source=generator';
+    w.appendChild(f);spSrc=r;
+  }
+  $('spForm').addEventListener('submit',function(e){
+    e.preventDefault();var r=spParse($('spUrl').value),m=$('spMsg');
+    if(!r){m.textContent='Link inválido. Cole um link do Spotify (open.spotify.com) de música, álbum, playlist, artista ou podcast.';m.className='musmsg err';return;}
+    m.textContent='Se o player não abrir, confira se o link é público e tente de novo.';m.className='musmsg';
+    audio.pause();spCarregar(r);
+  });
+
   function setModo(m){
-    modo=m;var aud=m==='aud';
-    $('mAud').setAttribute('aria-pressed',aud);$('mYt').setAttribute('aria-pressed',!aud);
-    $('mAud').className='btn'+(aud?'':' ghost');$('mYt').className='btn'+(aud?' ghost':'');
-    $('musAud').hidden=!aud;$('musYtBox').hidden=aud;
-    if(!aud){audio.pause();
+    modo=m;
+    var map={aud:['mAud','musAud'],yt:['mYt','musYtBox'],sp:['mSp','musSpBox']};
+    Object.keys(map).forEach(function(k){
+      var on=k===m;$(map[k][0]).setAttribute('aria-pressed',on);$(map[k][0]).className='btn'+(on?'':' ghost');$(map[k][1]).hidden=!on;
+    });
+    if(m!=='aud')audio.pause();
+    if(m!=='yt'){var f=$('ytWrap').querySelector('iframe');if(f)f.remove();}
+    if(m!=='sp'){var g=$('spWrap').querySelector('iframe');if(g)g.remove();}
+    if(m==='yt'){
       if(!ytSrc&&YT_PADRAO)ytCarregar('https://www.youtube.com/embed/videoseries?list='+encodeURIComponent(YT_PADRAO)+'&rel=0');
-      else if(ytSrc&&!$('ytWrap').querySelector('iframe'))ytCarregar(ytSrc);}
-    else{var f=$('ytWrap').querySelector('iframe');if(f)f.remove();}
+      else if(ytSrc)ytCarregar(ytSrc);
+    }
+    if(m==='sp'){
+      if(!spSrc&&SP_PADRAO){var r=spParse(/^https?:|^spotify:/.test(SP_PADRAO)?SP_PADRAO:'https://open.spotify.com/'+SP_PADRAO);if(r)spCarregar(r);}
+      else if(spSrc)spCarregar(spSrc);
+    }
   }
   $('mAud').addEventListener('click',function(){setModo('aud');});
   $('mYt').addEventListener('click',function(){setModo('yt');});
+  $('mSp').addEventListener('click',function(){setModo('sp');});
 
   window.musicOpen=function(){
     if(!aberta){aberta=true;trending();}
     if(modo==='yt'&&ytSrc&&!$('ytWrap').querySelector('iframe'))ytCarregar(ytSrc);
+    if(modo==='sp'&&spSrc&&!$('spWrap').querySelector('iframe'))spCarregar(spSrc);
   };
   window.musicPause=function(){
     audio.pause();
-    var f=$('ytWrap').querySelector('iframe');if(f)f.remove(); /* para o som do YouTube; volta ao reabrir a aba */
+    var f=$('ytWrap').querySelector('iframe');if(f)f.remove(); /* para o som; volta ao reabrir a aba */
+    var g=$('spWrap').querySelector('iframe');if(g)g.remove();
   };
   if(!$('panel-musicas').hidden)window.musicOpen(); /* aberto direto por #musicas */
 })();
