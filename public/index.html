@@ -566,6 +566,34 @@ footer{text-align:center}
 .musapp h3{margin:0 0 6px;font:700 16px Archivo,sans-serif}
 .musapp p{margin:0 0 12px;font-size:14px;color:var(--mute)}
 .musapp .btn{display:inline-block;width:auto;margin:0;text-decoration:none}
+
+.rdtop{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0 0 6px}
+.rdtop .musq{flex:1 1 280px;margin:0}
+.rdscope,.rdgen{display:flex;flex-wrap:wrap;gap:8px}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 14px;border:2px solid var(--neon);border-radius:999px;font:700 13px Archivo,sans-serif;color:var(--ink);background:rgba(23,10,51,.8);box-shadow:2px 2px 0 #7a2cff}
+.chip:hover{background:rgba(57,255,20,.12)}
+.chip:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.chip.on,.chip[aria-pressed="true"]{background:var(--neon);color:#170a33}
+.rdh{margin:18px 0 8px;font:700 15px Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--neon)}
+.rdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:10px 0 0}
+.rdcard{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:6px;padding:10px;border:2px solid #7a2cff;border-radius:12px;background:linear-gradient(160deg,#2e1065,#170a33);text-align:center}
+.rdcard:hover,.rdcard:focus-visible{border-color:var(--neon);outline:none}
+.rdcard.on{border-color:var(--neon);box-shadow:0 0 0 2px rgba(57,255,20,.35)}
+.rdcard .lg{position:relative;width:84px;height:84px;margin:0 auto;border-radius:12px;background:#2e1065;display:grid;place-items:center;font-size:34px;overflow:hidden}
+.rdcard .lg img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+.rdcard .pl{position:absolute;right:4px;bottom:4px;width:26px;height:26px;border-radius:50%;background:var(--neon);color:#170a33;display:grid;place-items:center;font-size:12px;z-index:1}
+.rdcard b{font-size:14px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.rdcard small{color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rdnow{position:sticky;bottom:10px;z-index:3;display:flex;align-items:center;gap:12px;max-width:720px;margin:16px 0 0;padding:10px 12px;border:3px solid var(--neon);border-radius:14px;background:#170a33;box-shadow:5px 5px 0 #7a2cff}
+.rdnow img{flex:none;width:48px;height:48px;border-radius:8px;object-fit:contain;background:#fff}
+.rdnowinfo{min-width:0;flex:1;display:grid;gap:2px}
+.rdnowinfo b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rdnowinfo span{font-size:12px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rdlive{font-style:normal;font-weight:800;font-size:11px;color:#170a33;background:#ff4d4d;border-radius:4px;padding:1px 6px;margin-right:4px}
+.rdnow button{all:unset;box-sizing:border-box;flex:none;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:var(--neon);color:#170a33;font-size:18px;cursor:pointer}
+.rdnow button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.rdnow input[type=range]{flex:0 1 110px;min-width:70px;accent-color:var(--neon)}
+@media (max-width:520px){.rdgrid{grid-template-columns:repeat(2,1fr)}.rdnow input[type=range]{display:none}}
 </style>
 </head>
 <body>
@@ -705,11 +733,12 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </section>
 <section id="panel-musicas" role="tabpanel" aria-labelledby="tab-musicas" hidden>
   <div class="sec-title"><h2 id="mus-h">MÚSICAS</h2></div>
-  <p class="mus-intro">Escolha como ouvir. A <b>Audius</b> toca sem anúncios; o <b>YouTube</b> e o <b>Spotify</b> usam os players oficiais, que podem ter anúncios.</p>
+  <p class="mus-intro">Escolha como ouvir. A <b>Audius</b> toca sem anúncios; o <b>YouTube</b> e o <b>Spotify</b> usam os players oficiais, que podem ter anúncios. Em <b>Rádios</b>, você ouve emissoras ao vivo de todo o mundo.</p>
   <div class="musmodes" role="group" aria-label="Fonte da música">
     <button type="button" class="btn" id="mAud" aria-pressed="true">🎧 Audius · sem anúncios</button>
     <button type="button" class="btn ghost" id="mYt" aria-pressed="false">▶️ YouTube · pode ter anúncios</button>
     <button type="button" class="btn ghost" id="mSp" aria-pressed="false">🟢 Spotify · pode ter anúncios</button>
+    <button type="button" class="btn ghost" id="mRd" aria-pressed="false">📻 Rádios · ao vivo</button>
   </div>
 
   <div id="musAud">
@@ -754,6 +783,31 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     </form>
     <p class="musmsg" id="spMsg" role="status">Cole um link do Spotify (em “Compartilhar → Copiar link”). Sem login, o Spotify toca só trechos; quem está logado ouve a música inteira, e a conta gratuita pode ter anúncios.</p>
     <div class="spwrap" id="spWrap"></div>
+  </div>
+
+  <div id="musRdBox" hidden>
+    <div class="rdtop">
+      <div class="rdscope" role="group" aria-label="Região das rádios">
+        <button type="button" class="chip on" data-scope="BR" aria-pressed="true">🇧🇷 Brasil</button>
+        <button type="button" class="chip" data-scope="" aria-pressed="false">🌎 Mundo</button>
+      </div>
+      <form class="musq" id="rdForm" role="search">
+        <input id="rdQ" type="search" placeholder="Buscar rádio pelo nome" aria-label="Buscar rádio pelo nome" maxlength="60">
+        <button class="btn" type="submit">Buscar</button>
+      </form>
+    </div>
+    <h3 class="rdh">Gêneros</h3>
+    <div class="rdgen" id="rdGen" role="group" aria-label="Gêneros musicais"></div>
+    <h3 class="rdh" id="rdTitle">Mais populares</h3>
+    <p class="musmsg" id="rdMsg" role="status"></p>
+    <div class="rdgrid" id="rdGrid"></div>
+    <div class="rdnow" id="rdNow" hidden>
+      <img id="rdLogo" alt="" width="48" height="48">
+      <div class="rdnowinfo"><b id="rdName"></b><span><i class="rdlive">AO VIVO</i> <span id="rdSub"></span></span></div>
+      <button type="button" id="rdPlay" aria-label="Pausar">⏸</button>
+      <input type="range" id="rdVol" min="0" max="100" value="80" aria-label="Volume">
+    </div>
+    <p class="mus-fine">Diretório de rádios: <a href="https://www.radio-browser.info" target="_blank" rel="noopener">Radio Browser</a> (aberto e feito pela comunidade). As transmissões são de responsabilidade de cada emissora e podem ter anúncios próprios. Só aparecem rádios com conexão segura (https).</p>
   </div>
 
   <aside class="musapp" aria-labelledby="musapp-h">
@@ -2220,6 +2274,7 @@ var DICAS = [
   function $(i){return document.getElementById(i);}
   if(!$('panel-musicas'))return;
   var host=HOSTS[0],lista=[],idx=-1,aberta=false,erros=0,seeking=false,modo='aud',ytSrc='',spSrc='',spH=352;
+  var radio=new Audio();radio.preload='none';radio.volume=.8;
   var SEMCAPA=$('musCover').getAttribute('src');
   var audio=new Audio();audio.preload='none';
   var msg=$('musMsg'),ul=$('musList');
@@ -2351,6 +2406,83 @@ var DICAS = [
     audio.pause();ytCarregar(ytUrl(r));
   });
 
+
+  /* Rádios ao vivo (diretório Radio Browser: aberto, sem chave) */
+  var RD_HOSTS=['https://de1.api.radio-browser.info','https://all.api.radio-browser.info','https://fi1.api.radio-browser.info'];
+  var GENS=[['Mais populares',''],['Pop','pop'],['Sertanejo','sertanejo'],['Funk','funk'],['Samba e pagode','samba'],['MPB','mpb'],['Rock','rock'],['Hip hop','hip hop'],['Eletrônica','electronic'],['Jazz','jazz'],['Gospel','gospel'],['Clássicos','oldies'],['Latina','latin']];
+  var rdScope='BR',rdTag='',rdQ='',rdLoaded=false,rdHost=RD_HOSTS[0],rdCur=null,rdReq=0,rdList=[];
+  function rdApi(path,o,i){
+    i=i||0;var h=RD_HOSTS[i];
+    var q=Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]);}).join('&');
+    return fetch(h+path+(q?'?'+q:'')).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
+      .then(function(j){rdHost=h;return j;})
+      .catch(function(e){if(i+1<RD_HOSTS.length)return rdApi(path,o,i+1);throw e;});
+  }
+  function rdSay(t,err){var m=$('rdMsg');m.textContent=t||'';m.className='musmsg'+(err?' err':'');}
+  function rdSafeImg(s){return typeof s==='string'&&/^https:\/\//.test(s)?s:'';}
+  function rdOk(s){return s&&s.stationuuid&&s.name&&typeof s.url_resolved==='string'&&/^https:\/\//.test(s.url_resolved)&&s.hls!==1&&s.lastcheckok!==0;}
+  function rdRender(){
+    var g=$('rdGrid');g.textContent='';
+    rdList.forEach(function(s){
+      var b=document.createElement('button');b.type='button';b.className='rdcard'+(rdCur&&rdCur.stationuuid===s.stationuuid?' on':'');
+      b.dataset.id=s.stationuuid;b.setAttribute('aria-label','Ouvir '+s.name);
+      var lg=document.createElement('span');lg.className='lg';lg.textContent='📻';
+      var f=rdSafeImg(s.favicon);
+      if(f){var im=document.createElement('img');im.alt='';im.loading='lazy';im.referrerPolicy='no-referrer';im.src=f;im.addEventListener('error',function(){im.remove();});lg.appendChild(im);}
+      var pl=document.createElement('span');pl.className='pl';pl.textContent='▶';lg.appendChild(pl);
+      var nm=document.createElement('b');nm.textContent=s.name.trim();
+      var sm=document.createElement('small');
+      var tg=(s.tags||'').split(',').map(function(x){return x.trim();}).filter(Boolean).slice(0,2).join(' · ');
+      sm.textContent=tg||s.state||s.country||'';
+      b.appendChild(lg);b.appendChild(nm);b.appendChild(sm);
+      b.addEventListener('click',function(){rdTocar(s);});
+      g.appendChild(b);
+    });
+  }
+  function rdCarregar(){
+    var n=++rdReq;rdSay('Buscando rádios...');
+    var o={hidebroken:'true',is_https:'true',order:'clickcount',reverse:'true',limit:'60'};
+    if(rdScope)o.countrycode=rdScope;
+    if(rdTag)o.tag=rdTag;
+    if(rdQ){o.name=rdQ;}
+    $('rdTitle').textContent=rdQ?('Resultados para "'+rdQ+'"'):(rdTag?(GENS.filter(function(x){return x[1]===rdTag;})[0]||[rdTag])[0]:'Mais populares');
+    return rdApi('/json/stations/search',o).then(function(j){
+      if(n!==rdReq)return;
+      var seen={};
+      rdList=(j||[]).filter(rdOk).filter(function(s){var k=s.name.trim().toLowerCase();if(seen[k])return false;seen[k]=1;return true;}).slice(0,40);
+      rdRender();
+      rdSay(rdList.length?'':'Nenhuma rádio encontrada. Tente outro gênero, outro nome ou a região Mundo.');
+    }).catch(function(){if(n===rdReq)rdSay('Não consegui carregar o diretório de rádios agora. Tente de novo em instantes.',true);});
+  }
+  function rdTocar(s){
+    rdCur=s;audio.pause();
+    $('rdNow').hidden=false;$('rdName').textContent=s.name.trim();
+    $('rdSub').textContent=[s.country,(s.codec||'').toUpperCase(),s.bitrate?s.bitrate+' kbps':''].filter(Boolean).join(' · ');
+    var lg=$('rdLogo'),f=rdSafeImg(s.favicon);if(f){lg.src=f;lg.style.visibility='visible';}else{lg.removeAttribute('src');lg.style.visibility='hidden';}
+    $('rdNow').dataset.src=s.url_resolved;
+    radio.src=s.url_resolved;rdSay('Conectando à rádio...');
+    var pr=radio.play();if(pr&&pr.catch)pr.catch(function(){});
+    try{fetch(rdHost+'/json/url/'+encodeURIComponent(s.stationuuid)).catch(function(){});}catch(e){} /* conta a audição no diretório */
+    if('mediaSession' in navigator&&window.MediaMetadata){try{navigator.mediaSession.metadata=new MediaMetadata({title:s.name.trim(),artist:'Rádio ao vivo'});}catch(e){}}
+    Array.prototype.forEach.call(document.querySelectorAll('.rdcard'),function(c){c.classList.toggle('on',c.dataset.id===s.stationuuid);});
+  }
+  radio.addEventListener('playing',function(){rdSay('');$('rdPlay').textContent='⏸';$('rdPlay').setAttribute('aria-label','Pausar');});
+  radio.addEventListener('pause',function(){$('rdPlay').textContent='▶';$('rdPlay').setAttribute('aria-label','Tocar');});
+  radio.addEventListener('error',function(){if(!radio.src||!rdCur)return;rdSay('Esta rádio não respondeu agora. Escolha outra da lista.',true);$('rdPlay').textContent='▶';});
+  $('rdPlay').addEventListener('click',function(){if(!rdCur)return;if(radio.paused){radio.load();var p=radio.play();if(p&&p.catch)p.catch(function(){});}else radio.pause();});
+  $('rdVol').addEventListener('input',function(){radio.volume=this.value/100;});
+  $('rdForm').addEventListener('submit',function(e){e.preventDefault();rdQ=$('rdQ').value.trim();rdTag='';
+    Array.prototype.forEach.call($('rdGen').children,function(c){c.setAttribute('aria-pressed','false');c.classList.remove('on');});rdCarregar();});
+  Array.prototype.forEach.call(document.querySelectorAll('.rdscope .chip'),function(c){
+    c.addEventListener('click',function(){rdScope=c.dataset.scope;
+      Array.prototype.forEach.call(document.querySelectorAll('.rdscope .chip'),function(x){var on=x===c;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});rdCarregar();});});
+  GENS.forEach(function(gn,i){
+    var c=document.createElement('button');c.type='button';c.className='chip'+(i===0?' on':'');c.setAttribute('aria-pressed',i===0?'true':'false');c.textContent=gn[0];
+    c.addEventListener('click',function(){rdTag=gn[1];rdQ='';$('rdQ').value='';
+      Array.prototype.forEach.call($('rdGen').children,function(x){var on=x===c;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});rdCarregar();});
+    $('rdGen').appendChild(c);
+  });
+
   /* Spotify (embed oficial; não precisa de login nem de chave) */
   var SPT={track:152,episode:152,album:352,playlist:352,artist:352,show:352};
   function spParse(s){
@@ -2381,11 +2513,12 @@ var DICAS = [
 
   function setModo(m){
     modo=m;
-    var map={aud:['mAud','musAud'],yt:['mYt','musYtBox'],sp:['mSp','musSpBox']};
+    var map={aud:['mAud','musAud'],yt:['mYt','musYtBox'],sp:['mSp','musSpBox'],rd:['mRd','musRdBox']};
     Object.keys(map).forEach(function(k){
       var on=k===m;$(map[k][0]).setAttribute('aria-pressed',on);$(map[k][0]).className='btn'+(on?'':' ghost');$(map[k][1]).hidden=!on;
     });
     if(m!=='aud')audio.pause();
+    if(m!=='rd')radio.pause();
     if(m!=='yt'){var f=$('ytWrap').querySelector('iframe');if(f)f.remove();}
     if(m!=='sp'){var g=$('spWrap').querySelector('iframe');if(g)g.remove();}
     if(m==='yt'){
@@ -2400,6 +2533,7 @@ var DICAS = [
   $('mAud').addEventListener('click',function(){setModo('aud');});
   $('mYt').addEventListener('click',function(){setModo('yt');});
   $('mSp').addEventListener('click',function(){setModo('sp');});
+  $('mRd').addEventListener('click',function(){setModo('rd');if(!rdLoaded){rdLoaded=true;rdCarregar();}});
 
   window.musicOpen=function(){
     if(!aberta){aberta=true;trending();}
@@ -2407,7 +2541,7 @@ var DICAS = [
     if(modo==='sp'&&spSrc&&!$('spWrap').querySelector('iframe'))spCarregar(spSrc);
   };
   window.musicPause=function(){
-    audio.pause();
+    audio.pause();radio.pause();
     var f=$('ytWrap').querySelector('iframe');if(f)f.remove(); /* para o som; volta ao reabrir a aba */
     var g=$('spWrap').querySelector('iframe');if(g)g.remove();
   };
