@@ -1104,8 +1104,8 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   <style>
   /* ---- Popup do filme no celular: janela de no máximo 50% da tela, sem travar o site ---- */
   @media (max-width:820px),(max-height:520px){
-    #acDlg{top:auto;bottom:0;height:auto;max-height:50vh;max-height:50dvh;padding:0;background:transparent;pointer-events:none;align-items:flex-end}
-    #acDlg .ac-box{pointer-events:auto;height:auto;max-height:50vh;max-height:50dvh;border:3px solid var(--neon);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.55)}
+    #acDlg{top:auto;bottom:0;height:50vh;height:50dvh;padding:0 8px;background:transparent;pointer-events:none;align-items:stretch}
+    #acDlg .ac-box{pointer-events:auto;height:100%;max-height:none;border:3px solid var(--neon);border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.55)}
     #acDlg .ac-bar{padding-top:8px}
     #acDlg .ac-body{grid-template-columns:96px 1fr;gap:12px;padding:12px max(14px,env(safe-area-inset-right,0px)) 12px max(14px,env(safe-area-inset-left,0px))}
     #acDlg .ac-body .ac-p{width:96px;margin:0}
@@ -1113,8 +1113,6 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     #acDlg .ac-body p{font-size:14px}
     #acDlg .ac-act{flex-direction:row;flex-wrap:wrap;padding-top:8px}
     #acDlg .ac-b{min-height:42px;flex:1 1 auto}
-    #acDlg.ac-dlg:not([hidden]) ~ *{}
-    body:has(#acDlg:not([hidden])){padding-bottom:50vh;padding-bottom:50dvh}
   }
   @media (max-height:520px) and (orientation:landscape){
     #acDlg .ac-body{grid-template-columns:1fr}
@@ -1166,7 +1164,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     }
     pills.forEach(function(p){p.addEventListener('click',function(){draw(p.getAttribute('data-f'));});});
     draw('');
-    function abrir(k,de){
+    function abrir(k,de,cy){
       var x=F[k],u=BASE+x.id+'/';last=de;
       $('acT').textContent=x.t;
       $('acBody').innerHTML=poster(x,false)+'<div><h3>'+esc(x.t)+'</h3><p>'+esc(x.i)+'</p>'
@@ -1176,11 +1174,12 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       var s=$('acS');s.href=g_(x,u);s.style.display=x.g==='Em breve'?'none':'';
       s.textContent='🎟️ Ver sessões'+(x.ss?' ('+x.ss+')':'')+' ↗';
       $('acF').href=u;ifr.hidden=true;ifr.src='about:blank';box.classList.remove('emb');$('acH').hidden=true;$('acE').hidden=false;
+      if(window.matchMedia('(max-width:820px),(max-height:520px)').matches){var H=window.innerHeight,h=Math.round(H*.5),t=Math.max(8,Math.min((cy||H/2)-h/2,H-h-8));dlg.style.top=t+'px';dlg.style.bottom='auto';dlg.style.height=h+'px';}else{dlg.style.top=dlg.style.bottom=dlg.style.height='';}
       dlg.hidden=false;document.body.style.overflow=window.matchMedia('(max-width:820px),(max-height:520px)').matches?'':'hidden';$('acX').focus({preventScroll:true});
     }
     function g_(x,u){return u+'programacao/';}
     function fechar(){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;box.classList.remove('emb');document.body.style.overflow='';if(last&&last.focus)last.focus();}
-    grid.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ac-card');if(b)abrir(+b.getAttribute('data-k'),b);});
+    grid.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ac-card');if(b){var r=b.getBoundingClientRect();abrir(+b.getAttribute('data-k'),b,e.clientY>0?e.clientY:r.top+r.height/2);}});
     $('acE').addEventListener('click',function(){ifr.src=$('acF').href;ifr.hidden=false;$('acH').hidden=false;this.hidden=true;box.classList.add('emb');ifr.scrollIntoView({block:'nearest'});});
     $('acX').addEventListener('click',fechar);
     dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
