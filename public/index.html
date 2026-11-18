@@ -233,6 +233,29 @@ footer{border-top:3px solid var(--edge);padding:16px 0 28px;color:var(--mute);fo
 .fprov img{flex:none;width:36px;height:36px;border-radius:8px;object-fit:cover;background:#fff}
 .fprov span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:600px){.fgrid{grid-template-columns:1fr 1fr}.fcard{padding:10px 12px}.fprovs{grid-template-columns:1fr 1fr}.herotabs .tabs .tab:last-of-type:nth-of-type(odd){grid-column:1/-1}}
+
+/* ---- Filmes: catálogo em alta ---- */
+.fhero{margin:4px 0 6px;padding:14px 16px;border:2px solid var(--neon);border-radius:14px;background:linear-gradient(120deg,#3b1a7a,#170a33);box-shadow:4px 4px 0 #7a2cff;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:space-between}
+.fhero b{font:800 15px Archivo,sans-serif}.fhero span{color:var(--mute);font-size:13px}
+.fil-h3 small{margin-left:8px;color:var(--mute);font:600 12px Archivo,sans-serif;text-transform:none;letter-spacing:0}
+.fpills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.fpill{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 14px;border:2px solid var(--edge);border-radius:999px;color:var(--ink);font:700 13px Archivo,sans-serif;background:var(--panel)}
+.fpill[aria-selected="true"]{background:var(--neon);color:#170a33;border-color:var(--neon)}
+.fpill:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.frow{display:flex;gap:12px;margin:0;padding:4px 2px 14px;list-style:none;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.pcard{flex:none;width:148px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px}
+.pjw{display:flex;flex-direction:column;gap:7px;color:var(--ink);text-decoration:none}
+.ptile{position:relative;aspect-ratio:2/3;display:flex;align-items:flex-end;justify-content:center;padding:10px;overflow:hidden;border:2px solid var(--neon);border-radius:12px;box-shadow:4px 4px 0 #7a2cff;background:linear-gradient(165deg,hsl(var(--h),70%,38%),hsl(calc(var(--h) + 40),65%,14%))}
+.ptile::before{content:attr(data-i);position:absolute;left:-2px;top:-16px;font:900 84px/1 Archivo,sans-serif;color:rgba(255,255,255,.14)}
+.ptile i{position:absolute;top:10px;right:10px;font-size:26px;font-style:normal}
+.ptile em{font:900 38px/1 Archivo,sans-serif;font-style:normal;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4);letter-spacing:-.02em;margin-bottom:auto;margin-top:36px}
+.pjw:hover .ptile,.pjw:focus-visible .ptile{transform:translate(1px,1px);box-shadow:3px 3px 0 #7a2cff}
+.pjw:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:10px}
+.pjw b{font-size:14px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pimdb{align-self:flex-start;color:var(--mute);font:700 12px Archivo,sans-serif;text-decoration:none;border-bottom:1px dotted var(--mute)}
+.pimdb:hover{color:var(--neon)}
+.fhoje .fcard small b{color:var(--neon)}
+@media (max-width:600px){.pcard{width:128px}.ptile em{font-size:32px}}
 /* ---- Janela (popup) do JustWatch ---- */
 #fstage{position:fixed;inset:0;z-index:96;display:flex;flex-direction:column;box-sizing:border-box;background:rgba(10,3,28,.92);padding:max(10px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) max(10px,env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
 #fstage[hidden]{display:none}
@@ -606,6 +629,9 @@ footer{text-align:center}
 body.rd-on{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .rdnow input[type=range]{flex:0 1 110px;min-width:70px;accent-color:var(--neon)}
 @media (max-width:520px){.rdgrid{grid-template-columns:repeat(2,1fr)}.rdnow input[type=range]{display:none}}
+.ptile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ptile.hi::before{z-index:2;top:-4px;left:6px;font-size:58px;color:#fff;-webkit-text-stroke:2px #170a33}
+.pp{color:var(--mute);font-size:12px;line-height:1.3}
 </style>
 </head>
 <body>
@@ -794,12 +820,70 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </section>
 <section id="panel-filmes" role="tabpanel" aria-labelledby="tab-filmes" hidden>
   <div class="sec-title"><h2 id="fil-h">FILMES E SÉRIES</h2></div>
-  <p class="fil-intro">Descubra <b>onde assistir</b> a filmes e séries nos streamings do Brasil. A busca e os atalhos abaixo abrem o guia do <b>JustWatch</b> em uma janela aqui mesmo, sem sair do site.</p>
+  <p class="fil-intro">Veja o que está em alta e descubra <b>onde assistir</b> a filmes e séries nos streamings do Brasil. Os títulos abrem o guia do <b>JustWatch</b> aqui mesmo, sem sair do site; a nota e as fichas completas ficam no <b>IMDb</b>.</p>
   <form class="musq fil-q" action="https://br.justwatch.com/br/busca" method="get" target="_blank" role="search">
     <input type="search" name="q" placeholder="Buscar filme ou série" aria-label="Buscar filme ou série" maxlength="80" required>
     <button class="btn" type="submit">Buscar no JustWatch</button>
   </form>
-  <h3 class="fil-h3">Explorar</h3>
+  <div class="fhero"><b>🎞️ Guia de streaming do Brasil</b><span>Rankings do Brasil · <span id="fupd">atualizado em 18/11/2026</span></span></div>
+  <h3 class="fil-h3">🔥 Em alta no Brasil <small>toque para ver onde assistir</small></h3>
+  <div class="fpills" role="tablist" aria-label="Rankings">
+    <button type="button" class="fpill" role="tab" data-l="top" aria-selected="true">Top 10 filmes</button>
+    <button type="button" class="fpill" role="tab" data-l="com" aria-selected="false">Comédia</button>
+    <button type="button" class="fpill" role="tab" data-l="dra" aria-selected="false">Drama</button>
+    <button type="button" class="fpill" role="tab" data-l="ter" aria-selected="false">Terror</button>
+  </div>
+  <ol class="frow" id="frow" aria-live="polite"></ol>
+  <h3 class="fil-h3">📺 Hoje no streaming <small>18/11/2026</small></h3>
+  <div class="fgrid fhoje" id="fhoje"></div>
+  <script>
+  (function(){
+    var L={
+     top:['Obsession: A Felicidade é Relativa','O Fim de Oak Street','Heart of the Beast - Heróis Inseparáveis','A Odisseia','Crime em Direto','Vingadores: Endgame Encore','The Hunger Games - Os Jogos da Fome','No Coração de Nashville','Suzane von Richthofen: O Que o Tempo Não Apaga','O Convite'],
+     com:['O Cinema por Philomena Cunk','ChiaroScuro','O Convite','Delegado','Ne Zha 2','Nunca Chove em Filadélfia','Black Clover','Conselhos de um Serial Killer Aposentado','Transformação de Natal','Succession'],
+     dra:['O Senhor dos Anéis: Os Anéis do Poder','O Corpo','VisionQuest','Heart of the Beast - Heróis Inseparáveis','The Chosen - Os Escolhidos','Terra de Bandidos','Dexter: Ressurreição','A Imperatriz','Kdabra'],
+     ter:['O Corpo','Obsession: A Felicidade é Relativa','Uma Outra Mãe','Massacre no Texas','Crystal Lake','A Renúncia','Backrooms - O Labirinto']};
+    var H=[{t:'A Odisseia',e:'🏛️',m:'Filme · Prime Video · Max · ★ 8.0'},{t:'Jogos Vorazes: Amanhecer na Colheita',e:'🏹',m:'Filme · Prime Video · ★ 8.3'},
+     {t:'Vingadores: Doutor Destino',e:'🦸',m:'Filme · Disney+ · o mais comentado'},{t:'The Beast',e:'🚘',m:'Filme · Netflix · ★ 5.4'},
+     {t:'O Corpo',e:'💃',m:'Série · Max · ★ 7.8'},{t:'VisionQuest',e:'🤖',m:'Série · Disney+ · ★ 8.3'},
+     {t:'O Senhor dos Anéis: Os Anéis do Poder',e:'💍',m:'Série · Prime Video · ★ 7.2'}];
+    var JW='https://br.justwatch.com/br/busca?q=',IM='https://www.imdb.com/pt/find/?q=',cur='top';
+    function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function ini(t){var w=t.replace(/[:\-–].*$/,'').split(/\s+/).filter(function(x){return x.length>2||/^\d/.test(x);});return esc((w[0]||t).charAt(0)+(w[1]?w[1].charAt(0):'')).toUpperCase();}
+    var row=document.getElementById('frow'),pills=document.querySelectorAll('.fpill');
+    function draw(k){
+      cur=k;var rk=k!=='dra',h='';
+      L[k].forEach(function(x,i){
+        if(typeof x==='string')x={t:x};
+        var q=encodeURIComponent(x.t),img=x.p?'<img src="https://image.tmdb.org/t/p/w342'+esc(x.p)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'',
+        im=x.imdb?'https://www.imdb.com/pt/title/'+esc(x.imdb)+'/':IM+q,
+        pp=[x.y,x.n?'★ '+x.n:'',(x.provs&&x.provs.length)?x.provs.join(' · '):''].filter(Boolean).join(' · ');
+        h+='<li class="pcard"><a class="pjw" href="'+JW+q+'" target="_blank" rel="noopener noreferrer"><div class="ptile'+(x.p?' hi':'')+'" style="--h:'+((i*47+k.charCodeAt(0)*13)%360)+'"'+(rk?' data-i="'+(i+1)+'"':'')+'>'+img+'<em>'+ini(x.t)+'</em></div><b>'+esc(x.t)+'</b>'+(pp?'<span class="pp">'+esc(pp)+'</span>':'')+'</a><a class="pimdb" href="'+im+'" target="_blank" rel="noopener noreferrer">Ver no IMDb ↗</a></li>';
+      });
+      row.innerHTML=h;row.scrollLeft=0;
+      pills.forEach(function(p){p.setAttribute('aria-selected',p.dataset.l===k?'true':'false');});
+    }
+    function hoje(){
+      document.getElementById('fhoje').innerHTML=H.map(function(x){
+        var m=x.m||[x.tipo,(x.provs||[]).join(' · '),x.n?'★ '+x.n:''].filter(Boolean).join(' · ');
+        return '<a class="fcard" href="'+JW+encodeURIComponent(x.t)+'" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">'+(x.e||'🎬')+'</span><b>'+esc(x.t)+'</b><small>'+esc(m)+'</small></a>';}).join('');
+    }
+    pills.forEach(function(p){p.addEventListener('click',function(){draw(p.dataset.l);});});
+    draw('top');hoje();
+    /* Atualização automática: lê filmes.json (gerado todo dia pelo script) */
+    function carregar(){
+      fetch('filmes.json?'+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():Promise.reject();}).then(function(d){
+        if(!d||!d.lists)return;
+        ['top','com','dra','ter'].forEach(function(k){if(d.lists[k]&&d.lists[k].length)L[k]=d.lists[k];});
+        if(d.hoje&&d.hoje.length)H=d.hoje;
+        var u=document.getElementById('fupd');if(u&&d.updated){try{u.textContent='atualizado em '+new Date(d.updated).toLocaleDateString('pt-BR');}catch(e){}}
+        draw(cur);hoje();
+      }).catch(function(){});
+    }
+    carregar();setInterval(carregar,30*60*1000);
+  })();
+  </script>
+  <h3 class="fil-h3">🧭 Explorar no JustWatch</h3>
   <div class="fgrid">
     <a class="fcard" href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">🔥</span><b>Populares agora</b><small>O que está em alta hoje no Brasil</small></a>
     <a class="fcard" href="https://br.justwatch.com/br/novo" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">🆕</span><b>Novidades</b><small>Chegou agora aos streamings</small></a>
@@ -810,7 +894,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     <a class="fcard" href="https://br.justwatch.com/br/lists/public-lists" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">📋</span><b>Listas</b><small>Listas públicas de filmes e séries</small></a>
     <a class="fcard" href="https://sports.justwatch.com/br" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">⚽</span><b>Esporte</b><small>Onde assistir aos jogos</small></a>
     </div>
-  <h3 class="fil-h3">Por plataforma</h3>
+  <h3 class="fil-h3">📡 Por plataforma</h3>
   <div class="fprovs">
     <a class="fprov" href="https://br.justwatch.com/br/provedor/netflix" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/207360008/s100/netflix.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Netflix</span></a>
     <a class="fprov" href="https://br.justwatch.com/br/provedor/amazon-prime-video" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/322992749/s100/amazonprimevideo.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Prime Video</span></a>
@@ -825,7 +909,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     <a class="fprov" href="https://br.justwatch.com/br/provedor/looke" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/755940/s100/looke.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Looke</span></a>
     <a class="fprov" href="https://br.justwatch.com/br/provedor/libreflix" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/243087398/s100/libreflix.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Libreflix</span></a>
     </div>
-  <p class="mus-fine">Guia de streaming: <a href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer">JustWatch Brasil</a>. Os títulos, a disponibilidade e as imagens pertencem ao JustWatch e às plataformas, e podem mudar a qualquer momento.</p>
+  <p class="mus-fine">Guia de streaming: <a href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer">JustWatch Brasil</a>. Rankings, pôsteres e streamings atualizados automaticamente via TMDB (dados de streaming do JustWatch). Este produto usa a API do TMDB, mas não é endossado nem certificado pelo TMDB. Fallback: JustWatch Brasil; destaques do dia e notas: Portal Barcelos na NET. Títulos e marcas pertencem aos seus detentores e a lista pode mudar a qualquer momento.</p>
 </section>
 <script>
 /* ===== Aba NEWSLETTER ===== */
@@ -3129,7 +3213,7 @@ var DICAS = [
     if(last&&last.focus)last.focus();
   }
   panel.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('a.fcard,a.fprov');if(!a)return;
+    var a=e.target.closest&&e.target.closest('a.fcard,a.fprov,a.pjw');if(!a)return;
     if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return; /* clique com Ctrl/Cmd continua abrindo em outra aba */
     e.preventDefault();
     var t=a.querySelector('b')||a.querySelector('span');
