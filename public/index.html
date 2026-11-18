@@ -690,6 +690,18 @@ body.rd-on{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .cn-b:hover{background:var(--neon);color:#170a33}
 .cn-more{margin:16px 0 4px;max-width:420px}
 @media (max-width:600px){.cn-grid{grid-template-columns:1fr}.cn-art{width:84px}}
+
+.cn-dlg{position:fixed;inset:0;z-index:96;display:flex;padding:max(10px,env(safe-area-inset-top,0px)) 10px max(10px,env(safe-area-inset-bottom,0px));background:rgba(10,3,28,.92)}
+.cn-dlg[hidden]{display:none}
+.cn-box{display:flex;flex-direction:column;flex:1;min-height:0;width:100%;max-width:1100px;margin:0 auto;overflow:hidden;border:3px solid var(--neon);border-radius:14px;background:#170a33;box-shadow:6px 6px 0 #7a2cff}
+.cn-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:8px 10px;border-bottom:2px solid var(--neon);background:#26104f}
+.cn-bar b{flex:1 1 140px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cn-nb{display:inline-flex;align-items:center;min-height:38px;padding:6px 12px;border:2px solid var(--neon);border-radius:999px;color:var(--ink);text-decoration:none;font:700 13px Archivo,sans-serif}
+.cn-x{all:unset;cursor:pointer;width:38px;height:38px;border-radius:50%;background:var(--neon);color:#170a33;text-align:center;line-height:38px;font-size:18px;font-weight:800}
+.cn-nb:focus-visible,.cn-x:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.cn-hint{flex:1 0 100%;margin:0;font-size:12px;color:var(--mute)}
+#cnPF{flex:1;min-height:0;width:100%;border:0;background:#fff}
+@media (max-width:600px){.cn-dlg{padding:0}.cn-box{border-radius:0;border-width:2px;box-shadow:none}}
 </style>
 </head>
 <body>
@@ -896,6 +908,13 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   <div class="cn-grid cn-cin" id="cnCinemas"></div>
   <p class="cn-more"><a class="cn-cta p" href="https://www.ingresso.com/cinemas?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🔎</span><b>Ver todos os cinemas do Rio</b><small>Lista completa no Ingresso.com</small></a></p>
   <p class="mus-fine">Programação, preços e sessões: <a href="https://www.ingresso.com/?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer">Ingresso.com</a>. A seleção acima é editorial (fontes: imprensa e Ingresso.com, em 18/11/2026) e pode mudar; confirme sempre no site de vendas. Títulos e marcas pertencem aos seus detentores.</p>
+  <div id="cnPop" class="cn-dlg" role="dialog" aria-modal="true" aria-labelledby="cnPT" hidden>
+    <div class="cn-box">
+      <div class="cn-bar"><b id="cnPT">Ingresso.com</b><a class="cn-nb" id="cnPN" href="https://www.ingresso.com/?city=rio-de-janeiro" target="_blank" rel="noopener noreferrer">Abrir em nova aba ↗</a><button type="button" class="cn-x" id="cnPX" aria-label="Fechar janela">✕</button>
+      <p class="cn-hint">Se a página não aparecer, o site pode bloquear a exibição dentro de outros sites. Nesse caso, use “Abrir em nova aba”.</p></div>
+      <iframe id="cnPF" title="Ingresso.com" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" src="about:blank"></iframe>
+    </div>
+  </div>
   <script>
   (function(){
     var EM='https://www.ingresso.com/filmes/em-cartaz?city=rio-de-janeiro';
@@ -926,6 +945,28 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     document.getElementById('cnCinemas').innerHTML=C.map(function(x){
       return '<article class="cn-card"><div class="cn-art sm" style="--h:'+hue(x.n)+'" aria-hidden="true"><span>'+x.e+'</span><i>'+esc(x.z)+'</i></div><div class="cn-tx"><h4>'+esc(x.n)+'</h4><p>'+esc(x.a)+'</p><a class="cn-b" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(x.n+' Rio de Janeiro')+'" target="_blank" rel="noopener noreferrer">📍 Ver no mapa ↗</a></div></article>';
     }).join('');
+
+    /* Popup dentro do site */
+    var panel=document.getElementById('panel-filmes'),dlg=document.getElementById('cnPop'),fr=document.getElementById('cnPF'),pt=document.getElementById('cnPT'),pn=document.getElementById('cnPN'),px=document.getElementById('cnPX'),last=null;
+    function abrir(url,titulo,de,embed){last=de;pt.textContent=titulo;pn.href=url;fr.src=embed||url;dlg.hidden=false;document.body.style.overflow='hidden';px.focus({preventScroll:true});}
+    function fechar(){dlg.hidden=true;fr.src='about:blank';document.body.style.overflow='';if(last&&last.focus)last.focus();}
+    panel.addEventListener('click',function(e){
+      var a=e.target.closest&&e.target.closest('a[href]');if(!a||!panel.contains(a)||dlg.contains(a))return;
+      if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      var h=a.href,emb='',card=a.closest('.cn-card'),t;
+      if(h.indexOf('https://www.ingresso.com')===0){t=card?card.querySelector('h4').textContent+' · Ingresso.com':(a.querySelector('b')?a.querySelector('b').textContent:'Ingresso.com');}
+      else if(h.indexOf('https://www.google.com/maps/search/')===0){t=(card?card.querySelector('h4').textContent:'Mapa');try{emb='https://www.google.com/maps?output=embed&q='+encodeURIComponent(new URL(h).searchParams.get('query'));}catch(x){return;}}
+      else return;
+      e.preventDefault();abrir(h,t,a,emb);
+    });
+    px.addEventListener('click',fechar);
+    dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
+    document.addEventListener('keydown',function(e){
+      if(dlg.hidden)return;
+      if(e.key==='Escape'){fechar();return;}
+      if(e.key==='Tab'){var f=[pn,px],i=f.indexOf(document.activeElement);
+        if(e.shiftKey&&i<=0){e.preventDefault();f[1].focus();}else if(!e.shiftKey&&(i===1||i===-1)){e.preventDefault();f[0].focus();}}
+    });
   })();
   </script>
 </section>
