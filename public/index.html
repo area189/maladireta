@@ -633,6 +633,41 @@ body.rd-on{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .ptile.hi::before{z-index:2;top:-4px;left:6px;font-size:58px;color:#fff;-webkit-text-stroke:2px #170a33}
 .pp{color:var(--mute);font-size:12px;line-height:1.3}
 .fcard .fe{display:flex}.fth{width:46px;height:69px;object-fit:cover;border-radius:6px;border:2px solid var(--neon);display:block}
+
+/* ---- Filmes (OMDb) ---- */
+.om-q{display:flex;flex-wrap:wrap;gap:8px;max-width:720px}.om-q input{flex:1 1 220px;min-width:0}
+.om-q select{flex:0 0 auto;min-height:44px;padding:8px 10px;border:2px solid var(--edge);border-radius:10px;background:var(--panel);color:var(--ink);font:700 14px Archivo,sans-serif}
+.om-key{margin:12px 0;padding:12px 14px;border:2px dashed var(--neon);border-radius:12px;background:#26104f;font-size:14px}.om-key a{color:var(--neon)}.om-key code{color:var(--neon)}
+.om-key form{margin-top:8px}
+.om-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x proximity;padding:4px 2px 14px;-webkit-overflow-scrolling:touch}
+.om-item{flex:none;width:150px;scroll-snap-align:start}
+.om-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.om-more{text-align:center;margin:14px 0}
+.om-card{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:6px;width:100%;color:var(--ink)}
+.om-card:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:10px}
+.om-poster{position:relative;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid var(--neon);border-radius:12px;box-shadow:4px 4px 0 #7a2cff;background:linear-gradient(165deg,hsl(var(--h),70%,38%),hsl(calc(var(--h) + 40),65%,14%));transition:transform .15s}
+.om-card:hover .om-poster,.om-card:focus-visible .om-poster{transform:translate(1px,1px);box-shadow:3px 3px 0 #7a2cff}
+.om-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.om-poster em{font:900 40px/1 Archivo,sans-serif;font-style:normal;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.om-poster i{position:absolute;z-index:2;top:8px;left:8px;padding:2px 8px;border-radius:999px;background:rgba(10,3,28,.85);border:1px solid var(--neon);font:700 11px Archivo,sans-serif;font-style:normal}
+.om-card b{font-size:14px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.om-card small{color:var(--mute);font-size:12px}
+.om-dlg{position:fixed;inset:0;z-index:96;display:flex;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top,0px)) 12px;background:rgba(10,3,28,.92)}
+.om-dlg[hidden]{display:none}
+.om-box{position:relative;width:100%;max-width:760px;max-height:100%;overflow:auto;padding:18px;border:3px solid var(--neon);border-radius:14px;background:#170a33;box-shadow:6px 6px 0 #7a2cff}
+.om-x{all:unset;cursor:pointer;position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;background:var(--neon);color:#170a33;text-align:center;line-height:38px;font-size:18px;font-weight:800;z-index:3}
+.om-x:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.om-d{display:flex;gap:18px;align-items:flex-start}
+.om-dp{flex:none;position:relative;width:200px;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid var(--neon);border-radius:12px;background:linear-gradient(165deg,hsl(var(--h),70%,38%),hsl(calc(var(--h) + 40),65%,14%))}
+.om-dp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.om-dp em{font:900 56px Archivo,sans-serif;font-style:normal}
+.om-di{min-width:0;flex:1}.om-di h3{margin:0 40px 4px 0;font:800 22px/1.15 Archivo,sans-serif}
+.om-sub{margin:0 0 10px;color:var(--mute);font-size:13px}.om-r{margin:8px 0;font-size:14px;line-height:1.45}.om-r b{color:var(--neon)}
+.om-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}.om-chip{padding:4px 10px;border:2px solid var(--edge);border-radius:999px;background:var(--panel);font-size:12px}.om-chip b{color:var(--neon)}
+.om-acts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.om-b{display:inline-flex;align-items:center;min-height:40px;padding:8px 14px;border:2px solid var(--neon);border-radius:999px;color:var(--ink);text-decoration:none;font:700 13px Archivo,sans-serif;background:#26104f}
+.om-b.p{background:var(--neon);color:#170a33}.om-b:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.om-load{margin:20px 0;text-align:center;color:var(--mute)}
+@media (max-width:600px){.om-item{width:128px}.om-grid{grid-template-columns:repeat(2,1fr)}.om-d{flex-direction:column;align-items:center}.om-dp{width:150px}.om-di{width:100%}.om-box{padding:14px}}
 </style>
 </head>
 <body>
@@ -821,133 +856,121 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </section>
 <section id="panel-filmes" role="tabpanel" aria-labelledby="tab-filmes" hidden>
   <div class="sec-title"><h2 id="fil-h">FILMES E SÉRIES</h2></div>
-  <p class="fil-intro">Veja o que está em alta e descubra <b>onde assistir</b> a filmes e séries nos streamings do Brasil. Toque em um título para abrir o guia do <b>JustWatch</b> em uma nova aba; a nota e as fichas completas ficam no <b>IMDb</b>.</p>
-  <form class="musq fil-q" action="https://br.justwatch.com/br/busca" method="get" target="_blank" role="search">
-    <input type="search" name="q" placeholder="Buscar filme ou série" aria-label="Buscar filme ou série" maxlength="80" required>
-    <button class="btn" type="submit">Buscar no JustWatch</button>
+  <p class="fil-intro">Pesquise qualquer <b>filme ou série</b> e veja capa, nota do IMDb, sinopse e elenco. Os dados vêm da <b>OMDb</b>; para saber <b>onde assistir</b>, abrimos o JustWatch em uma nova aba.</p>
+  <form class="musq om-q" id="omForm" role="search">
+    <input id="omQ" type="search" placeholder="Buscar filme ou série (ex.: Matrix)" aria-label="Buscar filme ou série" maxlength="80" required>
+    <select id="omT" aria-label="Tipo"><option value="">Tudo</option><option value="movie">Filmes</option><option value="series">Séries</option></select>
+    <button class="btn" type="submit">Buscar</button>
   </form>
-  <div class="fhero"><b>🎞️ Guia de streaming do Brasil</b><span>Rankings do Brasil · <span id="fupd">atualizado em 18/11/2026</span></span></div>
-  <h3 class="fil-h3">🔥 Em alta no Brasil <small>toque para ver onde assistir</small></h3>
-  <div class="fpills" role="tablist" aria-label="Rankings">
-    <button type="button" class="fpill" role="tab" data-l="top" aria-selected="true">Top 10 filmes</button>
-    <button type="button" class="fpill" role="tab" data-l="com" aria-selected="false">Comédia</button>
-    <button type="button" class="fpill" role="tab" data-l="dra" aria-selected="false">Drama</button>
-    <button type="button" class="fpill" role="tab" data-l="ter" aria-selected="false">Terror</button>
+  <div class="om-key" id="omKey" hidden>
+    <b>Falta a chave da OMDb.</b> Crie uma grátis em <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noopener noreferrer">omdbapi.com/apikey.aspx</a> e cole abaixo (o dono do site deve colocá-la no código, em <code>OMDB_KEY</code>).
+    <form class="musq om-q" id="omKF"><input id="omKI" type="text" placeholder="Sua chave (ex.: a1b2c3d4)" aria-label="Chave da OMDb" maxlength="20" autocomplete="off"><button class="btn" type="submit">Salvar</button></form>
   </div>
-  <ol class="frow" id="frow" aria-live="polite"></ol>
-  <h3 class="fil-h3">📺 Hoje no streaming <small>18/11/2026</small></h3>
-  <div class="fgrid fhoje" id="fhoje"></div>
+  <p class="musmsg" id="omMsg" role="status"></p>
+  <div id="omRes" hidden>
+    <h3 class="fil-h3" id="omRT">Resultados</h3>
+    <div class="om-grid" id="omGrid"></div>
+    <p class="om-more"><button type="button" class="btn" id="omMore" hidden>Carregar mais</button></p>
+  </div>
+  <div id="omRows"></div>
+  <p class="mus-fine">Dados e capas: <a href="https://www.omdbapi.com" target="_blank" rel="noopener noreferrer">OMDb API</a> (base do IMDb). Onde assistir: <a href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer">JustWatch Brasil</a>. A OMDb só fornece sinopses em inglês. Títulos, capas e marcas pertencem aos seus detentores.</p>
+  <div id="omDlg" class="om-dlg" role="dialog" aria-modal="true" aria-labelledby="omDT" hidden>
+    <div class="om-box"><button type="button" class="om-x" id="omX" aria-label="Fechar">✕</button><div id="omBody"></div></div>
+  </div>
   <script>
   (function(){
-    var L={
-     top:['Obsession: A Felicidade é Relativa','O Fim de Oak Street','Heart of the Beast - Heróis Inseparáveis','A Odisseia','Crime em Direto','Vingadores: Endgame Encore','The Hunger Games - Os Jogos da Fome','No Coração de Nashville','Suzane von Richthofen: O Que o Tempo Não Apaga','O Convite'],
-     com:['O Cinema por Philomena Cunk','ChiaroScuro','O Convite','Delegado','Ne Zha 2','Nunca Chove em Filadélfia','Black Clover','Conselhos de um Serial Killer Aposentado','Transformação de Natal','Succession'],
-     dra:['O Senhor dos Anéis: Os Anéis do Poder','O Corpo','VisionQuest','Heart of the Beast - Heróis Inseparáveis','The Chosen - Os Escolhidos','Terra de Bandidos','Dexter: Ressurreição','A Imperatriz','Kdabra'],
-     ter:['O Corpo','Obsession: A Felicidade é Relativa','Uma Outra Mãe','Massacre no Texas','Crystal Lake','A Renúncia','Backrooms - O Labirinto']};
-    var H=[{t:'A Odisseia',e:'🏛️',m:'Filme · Prime Video · Max · ★ 8.0'},{t:'Jogos Vorazes: Amanhecer na Colheita',e:'🏹',m:'Filme · Prime Video · ★ 8.3'},
-     {t:'Vingadores: Doutor Destino',e:'🦸',m:'Filme · Disney+ · o mais comentado'},{t:'The Beast',e:'🚘',m:'Filme · Netflix · ★ 5.4'},
-     {t:'O Corpo',e:'💃',m:'Série · Max · ★ 7.8'},{t:'VisionQuest',e:'🤖',m:'Série · Disney+ · ★ 8.3'},
-     {t:'O Senhor dos Anéis: Os Anéis do Poder',e:'💍',m:'Série · Prime Video · ★ 7.2'}];
-    var JW='https://br.justwatch.com/br/busca?q=',IM='https://www.imdb.com/pt/find/?q=',cur='top';
+    var OMDB_KEY='65c8e6d0'; /* cole aqui sua chave gratuita: omdbapi.com/apikey.aspx */
+    var ROWS=[
+     {t:'🇧🇷 Cinema brasileiro',i:[['tt0317248','Cidade de Deus'],['tt0861739','Tropa de Elite'],['tt1555149','Tropa de Elite 2'],['tt0120524','Central do Brasil'],['tt0297721','O Auto da Compadecida'],['tt2762506','Bacurau'],['tt14961016','Ainda Estou Aqui']]},
+     {t:'🔥 Aclamados recentes',i:[['tt15398776','Oppenheimer'],['tt6751668','Parasita'],['tt0816692','Interestelar'],['tt15239678','Duna: Parte Dois'],['tt7286456','Coringa'],['tt9362722','Homem-Aranha: Através do Aranhaverso'],['tt22022452','Divertida Mente 2'],['tt1517268','Barbie']]},
+     {t:'🏆 Clássicos imperdíveis',i:[['tt0068646','O Poderoso Chefão'],['tt0110912','Pulp Fiction'],['tt0137523','Clube da Luta'],['tt0109830','Forrest Gump'],['tt0133093','Matrix'],['tt0120338','Titanic'],['tt0172495','Gladiador']]},
+     {t:'📺 Séries para maratonar',i:[['tt0903747','Breaking Bad'],['tt0944947','Game of Thrones'],['tt4574334','Stranger Things'],['tt3581920','The Last of Us'],['tt10919420','Round 6'],['tt7660850','Succession'],['tt14452776','The Bear'],['tt5753856','Dark'],['tt7366338','Chernobyl'],['tt2085059','Black Mirror']]}];
+    var PT={};ROWS.forEach(function(r){r.i.forEach(function(x){PT[x[0]]=x[1];});});
+    function $(i){return document.getElementById(i);}
     function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    function ini(t){var w=t.replace(/[:\-–].*$/,'').split(/\s+/).filter(function(x){return x.length>2||/^\d/.test(x);});return esc((w[0]||t).charAt(0)+(w[1]?w[1].charAt(0):'')).toUpperCase();}
-    var row=document.getElementById('frow'),pills=document.querySelectorAll('.fpill');
-    function draw(k){
-      cur=k;var rk=k!=='dra',h='';
-      L[k].forEach(function(x,i){
-        if(typeof x==='string')x={t:x};
-        var q=encodeURIComponent(x.t),img=x.p?'<img src="https://image.tmdb.org/t/p/w342'+esc(x.p)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'',
-        im=x.imdb?'https://www.imdb.com/pt/title/'+esc(x.imdb)+'/':IM+q,
-        pp=[x.y,x.n?'★ '+x.n:'',(x.provs&&x.provs.length)?x.provs.join(' · '):''].filter(Boolean).join(' · ');
-        h+='<li class="pcard"><a class="pjw" href="'+JW+q+'" target="_blank" rel="noopener noreferrer"><div class="ptile'+(x.p?' hi':'')+'" style="--h:'+((i*47+k.charCodeAt(0)*13)%360)+'"'+(rk?' data-i="'+(i+1)+'"':'')+(x.p?'':' data-t="'+esc(x.t)+'"')+'>'+img+'<em>'+ini(x.t)+'</em></div><b>'+esc(x.t)+'</b>'+(pp?'<span class="pp">'+esc(pp)+'</span>':'')+'</a><a class="pimdb" href="'+im+'" target="_blank" rel="noopener noreferrer">Ver no IMDb ↗</a></li>';
-      });
-      row.innerHTML=h;row.scrollLeft=0;
-      pills.forEach(function(p){p.setAttribute('aria-selected',p.dataset.l===k?'true':'false');});
-      applyAll(true);
+    function ok(v){return v&&v!=='N/A';}
+    function key(){var k=OMDB_KEY;if(!k){try{k=localStorage.getItem('omdbkey')||'';}catch(e){}}return k;}
+    function api(p){
+      var k=key();if(!k)return Promise.reject('nokey');
+      return fetch('https://www.omdbapi.com/?apikey='+encodeURIComponent(k)+'&'+p).then(function(r){return r.json();}).then(function(d){
+        if(d.Response==='False'&&/api key|limit/i.test(d.Error||''))throw d.Error;return d;});
     }
-    function hoje(){
-      document.getElementById('fhoje').innerHTML=H.map(function(x){
-        var m=x.m||[x.tipo,(x.provs||[]).join(' · '),x.n?'★ '+x.n:''].filter(Boolean).join(' · ');
-        return '<a class="fcard"'+(x.p?'':' data-t="'+esc(x.t)+'"')+' href="'+JW+encodeURIComponent(x.t)+'" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">'+(x.p?'<img class="fth" src="https://image.tmdb.org/t/p/w154'+esc(x.p)+'" alt="">':(x.e||'🎬'))+'</span><b>'+esc(x.t)+'</b><small>'+esc(m)+'</small></a>';}).join('');
-      applyAll(false);
+    var TTL=7*864e5;
+    function get(id){
+      try{var c=JSON.parse(localStorage.getItem('om:'+id)||'null');if(c&&Date.now()-c.t<TTL)return Promise.resolve(c.d);}catch(e){}
+      return api('plot=short&i='+encodeURIComponent(id)).then(function(d){if(d.Response!=='False'){try{localStorage.setItem('om:'+id,JSON.stringify({t:Date.now(),d:d}));}catch(e){}}return d;});
     }
-    /* Capas: TMDB (quando há filmes.json); senão busca automática na Apple (iTunes) e na Wikipédia, com cache no navegador */
-    var CK='fcov2',TTL=30*864e5,cov={},qu=[],busy=false,noIt=false;
-    try{cov=JSON.parse(localStorage.getItem(CK)||'{}');}catch(e){cov={};}
-    function save(){try{localStorage.setItem(CK,JSON.stringify(cov));}catch(e){}}
-    function nz(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
-    function fresh(t){var c=cov[t];return !!c&&Date.now()-c.d<TTL;}
-    function fj(u){return fetch(u).then(function(r){if(!r.ok)throw r.status;return r.json();});}
-    function find(t){
-      var main=t.split(/\s*[:\-–]\s*/)[0],n=nz(main);
-      function it(q){return fj('https://itunes.apple.com/search?country=BR&limit=10&term='+encodeURIComponent(main)+'&'+q);}
-      function pick(r){var b='';(r.results||[]).some(function(x){var nm=nz(x.trackName||x.collectionName||'');
-        if(nm===n||nm.indexOf(n+' ')===0||(n.length>6&&nm.indexOf(n)>-1)){b=(x.artworkUrl100||'').replace('100x100bb','400x600bb');return !!b;}return false;});return b;}
-      function wiki(){return fj('https://pt.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrlimit=3&gsrsearch='+encodeURIComponent(main+' filme OR série')+'&prop=pageimages&piprop=thumbnail&pithumbsize=300').then(function(r){
-        var ps=r.query&&r.query.pages?Object.keys(r.query.pages).map(function(k){return r.query.pages[k];}).sort(function(a,b){return a.index-b.index;}):[];
-        for(var i=0;i<ps.length;i++)if(ps[i].thumbnail&&nz(ps[i].title).indexOf(n)>-1)return ps[i].thumbnail.source;return '';});}
-      if(noIt)return wiki();
-      return it('media=movie&entity=movie').then(pick).then(function(u){return u||it('entity=tvSeason').then(pick);}).then(function(u){return u||wiki();})
-        .catch(function(e){if(e instanceof TypeError)noIt=true;return wiki();});
+    function hue(id){var h=0;for(var i=0;i<id.length;i++)h+=id.charCodeAt(i);return (h*37)%360;}
+    function ini(t){var w=String(t).replace(/[:\-–].*$/,'').split(/\s+/).filter(function(x){return x.length>2||/^\d/.test(x);});return esc((w[0]||t).charAt(0)+(w[1]?w[1].charAt(0):'')).toUpperCase();}
+    function kind(t){return t==='series'?'Série':t==='movie'?'Filme':t==='episode'?'Episódio':'';}
+    function card(o){
+      var img=ok(o.p)?'<img src="'+esc(o.p)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'';
+      return '<button type="button" class="om-card" data-id="'+esc(o.id)+'"><span class="om-poster" style="--h:'+hue(o.id)+'">'+img+'<em>'+ini(o.t)+'</em>'+(o.k?'<i>'+esc(o.k)+'</i>':'')+'</span><b>'+esc(o.t)+'</b><small>'+esc([ok(o.y)?o.y:'',ok(o.r)?'★ '+o.r:''].filter(Boolean).join(' · '))+'</small></button>';
     }
-    function pump(){
-      if(busy||!qu.length)return;busy=true;var t=qu.shift();
-      find(t).catch(function(){return '';}).then(function(u){cov[t]={u:u||'',d:Date.now()};save();paint(t);}).then(function(){setTimeout(function(){busy=false;pump();},1500);});
+    function msg(t){$('omMsg').textContent=t||'';}
+    function fail(e){
+      if(e==='nokey'){$('omKey').hidden=false;msg('');}
+      else{msg(/limit/i.test(String(e))?'O limite diário da OMDb foi atingido. Tente novamente amanhã.':/api key/i.test(String(e))?'Chave da OMDb inválida ou ainda não ativada (confirme o e-mail da OMDb).':'Não foi possível consultar a OMDb agora. Tente novamente.');}
     }
-    function want(t,front){if(!t||fresh(t)||qu.indexOf(t)>-1)return;if(front)qu.unshift(t);else qu.push(t);pump();}
-    function paint(t){
-      var u=cov[t]&&cov[t].u;if(!u)return;
-      document.querySelectorAll('[data-t]').forEach(function(el){
-        if(el.getAttribute('data-t')!==t||el.querySelector('img'))return;
-        var im=document.createElement('img');im.alt='';im.loading='lazy';im.referrerPolicy='no-referrer';im.onerror=function(){im.remove();};im.src=u;
-        if(el.classList.contains('ptile')){el.classList.add('hi');el.insertBefore(im,el.firstChild);}
-        else{var fe=el.querySelector('.fe');if(fe){im.className='fth';fe.textContent='';fe.appendChild(im);}}
-      });
+    /* Vitrines */
+    var rowsEl=$('omRows'),loaded=false;
+    ROWS.forEach(function(r,ri){
+      rowsEl.insertAdjacentHTML('beforeend','<h3 class="fil-h3">'+r.t+'</h3><div class="om-row" data-ri="'+ri+'">'+r.i.map(function(x){return '<div class="om-item" data-id="'+x[0]+'">'+card({id:x[0],t:x[1]})+'</div>';}).join('')+'</div>');
+    });
+    function fillRow(el){
+      if(el._done)return;if(!key()){fail('nokey');return;}el._done=true;
+      var its=[].slice.call(el.querySelectorAll('.om-item')),i=0;
+      (function next(){
+        if(i>=its.length)return;var it=its[i++],id=it.getAttribute('data-id');
+        get(id).then(function(d){
+          if(d.Response!=='False')it.innerHTML=card({id:id,t:PT[id],y:d.Year,r:d.imdbRating,p:d.Poster,k:kind(d.Type)});
+        }).catch(function(e){el._done=false;fail(e);i=its.length;}).then(function(){next();});
+      })();
     }
-    function applyAll(front){document.querySelectorAll('[data-t]').forEach(function(el){var t=el.getAttribute('data-t');if(fresh(t))paint(t);else want(t,front);});}
-    function prefetch(){Object.keys(L).forEach(function(k){L[k].forEach(function(x){var t=typeof x==='string'?x:(x.p?'':x.t);if(t)want(t,false);});});H.forEach(function(x){if(!x.p)want(x.t,false);});}
-    pills.forEach(function(p){p.addEventListener('click',function(){draw(p.dataset.l);});});
-    draw('top');hoje();prefetch();
-    /* Atualização automática: lê filmes.json (gerado todo dia pelo script) */
-    function carregar(){
-      fetch('filmes.json?'+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():Promise.reject();}).then(function(d){
-        if(!d||!d.lists)return;
-        ['top','com','dra','ter'].forEach(function(k){if(d.lists[k]&&d.lists[k].length)L[k]=d.lists[k];});
-        if(d.hoje&&d.hoje.length)H=d.hoje;
-        var u=document.getElementById('fupd');if(u&&d.updated){try{u.textContent='atualizado em '+new Date(d.updated).toLocaleDateString('pt-BR');}catch(e){}}
-        draw(cur);hoje();prefetch();
-      }).catch(function(){});
+    var rowEls=[].slice.call(rowsEl.querySelectorAll('.om-row'));
+    function loadAll(){rowEls.forEach(function(e){e._done=false;});go();}
+    var io=window.IntersectionObserver?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)fillRow(e.target);});},{rootMargin:'200px'}):null;
+    function go(){rowEls.forEach(function(e){if(io){io.unobserve(e);io.observe(e);}else fillRow(e);});}
+    go();
+    /* Busca */
+    var S={q:'',t:'',pg:1,n:0,seen:{}};
+    function busca(reset){
+      if(reset){S.pg=1;S.n=0;S.seen={};$('omGrid').innerHTML='';}
+      msg('Buscando…');
+      api('s='+encodeURIComponent(S.q)+(S.t?'&type='+S.t:'')+'&page='+S.pg).then(function(d){
+        $('omRes').hidden=false;$('omRT').textContent='Resultados para “'+S.q+'”';
+        if(d.Response==='False'){msg(d.Error==='Movie not found!'?'Nada encontrado. Tente outro nome (em inglês costuma dar mais resultado).':'Refine a busca com mais letras.');$('omMore').hidden=true;return;}
+        msg('');var h='';
+        d.Search.forEach(function(x){if(S.seen[x.imdbID])return;S.seen[x.imdbID]=1;S.n++;h+=card({id:x.imdbID,t:x.Title,y:x.Year,p:x.Poster,k:kind(x.Type)});});
+        $('omGrid').insertAdjacentHTML('beforeend',h);
+        $('omMore').hidden=!(S.n<parseInt(d.totalResults,10));
+      }).catch(fail);
     }
-    carregar();setInterval(carregar,30*60*1000);
+    $('omForm').addEventListener('submit',function(e){e.preventDefault();S.q=$('omQ').value.trim();S.t=$('omT').value;if(S.q)busca(true);});
+    $('omMore').addEventListener('click',function(){S.pg++;busca(false);});
+    $('omKF').addEventListener('submit',function(e){e.preventDefault();var v=$('omKI').value.trim();if(!v)return;try{localStorage.setItem('omdbkey',v);}catch(x){}$('omKey').hidden=true;msg('');loadAll();});
+    /* Ficha do título */
+    var dlg=$('omDlg'),body=$('omBody'),last=null;
+    function fechar(){dlg.hidden=true;document.body.style.overflow='';if(last&&last.focus)last.focus();}
+    function row(l,v){return ok(v)?'<p class="om-r"><b>'+l+':</b> '+esc(v)+'</p>':'';}
+    function ficha(d){
+      var id=d.imdbID,pt=PT[id]||d.Title,ch='';
+      (d.Ratings||[]).forEach(function(r){var n=r.Source==='Internet Movie Database'?'IMDb':r.Source==='Rotten Tomatoes'?'Rotten Tomatoes':r.Source==='Metacritic'?'Metacritic':r.Source;ch+='<span class="om-chip"><b>'+esc(r.Value)+'</b> '+esc(n)+'</span>';});
+      var jw='https://br.justwatch.com/br/busca?q='+encodeURIComponent(d.Title);
+      body.innerHTML='<div class="om-d"><div class="om-dp" style="--h:'+hue(id)+'">'+(ok(d.Poster)?'<img src="'+esc(d.Poster)+'" alt="Capa de '+esc(pt)+'" referrerpolicy="no-referrer" onerror="this.remove()">':'<em>'+ini(pt)+'</em>')+'</div><div class="om-di"><h3 id="omDT">'+esc(pt)+'</h3><p class="om-sub">'+esc([pt!==d.Title?d.Title:'',ok(d.Year)?d.Year:'',ok(d.Rated)?d.Rated:'',ok(d.Runtime)?d.Runtime:'',kind(d.Type)].filter(Boolean).join(' · '))+'</p>'+(ch?'<p class="om-chips">'+ch+'</p>':'')+row('Gênero',d.Genre)+(ok(d.Plot)?'<p class="om-r"><b>Sinopse (em inglês):</b> '+esc(d.Plot)+'</p>':'')+row('Direção',d.Director)+row('Elenco',d.Actors)+row('País',d.Country)+row('Prêmios',d.Awards)+'<p class="om-acts"><a class="om-b p" href="https://www.imdb.com/pt/title/'+esc(id)+'/" target="_blank" rel="noopener noreferrer">Ver no IMDb ↗</a><a class="om-b" href="'+jw+'" target="_blank" rel="noopener noreferrer">Onde assistir ↗</a></p></div></div>';
+    }
+    $('panel-filmes').addEventListener('click',function(e){
+      var b=e.target.closest&&e.target.closest('.om-card');if(!b)return;
+      last=b;dlg.hidden=false;document.body.style.overflow='hidden';body.innerHTML='<p class="om-load">Carregando…</p>';$('omX').focus({preventScroll:true});
+      get(b.getAttribute('data-id')).then(function(d){if(d.Response==='False')throw d.Error;ficha(d);}).catch(function(err){
+        if(err==='nokey'){fechar();fail('nokey');return;}
+        body.innerHTML='<p class="om-load">Não foi possível carregar esta ficha agora.</p>';});
+    });
+    $('omX').addEventListener('click',fechar);
+    dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
+    document.addEventListener('keydown',function(e){if(!dlg.hidden&&e.key==='Escape')fechar();});
   })();
   </script>
-  <h3 class="fil-h3">🧭 Explorar no JustWatch</h3>
-  <div class="fgrid">
-    <a class="fcard" href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">🔥</span><b>Populares agora</b><small>O que está em alta hoje no Brasil</small></a>
-    <a class="fcard" href="https://br.justwatch.com/br/novo" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">🆕</span><b>Novidades</b><small>Chegou agora aos streamings</small></a>
-    <a class="fcard" href="https://br.justwatch.com/br/filmes" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">🎬</span><b>Filmes</b><small>Catálogo de filmes com filtros</small></a>
-    <a class="fcard" href="https://br.justwatch.com/br/series" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">📺</span><b>Séries</b><small>Catálogo de séries com filtros</small></a>
-    <a class="fcard" href="https://br.justwatch.com/br/filmes/lancamentos" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">🗓️</span><b>Próximos filmes</b><small>Lançamentos que estão chegando</small></a>
-    <a class="fcard" href="https://br.justwatch.com/br/series/lancamentos" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">⏭️</span><b>Próximas séries</b><small>Novas temporadas e estreias</small></a>
-    <a class="fcard" href="https://br.justwatch.com/br/lists/public-lists" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">📋</span><b>Listas</b><small>Listas públicas de filmes e séries</small></a>
-    <a class="fcard" href="https://sports.justwatch.com/br" target="_blank" rel="noopener noreferrer"><span class="fe" aria-hidden="true">⚽</span><b>Esporte</b><small>Onde assistir aos jogos</small></a>
-    </div>
-  <h3 class="fil-h3">📡 Por plataforma</h3>
-  <div class="fprovs">
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/netflix" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/207360008/s100/netflix.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Netflix</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/amazon-prime-video" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/322992749/s100/amazonprimevideo.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Prime Video</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/disney-plus" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/313118777/s100/disneyplus.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Disney+</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/hbo-max" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/332884837/s100/max.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>HBO Max</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/apple-tv-plus" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/338367329/s100/appletvplus.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Apple TV</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/paramount-plus" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/242706661/s100/paramountplus.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Paramount+</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/globoplay" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/270278212/s100/globoplay.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Globoplay</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/crunchyroll" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/324213205/s100/crunchyroll.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Crunchyroll</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/mubi" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/164970114/s100/mubi.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>MUBI</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/pluto-tv" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/312204955/s100/plutotv.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Pluto TV</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/looke" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/755940/s100/looke.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Looke</span></a>
-    <a class="fprov" href="https://br.justwatch.com/br/provedor/libreflix" target="_blank" rel="noopener noreferrer"><img src="https://images.justwatch.com/icon/243087398/s100/libreflix.jpeg" alt="" width="40" height="40" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()"><span>Libreflix</span></a>
-    </div>
-  <p class="mus-fine">Guia de streaming: <a href="https://br.justwatch.com/br" target="_blank" rel="noopener noreferrer">JustWatch Brasil</a>. Rankings, pôsteres e streamings atualizados automaticamente via TMDB (dados de streaming do JustWatch). Este produto usa a API do TMDB, mas não é endossado nem certificado pelo TMDB. Fallback: JustWatch Brasil; destaques do dia e notas: Portal Barcelos na NET. Capas obtidas via TMDB, Apple e Wikipédia e pertencem aos respectivos estúdios. Títulos e marcas pertencem aos seus detentores e a lista pode mudar a qualquer momento.</p>
 </section>
 <script>
 /* ===== Aba NEWSLETTER ===== */
