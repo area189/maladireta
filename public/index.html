@@ -1074,6 +1074,33 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   #acIF[hidden]{display:none}
   @media (max-width:600px){.ac-grid{grid-template-columns:1fr 1fr}.ac-body{grid-template-columns:1fr}.ac-body .ac-p{max-width:180px}.ac-dlg{padding:0}.ac-box{max-height:none;height:100%;border-radius:0;border-width:2px}}
   </style>
+  <style>
+  /* ---- Popup de filmes: ajuste para celular ---- */
+  .ac-dlg,.ac-box{overscroll-behavior:contain}
+  @media (max-width:820px),(max-height:520px){
+    .ac-dlg{padding:0;height:100vh;height:100dvh}
+    .ac-box{width:100%;max-width:none;height:100%;max-height:none;margin:0;border:0;border-radius:0;box-shadow:none;overflow:hidden}
+    .ac-bar{flex:none;position:static;padding:max(8px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px))}
+    .ac-x{width:44px;height:44px}
+    .ac-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;grid-template-columns:1fr;gap:14px;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+    .ac-body .ac-p{width:min(58%,200px);max-width:none;margin:0 auto}
+    .ac-body h3{font-size:clamp(20px,6vw,26px)}
+    .ac-body p{font-size:15px}
+    .ac-act{flex:none;flex-direction:column;gap:8px;padding:10px max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border-top:2px solid var(--neon);background:#26104f}
+    .ac-b{min-height:46px;justify-content:center;text-align:center}
+    .ac-hint{flex:none;padding:8px 16px;background:#170a33}
+    .ac-box.emb .ac-body{display:none}
+    .ac-box.emb #acIF{flex:1;min-height:0;height:auto}
+  }
+  @media (max-height:520px) and (orientation:landscape){
+    .ac-bar{padding-top:max(4px,env(safe-area-inset-top,0px));padding-bottom:4px}
+    .ac-x{width:38px;height:38px}
+    .ac-body{grid-template-columns:130px 1fr}
+    .ac-body .ac-p{width:130px;margin:0}
+    .ac-act{flex-direction:row;flex-wrap:wrap}
+    .ac-b{min-height:40px}
+  }
+  </style>
   <script>
   (function(){
     var BASE='https://www.adorocinema.com/filmes/filme-',IMG='https://br.web.img3.acsta.net/c_310_420/img/';
@@ -1110,7 +1137,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     function hue(t){var h=0;for(var i=0;i<t.length;i++)h+=t.charCodeAt(i);return (h*29)%360;}
     function poster(x,tag){return '<div class="ac-p" style="--h:'+hue(x.t)+'"><span>'+esc(x.t)+'</span>'+(x.p?'<img src="'+IMG+x.p+'" alt="Pôster de '+esc(x.t)+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'')+(tag?'<i>'+esc(x.g)+'</i>':'')+'</div>';}
     var $=function(i){return document.getElementById(i);};
-    var grid=$('acGrid'),pills=document.querySelectorAll('.ac-pill'),dlg=$('acDlg'),ifr=$('acIF'),last=null;
+    var grid=$('acGrid'),pills=document.querySelectorAll('.ac-pill'),dlg=$('acDlg'),box=dlg.querySelector('.ac-box'),ifr=$('acIF'),last=null;
     function draw(f){
       grid.innerHTML=F.map(function(x,k){return {x:x,k:k};}).filter(function(o){return !f||o.x.g===f;}).map(function(o){
         var x=o.x;return '<button type="button" class="ac-card" data-k="'+o.k+'">'+poster(x,true)+'<b>'+esc(x.t)+'</b><small>'+esc(x.i.split(' · ')[0])+(x.n?' · ★ '+x.n:'')+'</small></button>';
@@ -1128,13 +1155,13 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
         +(x.n?'<span class="ac-note">★ '+x.n+' · usuários AdoroCinema</span>':'')+'</div>';
       var s=$('acS');s.href=g_(x,u);s.style.display=x.g==='Em breve'?'none':'';
       s.textContent='🎟️ Ver sessões'+(x.ss?' ('+x.ss+')':'')+' ↗';
-      $('acF').href=u;ifr.hidden=true;ifr.src='about:blank';$('acH').hidden=true;$('acE').hidden=false;
+      $('acF').href=u;ifr.hidden=true;ifr.src='about:blank';box.classList.remove('emb');$('acH').hidden=true;$('acE').hidden=false;
       dlg.hidden=false;document.body.style.overflow='hidden';$('acX').focus({preventScroll:true});
     }
     function g_(x,u){return u+'programacao/';}
-    function fechar(){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;document.body.style.overflow='';if(last&&last.focus)last.focus();}
+    function fechar(){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;box.classList.remove('emb');document.body.style.overflow='';if(last&&last.focus)last.focus();}
     grid.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ac-card');if(b)abrir(+b.getAttribute('data-k'),b);});
-    $('acE').addEventListener('click',function(){ifr.src=$('acF').href;ifr.hidden=false;$('acH').hidden=false;this.hidden=true;ifr.scrollIntoView({block:'nearest'});});
+    $('acE').addEventListener('click',function(){ifr.src=$('acF').href;ifr.hidden=false;$('acH').hidden=false;this.hidden=true;box.classList.add('emb');ifr.scrollIntoView({block:'nearest'});});
     $('acX').addEventListener('click',fechar);
     dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
     document.addEventListener('keydown',function(e){if(!dlg.hidden&&e.key==='Escape')fechar();});
@@ -1152,6 +1179,18 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     $('acWX').addEventListener('click',wFechar);
     wd.addEventListener('click',function(e){if(e.target===wd)wFechar();});
     document.addEventListener('keydown',function(e){if(!wd.hidden&&e.key==='Escape'){e.stopImmediatePropagation();wFechar();}},true);
+
+    /* Fecha os popups de filmes ao trocar de aba, abrir o menu lateral ou mudar o endereço (#) */
+    function fecharTudo(){
+      var was=false;
+      if(!wd.hidden){wd.hidden=true;wf.src='about:blank';was=true;}
+      if(!dlg.hidden){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;was=true;}
+      box.classList.remove('emb');
+      if(was)document.body.style.overflow='';
+    }
+    window.closeFilmesPopups=fecharTudo;
+    window.addEventListener('hashchange',fecharTudo);
+    new MutationObserver(function(){if(document.body.classList.contains('dock-open'))fecharTudo();}).observe(document.body,{attributes:true,attributeFilter:['class']});
   })();
   </script>
 </section>
@@ -2998,6 +3037,7 @@ var DICAS = [
   /* ---- Abas ---- */
   var tabs=document.querySelectorAll('.tab'),panels={live:$('panel-live'),dicas:$('panel-dicas'),clima:$('panel-clima'),cameras:$('panel-cameras'),newsletter:$('panel-newsletter'),musicas:$('panel-musicas'),filmes:$('panel-filmes')};
   function selectTab(name,focus){
+    if(window.closeFilmesPopups)window.closeFilmesPopups();
     tabs.forEach(function(t){var on=t.dataset.tab===name;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on&&focus)t.focus();});
     Object.keys(panels).forEach(function(k){panels[k].hidden=(k!==name);});
     try{history.replaceState(null,'',name==='dicas'?'#dicas':name==='clima'?'#clima':name==='cameras'?'#cameras':name==='newsletter'?'#newsletter':name==='musicas'?'#musicas':name==='filmes'?'#filmes':location.pathname+location.search);}catch(e){}
