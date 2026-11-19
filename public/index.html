@@ -881,15 +881,12 @@ function viewStart(opts){
    '<p>'+(back?'Que bom te ver de novo! ':'')+'Para acessar o site é preciso estar inscrito no canal <strong>@aovivonorio</strong> no YouTube.</p>'+
    (err?'<p class="ytg-err" role="alert">'+esc(err)+'</p>':'')+
    '<div class="ytg-actions">'+
-    '<button class="ytg-btn ytg-yt" id="ytgSub" type="button">1 · Inscrever-se no canal</button>'+
-    '<button class="ytg-btn ytg-go" id="ytgVer" type="button">'+(back?'Verificar minha inscrição':'2 · Já me inscrevi — verificar com Google')+'</button>'+
-   '</div>'+
-   '<p class="ytg-fine">Você entrará com sua conta Google só para conferir se está inscrito (permissão somente-leitura). Nada é publicado nem guardado em servidor.</p>');
+    '<button class="ytg-btn ytg-yt" id="ytgSub" type="button">INSCREVA-SE NO CANAL</button>'+
+   '</div>');
   document.getElementById('ytgSub').onclick=function(){
     window.open(CFG.channelUrl+'?sub_confirmation=1','_blank','noopener');
-    this.textContent='Depois de se inscrever, volte aqui e verifique';
+    unlock();
   };
-  document.getElementById('ytgVer').onclick=function(){verify(false)};
 }
 function viewConfig(){
   render(head('CONFIGURAR')+'<p class="ytg-err" role="alert">O ID de cliente do Google ainda não foi configurado neste site. Edite <strong>CFG.clientId</strong> no início do script do portão.</p>');
@@ -946,7 +943,7 @@ function check(token){
 }
 
 lockInert();
-if(lsGet()){verify(true)}   /* já esteve aqui: revalida em silêncio; se falhar, pede o botão */
+if(lsGet()){unlock()}   /* já clicou antes: libera direto */
 else viewStart();
 })();
 </script>
