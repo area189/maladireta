@@ -763,6 +763,48 @@ main{gap:34px;padding:30px 0 60px}
 .handle{border-radius:999px}
 footer{border-top:1px solid rgba(57,255,20,.4);background:linear-gradient(180deg,transparent,rgba(38,16,79,.55))}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}[role="tabpanel"]:not([hidden]){animation:none}#dock nav.tabs>*,.game,.dica,.cam,.char,.btn{transition:none}}
+
+/* ===== Refino do menu lateral (dock) ===== */
+body.dock-open{overflow:hidden}
+#dock{width:min(340px,88vw);padding:calc(18px + env(safe-area-inset-top,0px)) calc(16px + env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 16px;background:linear-gradient(180deg,rgba(38,16,79,.97),rgba(23,10,51,.98));box-shadow:-18px 0 50px rgba(0,0,0,.6),-1px 0 0 rgba(122,44,255,.6)}
+#dock::before{font-size:20px;padding:6px 56px 14px 4px;margin-bottom:14px;border-bottom:2px solid;border-image:linear-gradient(90deg,#39ff14,#7a2cff 65%,rgba(122,44,255,0)) 1}
+#dock .wrap::before{content:"Escolha uma seção";display:block;margin:0 4px 12px;font:700 11px/1 Archivo,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+#dock nav.tabs{gap:12px;grid-auto-rows:1fr}
+#dock nav.tabs>.tab,#dock nav.tabs>.wpp{position:relative;min-height:96px;padding:14px 8px 12px;gap:9px;border-radius:18px;border-color:rgba(57,255,20,.45);box-shadow:3px 3px 0 #7a2cff;line-height:1.2;letter-spacing:.05em;-webkit-tap-highlight-color:transparent}
+#dock nav.tabs>.tab .ti,#dock nav.tabs>.wpp svg{width:22px;height:22px;padding:9px}
+#dock nav.tabs>.tab[aria-selected="true"]{border-color:var(--neon)}
+#dock nav.tabs>.tab[aria-selected="true"]::after{content:"";position:absolute;top:9px;right:9px;width:8px;height:8px;border-radius:50%;background:#170a33}
+#dock nav.tabs>.wpp{border-color:#25d366}
+#dock nav.tabs>.tab:active,#dock nav.tabs>.wpp:active{transform:scale(.96);box-shadow:1px 1px 0 #7a2cff}
+@media (max-height:620px){#dock nav.tabs>.tab,#dock nav.tabs>.wpp{min-height:72px;padding:10px 6px 8px;gap:6px}}
+@keyframes dkIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:none}}
+#dock.open nav.tabs>*{animation:dkIn .38s cubic-bezier(.2,.8,.2,1) backwards}
+#dock.open nav.tabs>*:nth-child(1){animation-delay:.04s}#dock.open nav.tabs>*:nth-child(2){animation-delay:.08s}#dock.open nav.tabs>*:nth-child(3){animation-delay:.12s}#dock.open nav.tabs>*:nth-child(4){animation-delay:.16s}#dock.open nav.tabs>*:nth-child(5){animation-delay:.20s}#dock.open nav.tabs>*:nth-child(6){animation-delay:.24s}#dock.open nav.tabs>*:nth-child(7){animation-delay:.28s}#dock.open nav.tabs>*:nth-child(8){animation-delay:.32s}
+#dockX{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px;padding:0;display:grid;place-items:center;border-radius:50%;border:1.5px solid rgba(57,255,20,.55);background:rgba(122,44,255,.35);color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s,transform .15s}
+#dockX:hover{background:var(--neon);color:#170a33}
+#dockX:active{transform:scale(.92)}
+#dockX:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+#dockX svg{width:18px;height:18px}
+@media (hover:none){#dock::after{content:"Toque fora ou deslize para fechar";display:block;padding-top:16px;text-align:center;font:600 11px/1.3 Archivo,sans-serif;letter-spacing:.06em;color:var(--mute);opacity:.85}}
+#dockH{right:env(safe-area-inset-right,0px);align-content:center;gap:8px}
+#dockH::after{content:"MENU";writing-mode:vertical-rl;font:800 10px/1 Archivo,sans-serif;letter-spacing:.22em}
+@media (prefers-reduced-motion:reduce){#dock.open nav.tabs>*{animation:none}#dockX{transition:none}}
+
+/* ===== Menu só com ícones, fundo transparente ===== */
+#dock{width:auto;background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border-left:0;box-shadow:none;padding:calc(18px + env(safe-area-inset-top,0px)) calc(14px + env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 14px}
+#dock::before,#dock .wrap::before,#dock::after{display:none}
+#dock .wrap{flex:none;margin:auto 0}
+#dock nav.tabs{grid-template-columns:1fr;grid-auto-rows:auto;gap:14px;justify-items:center}
+#dock nav.tabs>.tab,#dock nav.tabs>.wpp{width:60px;height:60px;min-height:0;padding:0;border-radius:50%;gap:0;justify-content:center;align-items:center;box-shadow:0 6px 16px rgba(0,0,0,.45),0 0 0 1px rgba(122,44,255,.6)}
+#dock nav.tabs>.tab .ti,#dock nav.tabs>.wpp svg{width:26px;height:26px;padding:0;background:none}
+#dock nav.tabs>.tab>span,#dock nav.tabs>.wpp>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#dock nav.tabs>.tab[aria-selected="true"]::after{display:none}
+#dock nav.tabs>.tab[aria-selected="true"]{box-shadow:0 0 22px rgba(57,255,20,.55),0 0 0 1px var(--neon)}
+#dock nav.tabs>.wpp svg{background:none;color:#25d366}
+#dock nav.tabs>.tab:hover,#dock nav.tabs>.wpp:hover{transform:scale(1.08);box-shadow:0 6px 16px rgba(0,0,0,.45),0 0 0 1px var(--neon)}
+#dock nav.tabs>.tab:active,#dock nav.tabs>.wpp:active{transform:scale(.94)}
+@media (max-height:620px){#dock nav.tabs{gap:8px}#dock nav.tabs>.tab,#dock nav.tabs>.wpp{width:48px;height:48px}#dock nav.tabs>.tab .ti,#dock nav.tabs>.wpp svg{width:22px;height:22px}}
+#dockB{background:rgba(10,3,28,.3)}
 </style>
 </head>
 <body>
@@ -789,7 +831,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 <a class="carimbo" href="https://wa.me/5521971891477?text=Ol%C3%A1!%20Quero%20anunciar%20no%20Ao%20Vivo%20no%20Rio." target="_blank" rel="noopener" aria-label="Anuncie aqui: falar no WhatsApp 21 97189-1477"><span>ANUNCIE</span><span>AQUI</span></a>
 </div>
 <div class="herotabs" id="dock"><div class="wrap"><nav class="tabs" role="tablist" aria-label="Seções do site">
-  <button class="tab" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" data-tab="live"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="currentColor"><path fill-rule="evenodd" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg><span>AO VIVO</span></button>
+  <button class="tab" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" data-tab="live"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></svg><span>AO VIVO</span></button>
   <button class="tab" role="tab" id="tab-dicas" aria-controls="panel-dicas" aria-selected="false" data-tab="dicas" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5V20l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4z"/><path d="M9 4v13.5M15 6.5V20"/></svg><span>DICAS : AO VIVO NO RIO</span></button>
   <button class="tab" role="tab" id="tab-clima" aria-controls="panel-clima" aria-selected="false" data-tab="clima" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>CLIMA TEMPO</span></button>
   <button class="tab" role="tab" id="tab-cameras" aria-controls="panel-cameras" aria-selected="false" data-tab="cameras" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(12 13 9)"><rect x="6" y="4.5" width="13" height="7" rx="1.5"/><path d="M19 6.5h2.5v3H19"/></g><path d="M3 3v14M3 8h4M7 17H3"/></svg><span>CÂMERAS DO RIO</span></button>
@@ -950,43 +992,20 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   </div>
 </section>
 <section id="panel-filmes" role="tabpanel" aria-labelledby="tab-filmes" hidden>
-  <div class="sec-title"><h2 id="fil-h">FILMES · ADOROCINEMA</h2></div>
-  <p class="fil-intro">Estreias, filmes em cartaz e lançamentos mais esperados, com dados do <b>AdoroCinema</b> (atualizado em 18/11/2026). Toque em um filme para ver a ficha aqui mesmo; as <b>sessões</b> abrem no AdoroCinema.</p>
-  <div class="ac-links">
-    <a href="https://www.adorocinema.com/filmes/numero-cinemas/" target="_blank" rel="noopener noreferrer">🎟️ Em cartaz</a>
-    <a href="https://www.adorocinema.com/filmes/em-cartaz/estreias/" target="_blank" rel="noopener noreferrer">🆕 Estreias</a>
-    <a href="https://www.adorocinema.com/filmes/mais-esperados/" target="_blank" rel="noopener noreferrer">⏳ Mais esperados</a>
-    <a href="https://www.adorocinema.com/filmes/agenda/" target="_blank" rel="noopener noreferrer">🗓️ Agenda</a>
-    <a href="https://www.adorocinema.com/videos/trailers/" target="_blank" rel="noopener noreferrer">🎬 Trailers</a>
-    <a href="https://www.adorocinema.com/noticias/filmes/" target="_blank" rel="noopener noreferrer">📰 Notícias</a>
+  <div class="sec-title"><h2 id="fil-h">FILMES · OMELETE</h2></div>
+  <p class="fil-intro">Notícias, críticas e listas de cinema do <b>Omelete</b>. Toque em uma aba para abrir a seção de Filmes numa janela flutuante.</p>
+  <div class="ac-links" role="group" aria-label="Seções de filmes do Omelete">
+    <a href="https://www.omelete.com.br/noticias?section=filmes" target="_blank" rel="noopener noreferrer">📰 Notícias</a>
+    <a href="https://www.omelete.com.br/criticas?section=filmes" target="_blank" rel="noopener noreferrer">🎬 Críticas</a>
+    <a href="https://www.omelete.com.br/listas?section=filmes" target="_blank" rel="noopener noreferrer">📋 Listas</a>
   </div>
-  <div class="ac-pills" role="group" aria-label="Filtrar filmes">
-    <button type="button" class="ac-pill" aria-pressed="true" data-f="">Todos</button>
-    <button type="button" class="ac-pill" aria-pressed="false" data-f="Estreia">Estreias</button>
-    <button type="button" class="ac-pill" aria-pressed="false" data-f="Em cartaz">Em cartaz</button>
-    <button type="button" class="ac-pill" aria-pressed="false" data-f="Em breve">Em breve</button>
-  </div>
-  <div class="ac-grid" id="acGrid"></div>
-  <p class="mus-fine">Fonte: <a href="https://www.adorocinema.com/" target="_blank" rel="noopener noreferrer">AdoroCinema</a>. Notas de usuários, sessões e datas podem mudar; confirme sempre no site. Títulos, pôsteres e marcas pertencem aos seus detentores.</p>
+  <p class="mus-fine">Fonte: <a href="https://www.omelete.com.br/" target="_blank" rel="noopener noreferrer">Omelete</a>. Todo o conteúdo, imagens e marcas pertencem ao Omelete e aos seus detentores.</p>
 
-  <div id="acDlg" class="ac-dlg" role="dialog" aria-modal="true" aria-labelledby="acT" hidden>
-    <div class="ac-box">
-      <div class="ac-bar"><b id="acT">Filme</b><button type="button" class="ac-x" id="acX" aria-label="Fechar janela">✕</button></div>
-      <div class="ac-body" id="acBody"></div>
-      <div class="ac-act">
-        <a class="ac-b p" id="acS" target="_blank" rel="noopener noreferrer">🎟️ Ver sessões ↗</a>
-        <a class="ac-b" id="acF" target="_blank" rel="noopener noreferrer">Ficha completa ↗</a>
-        <button type="button" class="ac-b" id="acE">Tentar abrir aqui dentro</button>
-      </div>
-      <p class="ac-hint" id="acH" hidden>Se a área ficar em branco ou mostrar “recusou a conexão”, o AdoroCinema não permite ser exibido dentro de outros sites. Use “Ficha completa ↗”.</p>
-      <iframe id="acIF" title="AdoroCinema" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" hidden></iframe>
-    </div>
-  </div>
   <div id="acWeb" class="ac-dlg ac-web" role="dialog" aria-modal="true" aria-labelledby="acWT" hidden>
     <div class="ac-box ac-wbox">
-      <div class="ac-bar"><b id="acWT">AdoroCinema</b><a class="ac-b" id="acWN" target="_blank" rel="noopener noreferrer">Abrir em nova aba ↗</a><button type="button" class="ac-x" id="acWX" aria-label="Fechar janela">✕</button></div>
-      <p class="ac-hint">Se a página ficar em branco ou mostrar “recusou a conexão”, o AdoroCinema não permite ser exibido dentro de outros sites. Use “Abrir em nova aba”.</p>
-      <iframe id="acWF" title="AdoroCinema" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" src="about:blank"></iframe>
+      <div class="ac-bar"><b id="acWT">Omelete</b><a class="ac-b" id="acWN" target="_blank" rel="noopener noreferrer">Abrir em nova aba ↗</a><button type="button" class="ac-x" id="acWX" aria-label="Fechar janela">✕</button></div>
+      <p class="ac-hint">Se a página ficar em branco ou mostrar “recusou a conexão”, o Omelete não permite ser exibido dentro de outros sites. Use “Abrir em nova aba”.</p>
+      <iframe id="acWF" title="Omelete" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" src="about:blank"></iframe>
     </div>
   </div>
   <style>
@@ -1032,84 +1051,94 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   #acIF[hidden]{display:none}
   @media (max-width:600px){.ac-grid{grid-template-columns:1fr 1fr}.ac-body{grid-template-columns:1fr}.ac-body .ac-p{max-width:180px}.ac-dlg{padding:0}.ac-box{max-height:none;height:100%;border-radius:0;border-width:2px}}
   </style>
+  <style>
+  /* ---- Popup de filmes: ajuste para celular ---- */
+  .ac-dlg,.ac-box{overscroll-behavior:contain}
+  @media (max-width:820px),(max-height:520px),(pointer:coarse){
+    .ac-dlg{padding:0;height:100vh;height:100dvh}
+    .ac-box{width:100%;max-width:none;height:100%;max-height:none;margin:0;border:0;border-radius:0;box-shadow:none;overflow:hidden}
+    .ac-bar{flex:none;position:static;padding:max(8px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(14px,env(safe-area-inset-left,0px))}
+    .ac-x{width:44px;height:44px}
+    .ac-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;grid-template-columns:1fr;gap:14px;padding:16px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px))}
+    .ac-body .ac-p{width:min(58%,200px);max-width:none;margin:0 auto}
+    .ac-body h3{font-size:clamp(20px,6vw,26px)}
+    .ac-body p{font-size:15px}
+    .ac-act{flex:none;flex-direction:column;gap:8px;padding:10px max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));border-top:2px solid var(--neon);background:#26104f}
+    .ac-b{min-height:46px;justify-content:center;text-align:center}
+    .ac-hint{flex:none;padding:8px 16px;background:#170a33}
+    .ac-box.emb .ac-body{display:none}
+    .ac-box.emb #acIF{flex:1;min-height:0;height:auto}
+  }
+  @media (max-height:520px) and (orientation:landscape){
+    .ac-bar{padding-top:max(4px,env(safe-area-inset-top,0px));padding-bottom:4px}
+    .ac-x{width:38px;height:38px}
+    .ac-body{grid-template-columns:130px 1fr}
+    .ac-body .ac-p{width:130px;margin:0}
+    .ac-act{flex-direction:row;flex-wrap:wrap}
+    .ac-b{min-height:40px}
+  }
+  </style>
+  <style>
+  /* Popup do Omelete no celular: janela flutuante de no máximo 50% da tela, arrastável */
+  .ac-dlg,.ac-box{overscroll-behavior:contain}
+  @media (max-width:820px),(max-height:520px),(pointer:coarse){
+    #acWeb{top:auto;bottom:0;height:50vh;height:50dvh;padding:0 8px;background:transparent;pointer-events:none;align-items:stretch}
+    #acWeb .ac-box{pointer-events:auto;width:100%;max-width:none;height:100%;max-height:none;margin:0;overflow:hidden;border:3px solid var(--neon);border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.55)}
+    #acWeb .ac-bar{position:relative;padding-top:14px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+    #acWeb .ac-bar:active{cursor:grabbing}
+    #acWeb .ac-bar::before{content:"";position:absolute;top:5px;left:50%;width:40px;height:5px;border-radius:5px;background:rgba(57,255,20,.7);transform:translateX(-50%)}
+    #acWeb .ac-b{min-height:40px}
+  }
+  </style>
   <script>
   (function(){
-    var BASE='https://www.adorocinema.com/filmes/filme-',IMG='https://br.web.img3.acsta.net/c_310_420/img/';
-    /* t título, id, g categoria, i linha de info, dr direção, s sinopse, n nota, ss sessões no Brasil, p pôster */
-    var F=[
-     {t:'Ebenezer e os Fantasmas do Natal',id:'1000034007',g:'Estreia',i:'12/11/2026 · 1h 56min · Aventura, Drama, Fantasia',dr:'Ti West',c:'Johnny Depp, Rupert Grint, Daisy Ridley',n:'3,7',ss:572,p:'41/5a/415aecd9d5238491c9c7c119c27a914a.jpg',s:'Na véspera de Natal, Ebenezer Scrooge recebe a visita do fantasma de seu antigo parceiro e dos espíritos do Natal. Diante das consequências de suas escolhas, precisa decidir se ainda há tempo para mudar.'},
-     {t:'A Virada: Ignição da Alma',id:'1000044657',g:'Estreia',i:'12/11/2026 · 2h 04min · Drama',dr:'Alessandro Barros',c:'Mario Bregieira, Pérola Faria, Gui Tavares',n:'3,3',ss:451,p:'3e/db/3edbc651e8bd80f6d973b7c36bbd77fe.jpg',s:'Noah Silva vende carros usados no Rio de Janeiro com uma abordagem antiética, e sua vida profissional e pessoal desmorona.'},
-     {t:'Boiúna: Terror no Amazonas',id:'326752',g:'Estreia',i:'12/11/2026 · 1h 44min · Aventura, Ação, Suspense',dr:'Mike P. Nelson',c:'Kiana Madeira, Jessica Rothe, Logan Marshall-Green',n:'3,1',ss:82,p:'75/e1/75e115ee346c422fb295d4446c48bc3d.jpg',s:'Um grupo de médicos se aventura pela floresta amazônica para ajudar comunidades isoladas, mas nem todos recebem bem a chegada deles.'},
-     {t:'Lago dos Ossos',id:'1000009297',g:'Estreia',i:'12/11/2026 · 1h 35min · Suspense, Terror',dr:'Mercedes Bryce Morgan',c:'Maddie Hasson, Alex Roe, Marco Pigossi',n:'2,4',ss:70,s:'Dois casais alugam a mesma casa de veraneio e dividem o espaço. A viagem romântica vira uma teia de mentiras e desejos reprimidos.'},
-     {t:'Pinóquio: Maldição de Madeira',id:'325933',g:'Estreia',i:'12/11/2026 · 1h 22min · Suspense, Terror',dr:'Rhys Frake-Waterfield',c:'Robert Englund, Richard Brake, Jude Evan Lloyd',n:'2,6',ss:72,s:'Um marceneiro cria um boneco para consolar o neto, mas a criatura desenvolve uma obsessão por se tornar um menino de verdade.'},
-     {t:'Apenas uma Ilusão',id:'1000015954',g:'Estreia',i:'12/11/2026 · 1h 59min · Comédia dramática',dr:'Olivier Nakache, Eric Toledano',c:'Louis Garrel, Camille Cottin, Pierre Lottin',ss:29,s:'Em 1985, Vincent vive o primeiro amor e dúvidas sobre identidade e fé, enquanto enfrenta a convivência difícil com a família.'},
-     {t:'Deixe-me Viver',id:'1000046922',g:'Estreia',i:'12/11/2026 · 1h 43min · Drama',dr:'Walther Neto',c:'Mônica Carvalho, Cat Dantas, Humberto Martins',ss:35,s:'Ao receber o diagnóstico de um câncer terminal, Julia pede à mãe que interrompa o tratamento para viver plenamente o tempo que lhe resta.'},
-     {t:'Contos Paralelos',id:'1000023480',g:'Estreia',i:'12/11/2026 · 2h 21min · Drama',dr:'Asghar Farhadi',c:'Isabelle Huppert, Virginie Efira, Pierre Niney',n:'3,0',ss:27,s:'Em crise criativa, uma escritora francesa busca inspiração observando em segredo os vizinhos do prédio em frente.'},
-     {t:'Super Charlie',id:'326812',g:'Estreia',i:'12/11/2026 · 1h 20min · Animação, Aventura, Comédia',dr:'Jon Holmberg',c:'Orlando Wahlsteen, Silas Strand, Sven Björklund',s:'Um garoto de 10 anos que sempre sonhou com super-poderes descobre que o irmão recém-nascido tem poderes de verdade.'},
-     {t:'O Bosque Selvagem',id:'296439',g:'Em cartaz',i:'Em cartaz · Melhores do momento',dr:'Travis Knight',c:'Peyton Elizabeth Lee, Jacob Tremblay, Mahershala Ali',n:'4,3'},
-     {t:'Godzilla Minus Zero',id:'1000014492',g:'Em cartaz',i:'Em cartaz',dr:'Takashi Yamazaki',c:'Ryûnosuke Kamiki, Minami Hamabe, Yamada Yuki',n:'4,0'},
-     {t:'Cara-de-Barro',id:'1000016901',g:'Em cartaz',i:'Em cartaz',dr:'James Watkins',c:'Tom Rhys Harries, Naomi Ackie, Eddie Marsan',n:'3,8'},
-     {t:'Minha Melhor Amiga',id:'1000027736',g:'Em cartaz',i:'Em cartaz',dr:'Susana Garcia',c:'Ingrid Guimarães, Mônica Martelli, Giulia Benite',n:'3,6'},
-     {t:'Verity',id:'1000015739',g:'Em cartaz',i:'Em cartaz',dr:'Michael Showalter',c:'Anne Hathaway, Dakota Johnson, Josh Hartnett',n:'3,6'},
-     {t:'Os Farofeiros 3',id:'1000026046',g:'Em cartaz',i:'Em cartaz',dr:'Roberto Santucci'},
-     {t:'O Gatola da Cartola',id:'204864',g:'Em cartaz',i:'Em cartaz',dr:'Alessandro Carloni, Erica Rivinoja'},
-     {t:'Como Roubar Um Banco',id:'1000020289',g:'Em cartaz',i:'Em cartaz',dr:'David Leitch'},
-     {t:'Jogos Vorazes: Amanhecer na Colheita',id:'1000004528',g:'Em breve',i:'Estreia em 20/11/2026',dr:'Francis Lawrence',c:'Joseph Zada, Whitney Peak'},
-     {t:'Eu Sou o Rocky',id:'1000002678',g:'Em breve',i:'Estreia em 19/11/2026',dr:'Peter Farrelly'},
-     {t:'Josephine: Fragmentos de um Crime',id:'1000010349',g:'Em breve',i:'Estreia em 19/11/2026'},
-     {t:'Camisas Negras',id:'1000054001',g:'Em breve',i:'Estreia em 19/11/2026'},
-     {t:'Pecadora',id:'1000015824',g:'Em breve',i:'Estreia em 26/11/2026'},
-     {t:'Enfeitiçadas: Bem-Vindos a Hexe',id:'312529',g:'Em breve',i:'Estreia em 26/11/2026'},
-     {t:'Entrando Numa Grande Fria',id:'1000016814',g:'Em breve',i:'Estreia em 26/11/2026'},
-     {t:'Vingadores: Doutor Destino',id:'269068',g:'Em breve',i:'Estreia em 17/12/2026'},
-     {t:'A Bola Preta',id:'1000024810',g:'Em breve',i:'Estreia em 14/01/2027'}
-    ];
-    function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-    function hue(t){var h=0;for(var i=0;i<t.length;i++)h+=t.charCodeAt(i);return (h*29)%360;}
-    function poster(x,tag){return '<div class="ac-p" style="--h:'+hue(x.t)+'"><span>'+esc(x.t)+'</span>'+(x.p?'<img src="'+IMG+x.p+'" alt="Pôster de '+esc(x.t)+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">':'')+(tag?'<i>'+esc(x.g)+'</i>':'')+'</div>';}
     var $=function(i){return document.getElementById(i);};
-    var grid=$('acGrid'),pills=document.querySelectorAll('.ac-pill'),dlg=$('acDlg'),ifr=$('acIF'),last=null;
-    function draw(f){
-      grid.innerHTML=F.map(function(x,k){return {x:x,k:k};}).filter(function(o){return !f||o.x.g===f;}).map(function(o){
-        var x=o.x;return '<button type="button" class="ac-card" data-k="'+o.k+'">'+poster(x,true)+'<b>'+esc(x.t)+'</b><small>'+esc(x.i.split(' · ')[0])+(x.n?' · ★ '+x.n:'')+'</small></button>';
-      }).join('');
-      pills.forEach(function(p){p.setAttribute('aria-pressed',p.getAttribute('data-f')===f?'true':'false');});
-    }
-    pills.forEach(function(p){p.addEventListener('click',function(){draw(p.getAttribute('data-f'));});});
-    draw('');
-    function abrir(k,de){
-      var x=F[k],u=BASE+x.id+'/';last=de;
-      $('acT').textContent=x.t;
-      $('acBody').innerHTML=poster(x,false)+'<div><h3>'+esc(x.t)+'</h3><p>'+esc(x.i)+'</p>'
-        +(x.dr?'<p><b>Direção:</b> '+esc(x.dr)+'</p>':'')+(x.c?'<p><b>Elenco:</b> '+esc(x.c)+'</p>':'')
-        +(x.s?'<p>'+esc(x.s)+'</p>':'<p>Sinopse, trailer e críticas na ficha completa do AdoroCinema.</p>')
-        +(x.n?'<span class="ac-note">★ '+x.n+' · usuários AdoroCinema</span>':'')+'</div>';
-      var s=$('acS');s.href=g_(x,u);s.style.display=x.g==='Em breve'?'none':'';
-      s.textContent='🎟️ Ver sessões'+(x.ss?' ('+x.ss+')':'')+' ↗';
-      $('acF').href=u;ifr.hidden=true;ifr.src='about:blank';$('acH').hidden=true;$('acE').hidden=false;
-      dlg.hidden=false;document.body.style.overflow='hidden';$('acX').focus({preventScroll:true});
-    }
-    function g_(x,u){return u+'programacao/';}
-    function fechar(){dlg.hidden=true;ifr.src='about:blank';ifr.hidden=true;document.body.style.overflow='';if(last&&last.focus)last.focus();}
-    grid.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ac-card');if(b)abrir(+b.getAttribute('data-k'),b);});
-    $('acE').addEventListener('click',function(){ifr.src=$('acF').href;ifr.hidden=false;$('acH').hidden=false;this.hidden=true;ifr.scrollIntoView({block:'nearest'});});
-    $('acX').addEventListener('click',fechar);
-    dlg.addEventListener('click',function(e){if(e.target===dlg)fechar();});
-    document.addEventListener('keydown',function(e){if(!dlg.hidden&&e.key==='Escape')fechar();});
-
-    /* Popup do AdoroCinema: Em cartaz, Estreias, Mais esperados, Agenda, Trailers, Notícias */
-    var wd=$('acWeb'),wf=$('acWF'),wl=null;
-    function wFechar(){wd.hidden=true;wf.src='about:blank';if(!dlg.hidden)return;document.body.style.overflow='';if(wl&&wl.focus)wl.focus();}
+    var MQ='(max-width:820px),(max-height:520px),(pointer:coarse)';
+    var wd=$('acWeb'),wf=$('acWF'),box=wd.querySelector('.ac-box'),wl=null,ox=0,oy=0;
+    document.body.appendChild(wd); /* fora do painel: o popup flutua sobre a tela inteira */
+    function wFechar(){wd.hidden=true;wf.src='about:blank';document.body.style.overflow='';if(wl&&wl.focus)wl.focus();}
     document.querySelector('.ac-links').addEventListener('click',function(e){
       var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;
       if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
       e.preventDefault();wl=a;
-      $('acWT').textContent=a.textContent.replace(/^[^A-Za-zÀ-ú]+/,'')+' · AdoroCinema';
-      $('acWN').href=a.href;wf.src=a.href;wd.hidden=false;document.body.style.overflow='hidden';$('acWX').focus({preventScroll:true});
+      $('acWT').textContent=a.textContent.replace(/^[^A-Za-zÀ-ú]+/,'')+' · Omelete';
+      $('acWN').href=a.href;wf.src=a.href;
+      ox=0;oy=0;box.style.transform='';
+      var r=a.getBoundingClientRect(),cy=e.clientY>0?e.clientY:r.top+r.height/2;
+      if(window.matchMedia(MQ).matches){
+        var H=window.innerHeight,h=Math.round(H*.5),t=Math.max(8,Math.min(cy-h/2,H-h-8));
+        wd.style.top=t+'px';wd.style.bottom='auto';wd.style.height=h+'px';document.body.style.overflow='';
+      }else{wd.style.top=wd.style.bottom=wd.style.height='';document.body.style.overflow='hidden';}
+      wd.hidden=false;$('acWX').focus({preventScroll:true});
     });
     $('acWX').addEventListener('click',wFechar);
     wd.addEventListener('click',function(e){if(e.target===wd)wFechar();});
-    document.addEventListener('keydown',function(e){if(!wd.hidden&&e.key==='Escape'){e.stopImmediatePropagation();wFechar();}},true);
+    document.addEventListener('keydown',function(e){if(!wd.hidden&&e.key==='Escape')wFechar();});
+
+    /* Fecha o popup ao trocar de aba, abrir o menu lateral ou mudar o endereço (#) */
+    function fecharTudo(){if(wd.hidden)return;wd.hidden=true;wf.src='about:blank';document.body.style.overflow='';}
+    window.closeFilmesPopups=fecharTudo;
+    window.addEventListener('hashchange',fecharTudo);
+    new MutationObserver(function(){if(document.body.classList.contains('dock-open'))fecharTudo();}).observe(document.body,{attributes:true,attributeFilter:['class']});
+
+    /* Popup flutuante no celular: arraste pelo cabeçalho para qualquer lugar da tela */
+    (function(){
+      var bar=wd.querySelector('.ac-bar'),mq=window.matchMedia(MQ),on=false,sx=0,sy=0,nx=0,ny=0,b0=null;
+      bar.addEventListener('pointerdown',function(e){
+        if(!mq.matches||(e.target.closest&&e.target.closest('.ac-x,a')))return;
+        var r=box.getBoundingClientRect();b0={l:r.left-ox,t:r.top-oy,w:r.width,h:r.height};
+        on=true;sx=e.clientX;sy=e.clientY;nx=ox;ny=oy;try{bar.setPointerCapture(e.pointerId);}catch(_){}
+      });
+      bar.addEventListener('pointermove',function(e){
+        if(!on)return;
+        nx=Math.max(-b0.l,Math.min(ox+e.clientX-sx,window.innerWidth-b0.w-b0.l));
+        ny=Math.max(-b0.t,Math.min(oy+e.clientY-sy,window.innerHeight-b0.h-b0.t));
+        box.style.transform='translate('+nx+'px,'+ny+'px)';
+      });
+      function fim(){if(!on)return;on=false;ox=nx;oy=ny;}
+      bar.addEventListener('pointerup',fim);bar.addEventListener('pointercancel',fim);
+      window.addEventListener('resize',function(){ox=0;oy=0;box.style.transform='';});
+    })();
   })();
   </script>
 </section>
@@ -2956,6 +2985,7 @@ var DICAS = [
   /* ---- Abas ---- */
   var tabs=document.querySelectorAll('.tab'),panels={live:$('panel-live'),dicas:$('panel-dicas'),clima:$('panel-clima'),cameras:$('panel-cameras'),newsletter:$('panel-newsletter'),musicas:$('panel-musicas'),filmes:$('panel-filmes')};
   function selectTab(name,focus){
+    if(window.closeFilmesPopups)window.closeFilmesPopups();
     tabs.forEach(function(t){var on=t.dataset.tab===name;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on&&focus)t.focus();});
     Object.keys(panels).forEach(function(k){panels[k].hidden=(k!==name);});
     try{history.replaceState(null,'',name==='dicas'?'#dicas':name==='clima'?'#clima':name==='cameras'?'#cameras':name==='newsletter'?'#newsletter':name==='musicas'?'#musicas':name==='filmes'?'#filmes':location.pathname+location.search);}catch(e){}
@@ -3462,6 +3492,39 @@ var DICAS = [
   document.addEventListener('touchmove',function(e){if(x0===null||!from)return;var p=e.touches[0],dx=p.clientX-x0,dy=Math.abs(p.clientY-y0);
     if(from==='edge'&&dx<-50&&-dx>dy){open();x0=null;}else if(from==='in'&&dx>50&&dx>dy){close();x0=null;}},{passive:true});
   document.addEventListener('touchend',function(){x0=null;},{passive:true});
+})();
+</script>
+
+<script>
+/* Refino do menu lateral: botão fechar, foco e acessibilidade */
+(function(){
+  var d=document.getElementById('dock'),h=document.getElementById('dockH'),k=document.getElementById('dockB');
+  if(!d||!h||!k)return;
+  d.setAttribute('role','dialog');d.setAttribute('aria-modal','true');d.setAttribute('aria-label','Menu de seções');
+  var x=document.createElement('button');x.id='dockX';x.type='button';x.setAttribute('aria-label','Fechar menu');
+  x.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  d.insertBefore(x,d.firstChild);
+  [].forEach.call(d.querySelectorAll('.tab>span'),function(n){n.parentNode.title=n.textContent.trim();});
+  var w=d.querySelector('.wpp');if(w)w.title='WhatsApp';
+  x.addEventListener('click',function(){k.click();});
+  var last=null;
+  new MutationObserver(function(){
+    if(d.classList.contains('open')){
+      last=document.activeElement;
+      setTimeout(function(){var t=d.querySelector('.tab[aria-selected="true"]')||d.querySelector('.tab');if(t)t.focus({preventScroll:true});},60);
+    }else if(d.contains(document.activeElement)){
+      var r=(last&&last!==document.body&&document.contains(last)&&!d.contains(last))?last:h;
+      r.focus({preventScroll:true});
+    }
+  }).observe(d,{attributes:true,attributeFilter:['class']});
+  d.addEventListener('keydown',function(e){
+    if(e.key!=='Tab'||!d.classList.contains('open'))return;
+    var f=[].slice.call(d.querySelectorAll('button,a[href]')).filter(function(n){return n.tabIndex>=0&&n.offsetParent!==null;});
+    if(!f.length)return;
+    var a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}
+    else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}
+  });
 })();
 </script>
 </body>
