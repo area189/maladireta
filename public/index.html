@@ -993,12 +993,8 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </section>
 <section id="panel-filmes" role="tabpanel" aria-labelledby="tab-filmes" hidden>
   <div class="sec-title"><h2 id="fil-h">FILMES · OMELETE</h2></div>
-  <p class="fil-intro">Notícias, críticas e listas de cinema do <b>Omelete</b>. Toque em uma aba para abrir a seção de Filmes numa janela flutuante.</p>
-  <div class="ac-links" role="group" aria-label="Seções de filmes do Omelete">
-    <a href="https://www.omelete.com.br/noticias?section=filmes" target="_blank" rel="noopener noreferrer">📰 Notícias</a>
-    <a href="https://www.omelete.com.br/criticas?section=filmes" target="_blank" rel="noopener noreferrer">🎬 Críticas</a>
-    <a href="https://www.omelete.com.br/listas?section=filmes" target="_blank" rel="noopener noreferrer">📋 Listas</a>
-  </div>
+  <p class="fil-intro">Notícias, críticas e listas de cinema do <b>Omelete</b>. Toque em um item para abrir numa janela flutuante.</p>
+  <div id="omFeed"></div>
   <p class="mus-fine">Fonte: <a href="https://www.omelete.com.br/" target="_blank" rel="noopener noreferrer">Omelete</a>. Todo o conteúdo, imagens e marcas pertencem ao Omelete e aos seus detentores.</p>
 
   <div id="acWeb" class="ac-dlg ac-web" role="dialog" aria-modal="true" aria-labelledby="acWT" hidden>
@@ -1090,18 +1086,73 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
     #acWeb .ac-b{min-height:40px}
   }
   </style>
+  <style>
+  .om-sec{margin:20px 0 6px}
+  .om-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+  .om-h h3{margin:0;font-weight:800;font-size:clamp(19px,5vw,24px);line-height:1.1;color:var(--ink)}
+  .om-tag{display:inline-block;background:#ffc400;color:#1a1a1a;font-weight:700;font-size:12px;line-height:1;padding:5px 8px;border-radius:5px}
+  .om-all{margin-left:auto;color:var(--ink);text-decoration:none;font-weight:600;font-size:14px;padding:9px 14px;border:2px solid var(--neon);border-radius:8px;min-height:20px}
+  .om-all:hover,.om-all:focus-visible{background:var(--neon);color:#0a031c}
+  .om-row{display:grid;gap:12px}
+  .om-r-c,.om-r-l{grid-auto-flow:column;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+  .om-r-c{grid-auto-columns:minmax(150px,185px)}
+  .om-r-l{grid-auto-columns:minmax(230px,280px)}
+  .om-r-n{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .om-card{display:block;scroll-snap-align:start;color:var(--ink);text-decoration:none;background:#170a33;border:2px solid #3a1f7a;border-radius:12px;overflow:hidden}
+  .om-card:hover,.om-card:focus-visible{border-color:var(--neon)}
+  .om-th{display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,hsl(var(--h,260),70%,38%),hsl(var(--h,260),70%,20%));color:rgba(255,255,255,.9);font-weight:800;font-size:clamp(30px,9vw,46px)}
+  .om-th img{width:100%;height:100%;object-fit:cover;display:block}
+  .om-c .om-th{aspect-ratio:3/4}.om-l .om-th{aspect-ratio:16/9}
+  .om-tx{display:grid;gap:6px;justify-items:start;padding:10px 12px 12px}
+  .om-tx b{font-size:15px;line-height:1.3}.om-tx small{opacity:.75;font-size:12.5px}
+  .om-n{display:grid;grid-template-columns:112px 1fr;align-items:stretch}
+  .om-n .om-th{aspect-ratio:auto;min-height:104px;border-radius:0}
+  @media (max-width:700px){.om-r-n{grid-template-columns:1fr}}
+  </style>
   <script>
   (function(){
     var $=function(i){return document.getElementById(i);};
+    var OM='https://www.omelete.com.br';
+    /* t título, a autor, m tempo de leitura, u link do texto (sem u abre a seção), i imagem opcional (URL) */
+    var D=[
+     {k:'n',h:'Notícias',all:OM+'/noticias?section=filmes',x:[
+      {t:'Sorry About My Friends | Kathryn Newton, Nina Dobrev, Adam Devine e Scott Eastwood vão estrelar comédia romântica',m:'1 min de leitura'},
+      {t:'Matrix | Irmãs Wachowski querem recuperar direitos da franquia da Skydance, diz site',m:'2 min de leitura'},
+      {t:'The Nightingale | Filme com as irmãs Fanning ganha primeiras imagens; veja',m:'2 min de leitura',u:OM+'/filmes/the-nightingale-filme-com-as-irmas-fanning-ganha-primeiras-imagens-veja'},
+      {t:'007 | Revista americana coloca Fernanda Torres em lista de vilões do novo James Bond',m:'2 min de leitura'},
+      {t:'Devoradores de Estrelas voltará aos cinemas de olho no Oscar 2027 e ganha novo trailer, assista',m:'2 min de leitura',u:OM+'/filmes/devoradores-de-estrelas-voltara-aos-cinemas-olho-oscar-2027-ganha-trailer'},
+      {t:'Primeiras reações elogiam As Novas Desventuras de Cliff Booth',u:OM+'/filmes/cliff-booth-primeiras-reacoes-brad-pitt-fincher-tarantino'}]},
+     {k:'c',h:'Críticas',all:OM+'/criticas?section=filmes',x:[
+      {t:'Jogos Vorazes: Amanhecer na Colheita',a:'Bruna Nobrega',m:'5 min de leitura',u:OM+'/filmes/criticas/jogos-vorazes-amanhecer-na-colheita-critica-e-bom'},
+      {t:'Eu Vou Ter Saudades de Você',a:'Caio Coletti',m:'4 min de leitura',u:OM+'/filmes/criticas/eu-vou-ter-saudades-de-voce-critica-filme'},
+      {t:'Como Roubar um Banco',a:'André Zuliani',m:'3 min de leitura',u:OM+'/filmes/criticas/como-roubar-um-banco-critica-filme'},
+      {t:'Boiúna - Terror no Amazonas',a:'Caio Coletti',m:'3 min de leitura',u:OM+'/filmes/criticas/boiuna-terror-no-amazonas-filme-critica'}]},
+     {k:'l',h:'Listas',all:OM+'/listas?section=filmes',x:[
+      {t:'007 | Melhores vilões para o James Bond de Robert Pattinson',a:'A cozinha',m:'4 min de leitura',u:OM+'/filmes/007-melhores-viloes-para-o-james-bond-de-robert-pattinson'},
+      {t:'007 | As melhores Bond girls para Robert Pattinson',a:'A cozinha',m:'4 min de leitura',u:OM+'/filmes/007-as-melhores-bond-girls-robert-pattinson'}]}
+    ];
+    function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function hue(t){var h=0;for(var i=0;i<t.length;i++)h+=t.charCodeAt(i);return (h*29)%360;}
+    function card(x,all,k){
+      var th=x.i?'<div class="om-th"><img src="'+esc(x.i)+'" alt="" loading="lazy" referrerpolicy="no-referrer"></div>'
+        :'<div class="om-th" style="--h:'+hue(x.t)+'" aria-hidden="true"><span>'+esc(x.t.charAt(0))+'</span></div>';
+      return '<a class="om-card om-'+k+'" href="'+esc(x.u||all)+'" data-t="'+esc(x.t)+'" target="_blank" rel="noopener noreferrer">'+th
+        +'<div class="om-tx"><span class="om-tag">Filmes</span><b>'+esc(x.t)+'</b>'+(x.a?'<small>'+esc(x.a)+'</small>':'')+(x.m?'<small>'+esc(x.m)+'</small>':'')+'</div></a>';
+    }
+    document.getElementById('omFeed').innerHTML=D.map(function(d){
+      return '<section class="om-sec" aria-label="'+d.h+'"><div class="om-h"><h3>'+d.h+'</h3><span class="om-tag om-on">Filmes</span>'
+        +'<a class="om-all" href="'+d.all+'" data-t="'+d.h+' · Filmes" target="_blank" rel="noopener noreferrer">Ver todas ›</a></div>'
+        +'<div class="om-row om-r-'+d.k+'">'+d.x.map(function(x){return card(x,d.all,d.k);}).join('')+'</div></section>';
+    }).join('');
     var MQ='(max-width:820px),(max-height:520px),(pointer:coarse)';
     var wd=$('acWeb'),wf=$('acWF'),box=wd.querySelector('.ac-box'),wl=null,ox=0,oy=0;
     document.body.appendChild(wd); /* fora do painel: o popup flutua sobre a tela inteira */
     function wFechar(){wd.hidden=true;wf.src='about:blank';document.body.style.overflow='';if(wl&&wl.focus)wl.focus();}
-    document.querySelector('.ac-links').addEventListener('click',function(e){
+    $('omFeed').addEventListener('click',function(e){
       var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;
       if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
       e.preventDefault();wl=a;
-      $('acWT').textContent=a.textContent.replace(/^[^A-Za-zÀ-ú]+/,'')+' · Omelete';
+      $('acWT').textContent=(a.getAttribute('data-t')||a.textContent).trim();
       $('acWN').href=a.href;wf.src=a.href;
       ox=0;oy=0;box.style.transform='';
       var r=a.getBoundingClientRect(),cy=e.clientY>0?e.clientY:r.top+r.height/2;
