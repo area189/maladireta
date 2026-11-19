@@ -806,8 +806,151 @@ body.dock-open{overflow:hidden}
 @media (max-height:620px){#dock nav.tabs{gap:8px}#dock nav.tabs>.tab,#dock nav.tabs>.wpp{width:48px;height:48px}#dock nav.tabs>.tab .ti,#dock nav.tabs>.wpp svg{width:22px;height:22px}}
 #dockB{background:rgba(10,3,28,.3)}
 </style>
+<style>
+/* ===== Portão de inscrição (YouTube) ===== */
+html.yt-locked{overflow:hidden!important}
+html.yt-locked body>*:not(#ytGate){visibility:hidden!important}
+#ytGate{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;padding:20px;overflow:auto;
+background:radial-gradient(ellipse at 50% 30%,#3b1a7a 0%,#170a33 70%),#170a33;color:#f6f0ff;font:400 16px/1.5 Archivo,system-ui,sans-serif}
+#ytGate::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(57,255,20,.05) 0 2px,transparent 2px 5px)}
+.ytg-card{position:relative;width:100%;max-width:460px;text-align:center;background:#26104f;border:3px solid #39ff14;border-radius:14px;padding:30px 24px 24px;box-shadow:6px 6px 0 #7a2cff,0 0 40px rgba(57,255,20,.25)}
+.ytg-badge{display:inline-flex;align-items:center;gap:6px;background:#e0201b;color:#fff;font-weight:700;font-size:13px;padding:4px 10px;border-radius:4px;margin-bottom:14px}
+.ytg-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+.ytg-card h2{font-family:"Archivo Black",Impact,sans-serif;font-weight:400;line-height:1;margin:0 0 12px;font-size:clamp(34px,9vw,48px);color:#39ff14;letter-spacing:-.01em}
+.ytg-card p{margin:0 0 16px;color:#d8ccf5}
+.ytg-card p strong{color:#fff}
+.ytg-actions{display:grid;gap:10px;margin:18px 0 6px}
+.ytg-btn{font:700 16px/1.2 Archivo,system-ui,sans-serif;cursor:pointer;border-radius:999px;padding:14px 18px;border:2px solid #39ff14;transition:transform .08s}
+.ytg-btn:active{transform:translateY(2px)}
+.ytg-btn[disabled]{opacity:.6;cursor:wait}
+.ytg-yt{background:#e0201b;border-color:#e0201b;color:#fff}
+.ytg-go{background:#39ff14;color:#170a33}
+.ytg-ghost{background:transparent;color:#f6f0ff}
+.ytg-fine{font-size:12.5px!important;color:#bba9e8!important;margin:14px 0 0!important}
+.ytg-err{background:rgba(224,32,27,.18);border:2px solid #e0201b;border-radius:8px;padding:10px 12px;font-size:14px;color:#fff!important}
+.ytg-spin{width:34px;height:34px;margin:6px auto 16px;border:4px solid #4a2a96;border-top-color:#39ff14;border-radius:50%;animation:ytgs .8s linear infinite}
+@keyframes ytgs{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.ytg-spin{animation-duration:2.4s}}
+</style>
 </head>
 <body>
+<div id="ytGate" role="dialog" aria-modal="true" aria-labelledby="ytGateTitle"><div class="ytg-card" id="ytGateCard"></div></div>
+<script>
+/* ===== Portão de inscrição (YouTube) =====
+   Libera o site só para quem está inscrito em youtube.com/@aovivonorio.
+   A verificação é refeita a CADA visita (login Google + YouTube Data API). */
+(function(){
+var CFG={
+  channelId:'UCzvoX_qu3L0bV7PXh01RpKg',
+  channelUrl:'https://www.youtube.com/@aovivonorio',
+  /* >>> COLE AQUI o "ID do cliente OAuth" (tipo Aplicativo da Web) criado no Google Cloud <<< */
+  clientId:'523682263988-m1j1ecg92c5j72diqdaeige05ciifmrb.apps.googleusercontent.com',
+  scope:'https://www.googleapis.com/auth/youtube.readonly'
+};
+var KEY='aovivo_yt_gate_v1';
+var root=document.documentElement, gate=document.getElementById('ytGate'), card=document.getElementById('ytGateCard');
+var tc=null, inerted=[], unlocked=false;
+root.classList.add('yt-locked');
+
+function lsGet(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
+function lsSet(v){try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+function lockInert(){
+  Array.prototype.forEach.call(document.body.children,function(el){
+    if(el===gate||el.tagName==='SCRIPT'||el.hasAttribute('inert'))return;
+    el.setAttribute('inert','');inerted.push(el);
+  });
+}
+function unlock(){
+  if(unlocked)return;unlocked=true;
+  lsSet({ok:Date.now()});
+  root.classList.remove('yt-locked');
+  inerted.forEach(function(el){el.removeAttribute('inert')});
+  gate.remove();
+  try{window.dispatchEvent(new Event('resize'))}catch(e){}
+}
+
+function render(html){card.innerHTML=html;var b=card.querySelector('button:not([disabled])');if(b)b.focus({preventScroll:true})}
+function head(title){return '<span class="ytg-badge">AO VIVO NO RIO</span><h2 id="ytGateTitle">'+title+'</h2>'}
+function viewChecking(msg){render(head('VERIFICANDO')+'<div class="ytg-spin" role="status" aria-label="Carregando"></div><p>'+esc(msg||'Conferindo sua inscrição no canal…')+'</p>')}
+function viewStart(opts){
+  opts=opts||{};
+  var back=opts.back, err=opts.err;
+  render(head('INSCREVA-SE')+
+   '<p>'+(back?'Que bom te ver de novo! ':'')+'Para acessar o site é preciso estar inscrito no canal <strong>@aovivonorio</strong> no YouTube.</p>'+
+   (err?'<p class="ytg-err" role="alert">'+esc(err)+'</p>':'')+
+   '<div class="ytg-actions">'+
+    '<button class="ytg-btn ytg-yt" id="ytgSub" type="button">1 · Inscrever-se no canal</button>'+
+    '<button class="ytg-btn ytg-go" id="ytgVer" type="button">'+(back?'Verificar minha inscrição':'2 · Já me inscrevi — verificar com Google')+'</button>'+
+   '</div>'+
+   '<p class="ytg-fine">Você entrará com sua conta Google só para conferir se está inscrito (permissão somente-leitura). Nada é publicado nem guardado em servidor.</p>');
+  document.getElementById('ytgSub').onclick=function(){
+    window.open(CFG.channelUrl+'?sub_confirmation=1','_blank','noopener');
+    this.textContent='Depois de se inscrever, volte aqui e verifique';
+  };
+  document.getElementById('ytgVer').onclick=function(){verify(false)};
+}
+function viewConfig(){
+  render(head('CONFIGURAR')+'<p class="ytg-err" role="alert">O ID de cliente do Google ainda não foi configurado neste site. Edite <strong>CFG.clientId</strong> no início do script do portão.</p>');
+}
+
+function loadGis(cb,fail){
+  if(window.google&&google.accounts&&google.accounts.oauth2)return cb();
+  var s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.async=true;
+  s.onload=cb;s.onerror=function(){fail('Não foi possível carregar o login do Google. Verifique sua conexão e tente de novo.')};
+  document.head.appendChild(s);
+}
+
+function verify(silent){
+  if(/^COLE_AQUI/.test(CFG.clientId)){viewConfig();return}
+  viewChecking(silent?'Conferindo se você continua inscrito…':'Aguardando o login do Google…');
+  var done=false, timer=null;
+  function fail(msg){if(done)return;done=true;clearTimeout(timer);silent?viewStart({back:true}):viewStart({err:msg})}
+  loadGis(function(){
+    try{
+      tc=tc||google.accounts.oauth2.initTokenClient({
+        client_id:CFG.clientId,scope:CFG.scope,
+        callback:function(r){
+          if(done)return;
+          if(r.error){fail(r.error==='access_denied'?'Você precisa permitir a conferência da inscrição para continuar.':'Não foi possível entrar com o Google ('+r.error+').');return}
+          if(!google.accounts.oauth2.hasGrantedAllScopes(r,CFG.scope)){fail('Marque a permissão para ver suas inscrições do YouTube e tente de novo.');return}
+          done=true;clearTimeout(timer);check(r.access_token);
+        },
+        error_callback:function(e){fail(e&&e.type==='popup_closed'?'A janela de login foi fechada antes de terminar.':e&&e.type==='popup_failed_to_open'?'O navegador bloqueou a janela de login. Libere pop-ups e tente de novo.':'Falha no login do Google.')}
+      });
+      if(silent)timer=setTimeout(function(){fail()},6000);
+      tc.requestAccessToken(silent?{prompt:'none'}:{});
+    }catch(e){fail('Erro ao iniciar o login do Google.')}
+  },fail);
+}
+
+function check(token){
+  viewChecking('Conferindo sua inscrição no canal…');
+  fetch('https://www.googleapis.com/youtube/v3/subscriptions?part=id&mine=true&maxResults=1&forChannelId='+encodeURIComponent(CFG.channelId),
+    {headers:{Authorization:'Bearer '+token}})
+  .then(function(r){return r.json().then(function(j){return{status:r.status,body:j}})})
+  .then(function(o){
+    if(o.status===200){
+      if(o.body.items&&o.body.items.length){unlock();return}
+      viewStart({err:'Ainda não encontramos sua inscrição em @aovivonorio. Inscreva-se (passo 1) e depois verifique de novo.'});return;
+    }
+    var reason=(o.body&&o.body.error&&o.body.error.errors&&o.body.error.errors[0]&&o.body.error.errors[0].reason)||'';
+    var msg=reason==='quotaExceeded'?'Muitas verificações no momento. Tente de novo mais tarde.':
+            reason==='youtubeSignupRequired'?'Esta conta Google ainda não tem um canal/perfil no YouTube. Entre com outra conta.':
+            (o.status===401||o.status===403)?'Sem permissão para conferir a inscrição. Tente entrar de novo.':
+            'Não foi possível conferir agora (erro '+o.status+'). Tente novamente.';
+    viewStart({err:msg});
+  })
+  .catch(function(){viewStart({err:'Falha de rede ao conferir a inscrição. Tente novamente.'})});
+}
+
+lockInert();
+if(lsGet()){verify(true)}   /* já esteve aqui: revalida em silêncio; se falhar, pede o botão */
+else viewStart();
+})();
+</script>
+
 <div class="hero"><img id="heroBg" alt="" width="1983" height="793" fetchpriority="high"><img id="heroChars" class="herochars" alt="Vloggers do Ao Vivo no Rio" width="1983" height="793" fetchpriority="high">
 <script>
 /* Topo: o cenário muda a cada recarregamento; os personagens ficam sempre os mesmos. */
