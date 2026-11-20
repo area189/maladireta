@@ -1081,7 +1081,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </section>
 <section id="panel-bares" role="tabpanel" aria-labelledby="tab-bares" hidden>
   <div class="sec-title"><h2 id="bares-h">BARES · RIO DE JANEIRO</h2><span class="chip" id="baresCount"></span></div>
-  <p class="dicas-intro">Botecos, bares tradicionais e casas de chope do Rio separados por região. Toque em um card para ver os detalhes.</p>
+  <p class="dicas-intro">Botecos, bares tradicionais, casas de chope e restaurantes do Rio separados por região. Toque em um card para ver os detalhes.</p>
   <nav class="zjump" id="bzjump" aria-label="Ir para a região"></nav>
   <div id="bzonas"></div>
   <p class="mus-fine">Informações de referência reunidas de guias públicos e escritas com palavras próprias; horários, preços e funcionamento mudam, então confirme antes de ir. Veja também a seleção da <a href="https://vejario.abril.com.br/comer-e-beber/comer-e-beber-melhores-bares/" target="_blank" rel="noopener noreferrer">Veja Rio Comer &amp; Beber</a>.</p>
@@ -1106,7 +1106,8 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
      {id:'sul',nome:'ZONA SUL',desc:'Botecos de bairro e bares clássicos em Urca, Leblon, Ipanema e Copacabana.'},
      {id:'centro',nome:'CENTRO',desc:'Bares históricos do Centro, da Lapa, de Santa Teresa e da Região Portuária.'},
      {id:'norte',nome:'ZONA NORTE',desc:'Tijuca, Cachambi e botecos de bairro cheios de tradição.'},
-     {id:'sudoeste',nome:'SUDOESTE',desc:'Barra da Tijuca: chope, música ao vivo e cerveja artesanal.'}
+     {id:'sudoeste',nome:'SUDOESTE',desc:'Barra da Tijuca e arredores: chope, samba, pastel, cachaça, música ao vivo e casas com vista para a lagoa.'},
+     {id:'oeste',nome:'ZONA OESTE',desc:'Barra de Guaratiba, Ilha da Gigóia e arredores: frutos do mar, pé na areia e casas fora do circuito turístico.'}
     ];
     /* z região · n nome · c etiqueta do card · r resumo · t detalhe · f destaques · b bairro (para o mapa) */
     var B=[
@@ -1127,7 +1128,69 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
      {z:'norte',n:'Brewteco Tijuca',b:'Tijuca',c:'Tijuca · Zona Norte',r:'Casa para quem ama cerveja artesanal, com rótulos de micro e pequenas cervejarias do Brasil.',t:'As cervejas são as protagonistas, com opções artesanais nacionais e rótulos de vários países. A rede também tem casas na Barra e na Gávea.',f:['🍺 Cerveja artesanal','🌍 Rótulos do mundo','📍 Tijuca']},
      {z:'sudoeste',n:'Bar do Oswaldo',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Mistura modernidade e boemia, com petiscos e chope gelado na Barra.',t:'Fica na Avenida Olegário Maciel e combina ambiente moderno com a essência do boteco, servindo pratos e petiscos acompanhados de chope bem gelado.',f:['🍺 Chope gelado','🍤 Petiscos','📍 Av. Olegário Maciel']},
      {z:'sudoeste',n:'Bar da Lapa',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Leva o clima de samba e cerveja gelada da Lapa para a Barra, com música ao vivo.',t:'Na Avenida Olegário Maciel, recria a energia da Lapa com música ao vivo e cardápio de boteco para conversas longas.',f:['🎶 Música ao vivo','🪘 Samba','🍻 Cardápio de boteco']},
-     {z:'sudoeste',n:'Brewteco Barra',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Unidade da casa de cervejas artesanais na Barra.',t:'O foco é a cerveja artesanal nacional, com rótulos de micro e pequenas cervejarias e marcas de vários países.',f:['🍺 Cerveja artesanal','🌍 Rótulos do mundo','📍 Barra']}
+     {z:'sudoeste',n:'Brewteco Barra',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Unidade da casa de cervejas artesanais na Barra.',t:'O foco é a cerveja artesanal nacional, com rótulos de micro e pequenas cervejarias e marcas de vários países.',f:['🍺 Cerveja artesanal','🌍 Rótulos do mundo','📍 Barra']},
+     /* ZONA SUL */
+     {z:'sul',n:'Bip Bip',b:'Copacabana',c:'Copacabana · Zona Sul',r:'Botequim minúsculo de Copacabana onde a música ao vivo é a atração, com samba, choro e bossa nova.',t:'Funciona desde 1968 e não se parece com nenhum outro bar da cidade: o atendimento é quase self-service, e o cliente pega a bebida na geladeira e avisa o dono. A música rola à noite, com samba, choro e bossa nova em dias alternados, e o costume é estalar os dedos no fim das canções em vez de bater palmas.',f:['🎶 Samba, choro e bossa','🧊 Bebida na geladeira','📅 Desde 1968']},
+     {z:'sul',n:'Cervantes',b:'Copacabana',c:'Copacabana · Zona Sul',r:'Bar e restaurante de 1955 famoso pelos sanduíches fartos, com cerveja gelada para acompanhar.',t:'Tombado como Patrimônio Cultural Carioca, nasceu em 1955 e hoje tem duas casas, uma em Copacabana e outra na Barra da Tijuca. A especialidade de sempre são os sanduíches bem servidos, de ingredientes de qualidade.',f:['🥪 Sanduíches','🍺 Cerveja gelada','📅 Desde 1955']},
+     {z:'sul',n:'Bar Lagoa',b:'Lagoa',c:'Lagoa · Zona Sul',r:'Bar e restaurante de salão tradicional e letreiro de néon, às margens da Lagoa e com o Cristo ao fundo.',t:'Aberto há mais de 80 anos na beira da Lagoa Rodrigo de Freitas, tem ares sofisticados e garçons veteranos que viraram figuras da casa. O cardápio mistura cozinha brasileira e alemã, com filé à parmegiana, arroz à piemontese e kassler com salada.',f:['🌅 Vista da Lagoa','🥩 Cozinha brasileira e alemã','📅 Mais de 80 anos']},
+     {z:'sul',n:'Café Lamas',b:'Flamengo',c:'Flamengo · Zona Sul',r:'Bar e restaurante aberto desde 1874, frequentado por escritores, artistas e políticos ao longo de gerações.',t:'Nasceu no Largo do Machado e mudou para o Flamengo por causa das obras do metrô, levando junto a clientela fiel. Entre os frequentadores históricos estão Machado de Assis e Manuel Bandeira. Abre cedo e costuma ficar aberto até a madrugada.',f:['📅 Desde 1874','📚 Mesa de escritores','🍽️ Bar e restaurante']},
+     {z:'sul',n:'Adega da Velha',b:'Botafogo',c:'Botafogo · Zona Sul',r:'Adega que virou boteco em Botafogo, com comida nordestina e clima tranquilo.',t:'Começou nos anos 1960 como espaço onde uma senhora portuguesa vendia bebidas e, nos anos 1980, passou às mãos de um cearense e virou bar. Hoje serve cerveja e pratos de comida brasileira, do baião de dois à carne-seca com macaxeira.',f:['🍲 Baião de dois','🥩 Carne-seca com aipim','🏅 Patrimônio Cultural Carioca']},
+     /* CENTRO */
+     {z:'centro',n:'Bar Brasil',b:'Lapa',c:'Lapa · Centro',r:'O Alemão da Lapa, bar de 1907 com chope tirado em chopeira de bronze e pratos típicos alemães.',t:'Perto dos Arcos da Lapa, mantém a tradição da cozinha alemã, com kassler (carré defumado), eisbein (joelho de porco) e kalbshaxe (ossobuco de vitela), em porções para dividir.',f:['🍺 Chope alemão','🥨 Cozinha alemã','📅 Desde 1907']},
+     {z:'centro',n:'Adega Flor de Coimbra',b:'Lapa',c:'Lapa · Centro',r:'Adega portuguesa da Lapa, com bolinho de bacalhau elogiado e sopa lisboeta.',t:'Se apresenta como a adega mais velha do Rio e tem mais de 70 anos de história, com o pintor Candido Portinari entre os clientes ilustres. Os pratos de bacalhau são grelhados no azeite, e a sopa lisboeta é outro clássico da casa.',f:['🐟 Bolinho de bacalhau','🥣 Sopa lisboeta','🇵🇹 Adega portuguesa']},
+     {z:'centro',n:'Armazém Senado',b:'Centro',c:'Centro · Rua do Senado',r:'Armazém de 1907 na esquina da Rua do Senado, onde o samba e a conversa acontecem na calçada.',t:'Mantém o visual de um século atrás, com prateleiras altas de garrafas e balcão de atendimento. Por dentro há poucas mesas, e a maior costuma ficar com o grupo de samba da vez. O programa é pedir uma bebida e um petisco e curtir a música e o movimento na rua.',f:['🥁 Samba','🍻 Bebida e petisco','📅 Desde 1907']},
+     {z:'centro',n:'Armazém São Thiago',b:'Santa Teresa',c:'Santa Teresa · Centro',r:'Boteco de 1919 em Santa Teresa, com estrutura original e petiscos reinventados.',t:'Preserva placas, garrafas, luminárias e barris do bar inaugurado em 1919. A comida é a parte que não parou no tempo, com clássicos de boteco em versões aprimoradas, como a trouxinha com polvo e camarão e a cenourinha de porco.',f:['🏛️ Visual de época','🐙 Petiscos autorais','📅 Desde 1919']},
+     {z:'centro',n:'Cosmopolita',b:'Lapa',c:'Lapa · Centro',r:'Bar e restaurante de 1926 com decoração clássica e a origem do filé Oswaldo Aranha.',t:'Guarda a história nas paredes, com a placa de patrimônio cultural e quadros de premiações do Guia do Rio. Foi ali que o diplomata Oswaldo Aranha, cliente da casa, criou o prato de filé com alho, arroz, farofa e batata portuguesa que ganhou seu nome.',f:['🥩 Filé Oswaldo Aranha','🏛️ Patrimônio cultural','📅 Desde 1926']},
+     /* ZONA NORTE */
+     {z:'norte',n:'Aconchego Carioca',b:'Praça da Bandeira',c:'Praça da Bandeira · Zona Norte',r:'Bar da chef Katia Barbosa, onde nasceu o bolinho de feijoada, petisco-símbolo dos botecos cariocas.',t:'Um dos bares históricos do Rio, serve menu à la carte de pratos tradicionais repaginados, com o bolinho de feijoada como estrela.',f:['🥟 Bolinho de feijoada','👩‍🍳 Chef Katia Barbosa','🍽️ Pratos tradicionais']},
+     {z:'norte',n:'Bar do Adonis',b:'Benfica',c:'Benfica · Zona Norte',r:'Pé-sujo de Benfica aberto em 1952, premiado pelo chope e pelo bolinho de bacalhau.',t:'O Bar Velho Adonis ganhou títulos de melhor chope e melhor bolinho de bacalhau da cidade em 2009 e 2010 e tem prêmio de melhor pé-sujo no Prêmio Rio Show de Gastronomia. Está em funcionamento desde 1952.',f:['🍺 Chope','🐟 Bolinho de bacalhau','📅 Desde 1952']},
+     {z:'norte',n:'Salete',b:'Maracanã',c:'Maracanã · Zona Norte',r:'Boteco perto do Maracanã, ponto certo em dia de jogo e famoso pelas empadas.',t:'Inaugurado em 1957 pelo espanhol Manolo, hoje é tocado por um grupo de mulheres. As empadas de frango, palmito ou camarão são as mais famosas, e o cardápio tem ainda risoto de camarão, bife à parmegiana e filé mignon ao molho madeira.',f:['🥧 Empadas','⚽ Dia de jogo','📅 Desde 1957']},
+     {z:'norte',n:'Bar da Amendoeira',b:'Maria da Graça',c:'Maria da Graça · Zona Norte',r:'Referência do subúrbio, nasceu como Café e Bar Lisbela em 1962 e é famoso pelo bolinho de carne apelidado de feio.',t:'Tombado como Patrimônio Cultural Carioca, é ponto de encontro em Maria da Graça. O carro-chefe é o bolinho de carne, chamado carinhosamente de feio pelos clientes, que combina com o molho de pimenta especial da casa.',f:['🥟 Bolinho de carne','🌶️ Molho de pimenta da casa','📅 Desde 1962']},
+     {z:'norte',n:'Bar Gato de Botas',b:'Vila Isabel',c:'Vila Isabel · Zona Norte',r:'Um dos botecos mais tradicionais de Vila Isabel, aberto em 2006 por um veterano da boemia local.',t:'Foi fundado por Seu Agostinho Nascimento, que trabalhou quase cinquenta anos no lendário Bar do Costa antes de abrir o próprio negócio.',f:['🍻 Boteco de bairro','👨‍🍳 Seu Agostinho','📅 Desde 2006']},
+     /* SUDOESTE */
+     {z:'sudoeste',n:'Seu Bar',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Bar descontraído na Olegário Maciel, com mesas na calçada, chope gelado e petiscos.',t:'Fica no coração da vida noturna da Barra e serve tanto o happy hour quanto quem quer esticar a noite, em clima de pós-praia animado mas acolhedor.',f:['🍺 Chope gelado','🍤 Petiscos','🪑 Mesas na calçada']},
+     {z:'sudoeste',n:'Bar do Zeca Pagodinho',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Bar temático que celebra a vida e a obra do sambista, com música ao vivo e comida de boteco.',t:'Fica no Vogue Square e reúne decoração dedicada ao Zeca, rodas de samba e pratos de boteco preparados pelo chef Toninho Momo. Tem outras unidades pela cidade.',f:['🎤 Samba ao vivo','🍽️ Pratos de boteco','📍 Vogue Square']},
+     {z:'sudoeste',n:'Bar do Adão',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Famoso por mais de 40 sabores de pastel, com chope e caipirinha, em rede de cerca de 18 casas.',t:'Há cerca de 30 anos agrada cariocas e visitantes com pastéis criativos e bem recheados. Uma dica é terminar com o pastel de sonho de valsa.',f:['🥟 Mais de 40 pastéis','🍺 Chope','🍹 Caipirinha']},
+     {z:'sudoeste',n:'Academia da Cachaça',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Templo da cachaça desde 1985, com centenas de rótulos e comida regional.',t:'A carta reúne centenas de cachaças, e a cozinha aposta em pratos regionais como feijoada e escondidinho, com caipirinhas bem feitas.',f:['🍹 Caipirinhas','🥃 Centenas de rótulos','📅 Desde 1985']},
+     {z:'sudoeste',n:'Bangalô Bar e Restaurante',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Restaurante à beira da praia com moquecas, frutos do mar e vista da orla.',t:'Fica na Avenida Lúcio Costa, de frente para o mar, e combina cozinha brasileira com caipirinhas e programação musical variada. Boa pedida para almoço ou pôr do sol.',f:['🍤 Moquecas e frutos do mar','🌊 Vista da orla','🎶 Música']},
+     /* ZONA OESTE */
+     {z:'oeste',n:'Restaurante do Bira',b:'Barra de Guaratiba',c:'Barra de Guaratiba · Zona Oeste',r:'Clássico de frutos do mar em panelas de barro, com varanda e vista para a baía e o mangue.',t:'Na Estrada da Vendinha, o Bira é um dos mais famosos de Barra de Guaratiba. Seu Bira é filho da célebre Tia Palmira, e o prato da casa é o filé de robalo no limão com arroz de camarão. É rústico, o preço pesa no bolso e vale reservar antes de ir.',f:['🐟 Robalo no limão','🍲 Moqueca em panela de barro','🌿 Vista da baía']},
+     {z:'oeste',n:'Tia Palmira',b:'Barra de Guaratiba',c:'Barra de Guaratiba · Zona Oeste',r:'Restaurante de frutos do mar de uma cozinheira célebre, no polo gastronômico de Barra de Guaratiba.',t:'Tia Palmira, mãe do dono do Bira, ficou conhecida pelos sabores da cozinha de família de pescadores, e o nome dá título a um dos restaurantes do polo de Barra de Guaratiba.',f:['🐟 Frutos do mar','🎣 Tradição de pescadores','📍 Barra de Guaratiba']},
+     {z:'oeste',n:'Restaurante Aquarios',b:'Barra de Guaratiba',c:'Barra de Guaratiba · Zona Oeste',r:'Peixe na brasa e frutos do mar em Barra de Guaratiba.',t:'Casa de Barra de Guaratiba que trabalha com peixes grelhados e na brasa, como anchova com molho de camarão, ao lado de outros restaurantes do polo gastronômico da região.',f:['🔥 Peixe na brasa','🍤 Frutos do mar','📍 Barra de Guaratiba']},
+     {z:'oeste',n:'Cantinho da Gigóia',b:'Ilha da Gigóia',c:'Ilha da Gigóia · Zona Oeste',r:'Bar de pé na areia na Ilha da Gigóia, onde se chega de barquinho.',t:'O passeio já começa no trajeto: é preciso pegar um barco até a ilha. Lá o clima é de refúgio, com cerveja gelada e o pastel de frutos do mar com camarão, polvo e lula, que foi o petisco da casa no Comida di Buteco 2026.',f:['⛵ Chega-se de barco','🍺 Cerveja gelada','🥟 Pastel de frutos do mar']},
+     /* NOVOS · ZONA SUL */
+     {z:'sul',n:'Bracarense',b:'Leblon',c:'Leblon · Zona Sul',r:'Boteco raiz do Leblon, aberto em 1948, famoso pelos salgados e pelo clima sem frescura.',t:'Instituição do bairro, com fachada simples e interior sem arrodeios. É parada certa depois da praia, para beliscar salgados e conversar sem pressa, longe da sofisticação que domina boa parte do Leblon.',f:['🥟 Salgados','📅 Desde 1948','🏛️ Boteco raiz']},
+     {z:'sul',n:'Garota de Ipanema',b:'Ipanema',c:'Ipanema · Zona Sul',r:'O bar onde Tom Jobim e Vinicius de Moraes escreveram a canção que levou Ipanema ao mundo.',t:'A casa original, hoje com filiais pela cidade, é um pedaço da história da bossa nova. Vale a visita para tomar um chope no lugar onde nasceu a música e curtir o clima de Ipanema.',f:['🎶 Berço da bossa nova','🍺 Chope','📍 Ipanema']},
+     {z:'sul',n:'O Caranguejo',b:'Copacabana',c:'Copacabana · Zona Sul',r:'Restaurante de frutos do mar informal, ponto pós-praia desde 1982, com empada de camarão premiada.',t:'Fica na esquina da Barata Ribeiro com a Xavier da Silveira. Para petiscar, a pedida é a empada de camarão, a casquinha de siri e as patinhas de caranguejo, com chope gelado.',f:['🦐 Empada de camarão','🦀 Patinhas de caranguejo','📅 Desde 1982']},
+     {z:'sul',n:'Galeto Sat’s',b:'Copacabana',c:'Copacabana · Zona Sul',r:'Galeto na brasa e chope gelado desde 1962, com casas em Copacabana, Botafogo e Barra.',t:'Fundado por dois espanhóis, virou destino de saideira em Copacabana. Pão de alho, coração de galinha e o galeto completo, com arroz, farofa e fritas, são os clássicos da casa.',f:['🍗 Galeto','🧄 Pão de alho','📅 Desde 1962']},
+     {z:'sul',n:'Majórica',b:'Flamengo',c:'Flamengo · Zona Sul',r:'Casa de 1961 com cozinha mediterrânea, conhecida pelo churrasco à la carte e pela batata soufflé.',t:'Fundada no Flamengo por dois irmãos nascidos em Mallorca, que inspirou o nome. A brasa é a estrela, com cortes ao sal grosso e linguiça servida no espeto, e a batata soufflé é um clássico.',f:['🥩 Churrasco à la carte','🥔 Batata soufflé','📅 Desde 1961']},
+     {z:'sul',n:'Aurora',b:'Humaitá',c:'Humaitá · Zona Sul',r:'Restaurante centenário do Humaitá, com azulejos, lustre enorme e cozinha luso-brasileira.',t:'Fica na esquina das ruas Capitão Salomão e Visconde de Caravelas e mantém o clima antigo mesmo depois da reforma. O bolinho de bacalhau, receita de família, e o gurjão de peixe saem sem parar.',f:['🐟 Bolinho de bacalhau','🇵🇹 Luso-brasileiro','🏛️ Centenário']},
+     /* NOVOS · CENTRO */
+     {z:'centro',n:'Confeitaria Colombo',b:'Centro',c:'Centro · Belle Époque',r:'Confeitaria de 1894 com salões art nouveau, palco de banquetes célebres e parada obrigatória no Centro.',t:'Tem a história misturada com a do Centro do Rio. Vale pelo ambiente e pelo café da manhã ou lanche da tarde, com torradas, folhado de queijo e pastel de Belém.',f:['☕ Café e chá','🏛️ Art nouveau','📅 Desde 1894']},
+     {z:'centro',n:'Casa Paladino',b:'Centro',c:'Centro · Armazém antigo',r:'Armazém de secos e molhados com mais de 100 anos, famoso por sanduíches e omeletes caprichados.',t:'Mantém decoração e serviço intocados, com bebidas e conservas à venda. São mais de quinze sabores de sanduíche e de omelete, com destaque para o Triplo e a omelete de bacalhau com camarão.',f:['🥪 Sanduíches','🍳 Omeletes','🏛️ Mais de 100 anos']},
+     {z:'centro',n:'Casa Urich',b:'Centro',c:'Centro · Cozinha alemã',r:'Casa de 1913 fundada por um alemão, com garçons de gravata borboleta e azulejos originais.',t:'Resgatou o cardápio de pratos típicos, com salsichinhas alemãs, schnitzel e kassler defumado à mineira. Para fechar, o apfelstrudel com creme.',f:['🌭 Salsichinhas alemãs','🥨 Schnitzel','📅 Desde 1913']},
+     {z:'centro',n:'Adega do Pimenta',b:'Santa Teresa',c:'Santa Teresa · Centro',r:'Casa alemã de Santa Teresa, aberta em 1984, com kassler, schnitzel e feijoada alemã nos fins de semana.',t:'O dono alemão traduziu o sobrenome Pfeffer para Pimenta para facilitar a pronúncia. Vale começar pelo croquete de carne antes de partir para os pratos típicos, que costumam servir duas pessoas.',f:['🍖 Kassler','🍺 Chope','📅 Desde 1984']},
+     {z:'centro',n:'Angu do Gomes',b:'Saúde',c:'Saúde · Região Portuária',r:'Restaurante do Largo de São Francisco da Prainha que nasceu das barraquinhas de angu dos anos 1950.',t:'A história começou em 1955, com o angu do português Manuel Gomes vendido pela cidade, e o restaurante abriu em 1977. O angu é o carro-chefe, em vários sabores, e o bolinho de rabada com gorgonzola abre bem o apetite.',f:['🍲 Angu','🥟 Bolinho de rabada','📍 Largo da Prainha']},
+     /* NOVOS · ZONA NORTE */
+     {z:'norte',n:'Bar Varnhagen',b:'Tijuca',c:'Tijuca · Zona Norte',r:'Bar clássico da Praça Varnhagen, aberto em 1944, com balcão de fórmica, azulejos e gaiolas de passarinho.',t:'Mantém o visual de bar de esquina de outros tempos. O carro-chefe é a rabada com batata e agrião, a mini feijoada vem logo atrás e o bolinho de bacalhau combina com as cervejas geladas.',f:['🍲 Rabada','🥟 Bolinho de bacalhau','📅 Desde 1944']},
+     {z:'norte',n:'Adega D’Ouro',b:'Vicente de Carvalho',c:'Vicente de Carvalho · Zona Norte',r:'Restaurante português clássico do subúrbio, perto do metrô, com o bacalhau como estrela.',t:'Fundado pelo português Seu Monteiro há mais de cinco décadas e hoje tocado pela terceira geração da família. O bacalhau é servido à moda da casa, e o bolinho de bacalhau abre os trabalhos.',f:['🐟 Bacalhau','🇵🇹 Cozinha portuguesa','👨‍👩‍👧 Terceira geração']},
+     {z:'norte',n:'Adegão Português',b:'São Cristóvão',c:'São Cristóvão · Zona Norte',r:'Restaurante português aberto em 1964, famoso pelas pataniscas e por quase 50 receitas de bacalhau.',t:'Nasceu do sonho de quatro amigos imigrantes e abriu filial na Barra da Tijuca em 2005. Além do bacalhau, o cardápio tem pato, cordeiro e o arroz de costelinhas.',f:['🐟 Bacalhau','🥘 Pataniscas','📅 Desde 1964']},
+     {z:'norte',n:'Bar da Gema',b:'Tijuca',c:'Tijuca · Zona Norte',r:'Boteco aconchegante da Tijuca, conhecido pelo pastel de feijoada e pela coxinha de galinha.',t:'Fica na Rua Barão de Mesquita e é lembrado pelos petiscos preparados pela Luíza, a Musa das Panelas, como o pastel de feijoada e a coxinha de galinha.',f:['🥟 Pastel de feijoada','🍗 Coxinha de galinha','🍺 Boteco da Tijuca']},
+     {z:'norte',n:'Codorna do Feio',b:'Méier',c:'Méier · Zona Norte',r:'Churrasqueira na calçada da Rua Dias da Cruz, com codorna na brasa e costela no bafo.',t:'Tem a cara da Zona Norte, com a brasa na calçada e mesas na rua. A codorna é a especialidade, e a costela no bafo é a outra boa pedida da casa.',f:['🔥 Codorna na brasa','🍖 Costela no bafo','📍 Rua Dias da Cruz']},
+     {z:'norte',n:'Bar Madrid',b:'Tijuca',c:'Tijuca · Zona Norte',r:'Boteco tradicional numa rua tranquila da Tijuca, com mesas de madeira na calçada.',t:'Pequeno salão e mesas espalhadas na calçada, com cervejas artesanais, pratos executivos e petiscos num clima aconchegante.',f:['🍺 Cervejas artesanais','🪑 Mesas na calçada','🍽️ Petiscos']},
+     /* NOVOS · SUDOESTE */
+     {z:'sudoeste',n:'R21 Bar & Restaurante',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Casa moderna na Olegário Maciel com música ao vivo, chope gelado e cardápio variado.',t:'Boa opção para reunir os amigos e esticar a noite, com comida, chope gelado e entretenimento no mesmo lugar, no coração da vida noturna da Barra.',f:['🎶 Música ao vivo','🍺 Chope gelado','📍 Av. Olegário Maciel']},
+     {z:'sudoeste',n:'Boa Praça',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Boteco contemporâneo com decoração de pracinha, mesas coletivas e programação musical.',t:'O clima é de confraternização, ideal para aniversários e encontros. Serve petiscos e pratos generosos com chope gelado.',f:['🪑 Mesas coletivas','🎶 Programação musical','🍺 Chope gelado']},
+     {z:'sudoeste',n:'Padano Sertanejo & Bar',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Casa de festa que recebe bandas sertanejas, DJs e voz e violão desde 2017.',t:'Mistura a energia da música sertaneja com a descontração carioca e tem gastronomia contemporânea para acompanhar. Funciona até altas horas nos fins de semana.',f:['🎤 Shows sertanejos','🎧 DJs','📅 Desde 2017']},
+     {z:'sudoeste',n:'Adega Santiago',b:'Barra da Tijuca',c:'Barra da Tijuca',r:'Culinária da Península Ibérica com salão de janelas para a Lagoa da Barra da Tijuca.',t:'Logo na entrada, o balcão do mar mostra o que vem por aí. O cardápio tem polvo à galega, carpaccio de polvo e tapas como croquete de jamón e batatas bravas, com vinhos, chopes e coquetéis.',f:['🐙 Polvo à galega','🇪🇸 Tapas','🌅 Vista da lagoa']},
+     {z:'sudoeste',n:'Ocyá',b:'Barra da Tijuca',c:'Ilha Primeira · Barra da Tijuca',r:'Restaurante de frutos do mar na Ilha Primeira, onde se chega de barco, com pôr do sol de tirar o fôlego.',t:'O chef, pescador desde criança, pesquisa técnicas de maturação de peixes e usa o animal por inteiro. A travessia de barco já faz parte da experiência, e as mesinhas ao ar livre rendem um belo pôr do sol.',f:['⛵ Chega-se de barco','🐟 Peixe maturado na brasa','🌅 Pôr do sol']},
+     {z:'sudoeste',n:'Hansl',b:'Joá',c:'Alto Joá · Barra da Tijuca',r:'Casa austríaca de 1967 no Alto Joá, com fondues e vista para a Barra, ideal para jantar à luz de velas.',t:'Inaugurada pelo austríaco Johann Srch, serve pratos típicos como kassler e eisbein, além de uma grande variedade de fondues para duas pessoas.',f:['🧀 Fondue','🇦🇹 Cozinha austríaca','📅 Desde 1967']},
+     /* NOVOS · ZONA OESTE */
+     {z:'oeste',n:'Bar do Cícero',b:'Ilha da Gigóia',c:'Ilha da Gigóia · Zona Oeste',r:'Considerado o mais famoso entre os bares e restaurantes da Ilha da Gigóia, na Lagoa da Tijuca.',t:'A travessia de barquinho a partir da Barra é parte do passeio. Fica entre as casas mais conhecidas da ilha, com mesas de frente para a lagoa.',f:['⛵ Chega-se de barco','🌴 Vista da lagoa','⭐ Casa mais conhecida da ilha']},
+     {z:'oeste',n:'Laguna',b:'Ilha da Gigóia',c:'Ilha da Gigóia · Zona Oeste',r:'Cozinha mediterrânea requintada na Ilha da Gigóia, uma das casas mais caras da ilha.',t:'A experiência começa antes de chegar, com a balsa que sai do Barra Point. É preciso reservar com antecedência.',f:['🌊 Mediterrâneo','⛵ Balsa do Barra Point','📞 Reserva prévia']},
+     {z:'oeste',n:'Caiçara Bar',b:'Ilha da Gigóia',c:'Ilha da Gigóia · Zona Oeste',r:'Um dos cantinhos preferidos da galera na Ilha da Gigóia, com público fiel.',t:'Faz parte do grupo de casas mais conhecidas da ilha, ao lado de Laguna, Bar do Cícero e Cais Bar. Boa parada para almoço ou happy hour com vista.',f:['🌴 Ilha da Gigóia','🍻 Happy hour','👀 Vista da lagoa']},
+     {z:'oeste',n:'Deck Bar',b:'Ilha da Gigóia',c:'Ilha da Gigóia · Zona Oeste',r:'Bar da Ilha da Gigóia com música ao vivo, preços em conta e mesas bem espaçadas.',t:'Tem atendimento elogiado, quitutes e música ao vivo num clima tranquilo, no ritmo da ilha.',f:['🎶 Música ao vivo','💸 Preços em conta','🪑 Mesas espaçadas']},
+     {z:'oeste',n:'Garota de Guaratiba',b:'Barra de Guaratiba',c:'Barra de Guaratiba · Zona Oeste',r:'Frutos do mar regionais em Barra de Guaratiba, com boa vista à tarde.',t:'Entre as pedidas estão o pastel de siri e o prato de peixe frito para dois, no polo gastronômico de Barra de Guaratiba.',f:['🥟 Pastel de siri','🐟 Peixe frito para dois','🌅 Vista']}
     ];
     function hue(t){var h=0;for(var i=0;i<t.length;i++)h+=t.charCodeAt(i);return (h*37)%60+10;}
     /* Fotos (Wikimedia Commons). nome -> [arquivo ilustrativo do bairro, legenda, palavras que o arquivo do próprio bar deve ter no título] */
@@ -1149,7 +1212,53 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
      'Brewteco Tijuca':['Cascatinha Taunay.jpg','Cascatinha Taunay, na Floresta da Tijuca',null],
      'Bar do Oswaldo':['Praia da Macumba.jpg','Praia da Macumba, na Zona Oeste',['bar do oswaldo']],
      'Bar da Lapa':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
-     'Brewteco Barra':['Praia de Grumari.jpg','Praia de Grumari, na Zona Oeste',null]
+     'Brewteco Barra':['Praia de Grumari.jpg','Praia de Grumari, na Zona Oeste',null],
+     'Bip Bip':['Praia de Copacabana - Rio de Janeiro, Brasil.jpg','Praia de Copacabana',null],
+     'Cervantes':['Forte de Copacabana, Rio de Janeiro.jpg','Forte de Copacabana',null],
+     'Bar Lagoa':['Lagoa Rodrigo de Freitas - Rio de Janeiro.jpg','Lagoa Rodrigo de Freitas',null],
+     'Bar Brasil':['Rio de Janeiro Arcos da Lapa por Carlos Alkmin -6714.jpg','Arcos da Lapa',null],
+     'Adega Flor de Coimbra':['Rio de Janeiro Arcos da Lapa por Carlos Alkmin -6714.jpg','Arcos da Lapa',null],
+     'Armazém Senado':['Theatro Municipal do Rio de Janeiro.jpg','Theatro Municipal, no Centro',null],
+     'Armazém São Thiago':['Escadaria Selarón - Rio de Janeiro - 20240417062601.jpg','Escadaria Selarón, perto de Santa Teresa',null],
+     'Cosmopolita':['Rio de Janeiro Arcos da Lapa por Carlos Alkmin -6714.jpg','Arcos da Lapa',null],
+     'Aconchego Carioca':['Maracana 2022.jpg','Maracanã, perto da Praça da Bandeira',null],
+     'Bar do Adonis':['Museu Nacional da UFRJ - Quinta da Boa Vista no Rio de Janeiro, Brasil 13.jpg','Quinta da Boa Vista, na Zona Norte',null],
+     'Salete':['Maracana 2022.jpg','Maracanã',null],
+     'Seu Bar':['Praia da Macumba.jpg','Praia da Macumba, na Zona Oeste',null],
+     'Bar do Zeca Pagodinho':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Bar do Adão':['Praia da Macumba.jpg','Praia da Macumba, na Zona Oeste',null],
+     'Academia da Cachaça':['Praia de Grumari.jpg','Praia de Grumari, na Zona Oeste',null],
+     'Bangalô Bar e Restaurante':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Restaurante do Bira':['Praia de Grumari.jpg','Praia de Grumari, vizinha de Barra de Guaratiba',null],
+     'Tia Palmira':['Praia de Grumari.jpg','Praia de Grumari, vizinha de Barra de Guaratiba',null],
+     'Restaurante Aquarios':['Praia de Grumari.jpg','Praia de Grumari, vizinha de Barra de Guaratiba',null],
+     'Bracarense':['Ipanema Beach and Dois Irmãos.jpg','orla de Ipanema e Leblon',null],
+     'Garota de Ipanema':['Pôr do sol na pedra do arpoador.jpg','Pedra do Arpoador, ao lado de Ipanema',null],
+     'O Caranguejo':['Praia de Copacabana - Rio de Janeiro, Brasil.jpg','Praia de Copacabana',null],
+     'Galeto Sat’s':['Forte de Copacabana, Rio de Janeiro.jpg','Forte de Copacabana',null],
+     'Aurora':['Lagoa Rodrigo de Freitas - Rio de Janeiro.jpg','Lagoa Rodrigo de Freitas',null],
+     'Confeitaria Colombo':['Theatro Municipal do Rio de Janeiro.jpg','Theatro Municipal, no Centro',null],
+     'Casa Paladino':['Theatro Municipal do Rio de Janeiro.jpg','Theatro Municipal, no Centro',null],
+     'Casa Urich':['Theatro Municipal do Rio de Janeiro.jpg','Theatro Municipal, no Centro',null],
+     'Adega do Pimenta':['Escadaria Selarón - Rio de Janeiro - 20240417062601.jpg','Escadaria Selarón, perto de Santa Teresa',null],
+     'Angu do Gomes':['Museu do Amanhã - Rio de Janeiro.jpg','Museu do Amanhã, na Região Portuária',null],
+     'Bar Varnhagen':['Cascatinha Taunay.jpg','Cascatinha Taunay, na Floresta da Tijuca',null],
+     'Adega D’Ouro':['Museu Nacional da UFRJ - Quinta da Boa Vista no Rio de Janeiro, Brasil 13.jpg','Quinta da Boa Vista, na Zona Norte',null],
+     'Adegão Português':['Museu Nacional da UFRJ - Quinta da Boa Vista no Rio de Janeiro, Brasil 13.jpg','Quinta da Boa Vista, na Zona Norte',null],
+     'Bar da Gema':['Maracana 2022.jpg','Maracanã, na Zona Norte',null],
+     'Codorna do Feio':['Estádio Nilton Santos.jpg','Estádio Nilton Santos, na Zona Norte',null],
+     'Bar Madrid':['Cascatinha Taunay.jpg','Cascatinha Taunay, na Floresta da Tijuca',null],
+     'R21 Bar & Restaurante':['Praia da Macumba.jpg','Praia da Macumba, na Zona Oeste',null],
+     'Boa Praça':['Praia da Macumba.jpg','Praia da Macumba, na Zona Oeste',null],
+     'Padano Sertanejo & Bar':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Adega Santiago':['Lagoa Rodrigo de Freitas - Rio de Janeiro.jpg','Lagoa Rodrigo de Freitas',null],
+     'Ocyá':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Hansl':['Praia da Macumba.jpg','Praia da Macumba, na Zona Oeste',null],
+     'Bar do Cícero':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Laguna':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Caiçara Bar':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Deck Bar':['Prainha - Rio de Janeiro.jpg','Prainha, na Zona Oeste',null],
+     'Garota de Guaratiba':['Praia de Grumari.jpg','Praia de Grumari, na Zona Oeste',null]
     };
     function nrm(t){return String(t).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
     function cm(f,w){return 'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(f.replace(/ /g,'_'))+'?width='+w;}
@@ -1894,21 +2003,39 @@ var YT_API_KEY = "AIzaSyDX5bdScRx7h8Of1JNgrG6m2C0bYvhDQxo";
 })();
 </script>
 <script>
+/* ===== MAPA AO VIVO (RealtimeIRL) ===== */
 (function(){
-  var KEY=window.RTIRL_PULL_KEY,ov=document.getElementById('mapOff'),stat=document.getElementById('mapStat');
-  if(!KEY||!window.EMBED)return;
-  function css(h){var l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l);}
-  function js(s,cb){var e=document.createElement('script');e.src=s;e.onload=cb;e.onerror=cb;document.head.appendChild(e);}
-  css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css');
-  js('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js',function(){
-    if(!window.L)return;
+  var KEY=String(window.RTIRL_PULL_KEY||'').trim();
+  var mbox=document.getElementById('map'),ov=document.getElementById('mapOff'),stat=document.getElementById('mapStat');
+  if(!KEY||!mbox||!ov||!stat)return;
+  var offTxt=ov.querySelector('.offtxt'),offSub=ov.querySelector('.offsub');
+  var STALE_MS=10*60*1000;           /* sinal mais velho que isso = "sem sinal" */
+  function log(){try{console.log.apply(console,['[RTIRL]'].concat([].slice.call(arguments)));}catch(e){}}
+  function setOff(a,b){if(offTxt)offTxt.textContent=a;if(offSub)offSub.textContent=b;}
+  function css(h,fail){var l=document.createElement('link');l.rel='stylesheet';l.href=h;if(fail)l.onerror=fail;document.head.appendChild(l);}
+  function js(src,ok,fail){var e=document.createElement('script');e.src=src;e.async=true;e.onload=ok;e.onerror=fail;document.head.appendChild(e);}
+  /* tenta várias fontes em ordem até uma carregar */
+  function loadAny(urls,ok,fail){
+    (function next(i){
+      if(i>=urls.length){fail();return;}
+      js(urls[i],ok,function(){log('falhou',urls[i]);next(i+1);});
+    })(0);
+  }
+  stat.textContent='conectando…';
+  css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',function(){css('https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css');});
+  loadAny(['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js','https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js'],init,function(){
+    setOff('MAPA','INDISPONÍVEL');stat.textContent='mapa indisponível';
+  });
+
+  function init(){
+    if(!window.L){setOff('MAPA','INDISPONÍVEL');stat.textContent='mapa indisponível';return;}
     var touch=(window.matchMedia&&matchMedia('(pointer:coarse)').matches)||L.Browser.mobile;
     var map=L.map('map',{dragging:!touch,tap:false}).setView([-22.9068,-43.1729],12);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'© OpenStreetMap © CARTO'}).addTo(map);
     var icon=L.divIcon({className:'me',html:'<i></i>',iconSize:[22,22],iconAnchor:[11,11]});
-    var mk=null,last=0,dragged=false;
+    var mk=null,lastAt=0,dragged=false;
     map.on('dragstart',function(){dragged=true;});
-    var rc=document.getElementById('mapRecenter'),hint=document.getElementById('mapHint'),mbox=document.getElementById('map');
+    var rc=document.getElementById('mapRecenter'),hint=document.getElementById('mapHint');
     if(touch){ /* 1 dedo rola a página; 2 dedos movem/ampliam o mapa */
       mbox.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)dragged=true;},{passive:true});
       if(hint){hint.hidden=false;setTimeout(function(){hint.style.opacity='0';setTimeout(function(){hint.hidden=true;},450);},5000);}
@@ -1916,28 +2043,64 @@ var YT_API_KEY = "AIzaSyDX5bdScRx7h8Of1JNgrG6m2C0bYvhDQxo";
     if(rc)rc.addEventListener('click',function(){dragged=false;if(mk)map.flyTo(mk.getLatLng(),Math.max(map.getZoom(),16),{duration:.6});});
     function fit(){map.invalidateSize();}
     window.addEventListener('orientationchange',function(){setTimeout(fit,250);});
+    window.addEventListener('resize',fit);
     if(window.ResizeObserver)new ResizeObserver(fit).observe(mbox);
-    function onLoc(lat,lng){
-      last=Date.now();ov.style.display='none';if(rc)rc.hidden=false;var p=[lat,lng];
-      if(!mk){mk=L.marker(p,{icon:icon}).addTo(map);map.setView(p,16);}
-      else{mk.setLatLng(p);if(!dragged)map.panTo(p);}
-      tick();
+    setTimeout(fit,300);setTimeout(fit,1500);
+
+    function fresh(){return lastAt&&(Date.now()-lastAt)<STALE_MS;}
+    function render(){
+      if(!lastAt){stat.textContent='sem sinal';ov.style.display='';setOff('AGUARDANDO','SINAL DO APP');return;}
+      var s=Math.max(0,Math.round((Date.now()-lastAt)/1000));
+      if(!fresh()){stat.textContent='sem sinal';ov.style.display='';setOff('AGUARDANDO','SINAL DO APP');if(rc)rc.hidden=true;return;}
+      ov.style.display='none';if(rc)rc.hidden=false;
+      stat.textContent=s<20?'ao vivo agora':(s<120?'sinal há '+s+'s':'sinal há '+Math.round(s/60)+' min');
     }
-    function tick(){
-      if(!last)return;var s=Math.round((Date.now()-last)/1000);
-      stat.textContent=s<15?'ao vivo agora':(s<120?'sinal há '+s+'s':'sinal há '+Math.round(s/60)+' min');
+    /* at = hora em que o app ENVIOU a posição (ms). Sem at, usa a hora atual. */
+    function onLoc(lat,lng,at){
+      lat=Number(lat);lng=Number(lng);
+      if(!isFinite(lat)||!isFinite(lng))return;
+      at=Number(at)||Date.now();
+      if(at>=lastAt)lastAt=at;
+      var p=[lat,lng];
+      if(!mk){mk=L.marker(p,{icon:icon}).addTo(map);if(fresh())map.setView(p,16);}
+      else{mk.setLatLng(p);if(fresh()&&!dragged)map.panTo(p);}
+      render();
     }
-    setInterval(tick,5000);
+    setInterval(render,5000);
+    render();
+
+    /* 1) Consulta direta a cada 5 s (não depende de nenhuma biblioteca extra) */
+    var url='https://rtirl.com/api/pull?key='+encodeURIComponent(KEY);
     function poll(){
-      function go(){fetch('https://rtirl.com/api/pull?key='+encodeURIComponent(KEY)).then(function(r){return r.json();}).then(function(d){if(d&&d.location)onLoc(d.location.latitude,d.location.longitude);}).catch(function(){});}
-      go();setInterval(go,5000);
+      var ctl=window.AbortController?new AbortController():null;
+      var to=setTimeout(function(){if(ctl)ctl.abort();},8000);
+      fetch(url,{cache:'no-store',signal:ctl?ctl.signal:undefined})
+        .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+        .then(function(d){
+          clearTimeout(to);
+          var l=d&&d.location;
+          if(l&&l.latitude!=null&&l.longitude!=null)onLoc(l.latitude,l.longitude,d.reportedAt||d.updatedAt);
+          else log('sem localização na resposta',d);
+        })
+        .catch(function(e){clearTimeout(to);log('falha na consulta',e&&e.message);});
     }
-    js('https://unpkg.com/@rtirl/api@latest/lib/index.min.js',function(){
-      if(window.RealtimeIRL&&window.RealtimeIRL.forPullKey){
-        window.RealtimeIRL.forPullKey(KEY).addLocationListener(function(l){onLoc(l.latitude,l.longitude);});
-      }else poll();
-    });
-  });
+    poll();setInterval(poll,5000);
+
+    /* 2) Push em tempo real (mais rápido), quando a biblioteca carrega */
+    loadAny(['https://unpkg.com/@rtirl/api@latest/lib/index.min.js','https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js'],function(){
+      try{
+        if(!(window.RealtimeIRL&&window.RealtimeIRL.forPullKey)){log('biblioteca sem forPullKey');return;}
+        var subAt=Date.now();
+        window.RealtimeIRL.forPullKey(KEY).addLocationListener(function(l){
+          if(!l)return;
+          /* o 1º valor pode ser só a última posição guardada: sem hora própria, não conta como "ao vivo" */
+          var at=l.reportedAt||((Date.now()-subAt)>2500?Date.now():0);
+          if(at)onLoc(l.latitude,l.longitude,at);
+          else if(!mk)onLoc(l.latitude,l.longitude,lastAt||1);
+        });
+      }catch(e){log('erro no push',e&&e.message);}
+    },function(){log('biblioteca push indisponível; seguindo só com a consulta direta');});
+  }
 })();
 </script>
 <script>
