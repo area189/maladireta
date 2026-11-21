@@ -74,16 +74,27 @@ footer{border-top:3px solid var(--edge);padding:16px 0 28px;color:var(--mute);fo
 .mapsec{margin-top:34px}
 .mapsec .sec-title{width:fit-content;max-width:100%;padding:10px 18px;border:3px solid #39ff14;border-radius:12px;box-shadow:0 0 12px rgba(57,255,20,.7),0 0 28px rgba(57,255,20,.35),inset 0 0 12px rgba(57,255,20,.25)}
 @media (max-width:600px){.mapsec .sec-title{padding:8px 12px}}
-#games-h,#map-h{font-size:clamp(22px,3.2vw,32px)}
+#games-h{font-size:clamp(22px,3.2vw,32px)}
 .chip{align-self:center;font:700 13px Archivo,sans-serif;border:2px solid var(--edge);color:var(--neon);padding:3px 10px;border-radius:999px}
-.mapbox{aspect-ratio:auto;height:clamp(260px,38vw,420px)}
-#map{position:absolute;inset:0;z-index:0;background:#170a33}
-.mapfx{position:absolute;inset:0;z-index:1;background:#7a2cff;mix-blend-mode:color;opacity:.5;pointer-events:none}
-.mapbox .offtxt{font-size:clamp(28px,6vw,64px)}
-.mapbox .offsub{font-size:clamp(14px,3vw,30px)}
-.me i{display:block;width:22px;height:22px;border-radius:50%;background:#39ff14;border:3px solid #170a33;box-shadow:0 0 0 0 rgba(57,255,20,.7),0 0 14px #39ff14;animation:ping 1.8s infinite}
 @keyframes ping{70%{box-shadow:0 0 0 18px rgba(57,255,20,0),0 0 14px #39ff14}100%{box-shadow:0 0 0 0 rgba(57,255,20,0),0 0 14px #39ff14}}
-@media (prefers-reduced-motion:reduce){.me i{animation:none}}
+#atl-h{font-size:clamp(22px,3.2vw,32px)}
+.atalhos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.atalho{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:200px;padding:20px 18px 16px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;border:3px solid hsl(var(--h,120),90%,60%);border-radius:18px;background:radial-gradient(circle at 88% 10%,hsla(var(--h,120),90%,60%,.28),transparent 55%),linear-gradient(160deg,hsl(var(--h,120),65%,24%),#170a33 78%);box-shadow:5px 5px 0 #7a2cff,0 0 24px hsla(var(--h,120),90%,60%,.18);transition:transform .15s,box-shadow .15s,border-color .15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.atalho:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 #7a2cff,0 0 28px rgba(57,255,20,.35);border-color:var(--neon)}
+.atalho:active{transform:translate(4px,4px);box-shadow:1px 1px 0 #7a2cff}
+.atalho:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+.atl-ico{font-size:clamp(40px,8vw,54px);line-height:1;filter:drop-shadow(0 3px 6px rgba(0,0,0,.45))}
+.atl-t{font:400 clamp(22px,3vw,28px)/1.05 "Archivo Black",Impact,sans-serif;letter-spacing:.05em;color:#fff;text-shadow:0 0 14px hsla(var(--h,120),90%,60%,.5)}
+.atl-d{font:500 14px/1.4 Archivo,sans-serif;color:var(--mute);max-width:34ch}
+.atl-go{margin-top:auto;padding-top:6px;font:800 13px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--neon)}
+@media (max-width:700px){
+  .atalhos{grid-template-columns:1fr;gap:14px}
+  .atalho{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:4px;align-items:center;min-height:0;padding:16px}
+  .atl-ico{grid-row:1/4}
+  .atl-d{max-width:none}
+  .atl-go{margin-top:2px;padding-top:2px}
+}
+@media (prefers-reduced-motion:reduce){.atalho{transition:none}}
 /* ===== Personagens ===== */
 #chars-h{font-size:clamp(22px,3.2vw,32px)}
 .charsec{margin-top:34px}
@@ -306,7 +317,6 @@ button,.tab,.btn,.zjump a{touch-action:manipulation}
   .tv,.game,.char,.dica{box-shadow:4px 4px 0 #7a2cff}
   .chars{gap:12px}
   .dicas{gap:16px}
-  .mapbox{height:clamp(240px,62vw,340px)}
   .sec-title{flex-wrap:wrap}
   .dprice li{flex-wrap:wrap;gap:4px 12px}
   .dbody,.cbody{padding-left:16px;padding-right:16px}
@@ -339,27 +349,18 @@ button,.tab,.btn,.zjump a{touch-action:manipulation}
   .live-title h2{font-size:clamp(12px,3.9vw,16px);line-height:1.2}
 }
 @media (max-width:340px){.live-title{flex-wrap:wrap}}
-/* ---- Player AO VIVO (YouTube) e mapa RealtimeIRL: ajuste para celular ---- */
+/* ---- Player AO VIVO (YouTube): ajuste para celular ---- */
 #tv iframe{background:#000}
-.maprc{position:absolute;left:10px;bottom:10px;z-index:5;font:700 13px Archivo,sans-serif;min-height:40px;padding:8px 12px;background:var(--neon);color:#16181d;border:2px solid #16181d;border-radius:8px;box-shadow:2px 2px 0 #16181d;cursor:pointer;touch-action:manipulation}
-.maprc[hidden],.maphint[hidden]{display:none}
-.maphint{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:5;max-width:88%;text-align:center;font:700 12px Archivo,sans-serif;background:rgba(23,10,51,.92);color:var(--ink);border:2px solid var(--neon);border-radius:999px;padding:6px 12px;pointer-events:none;transition:opacity .4s}
 @media (max-width:600px){
-  #tv,.mapbox{margin-left:-14px;margin-right:-14px;border-left:0;border-right:0;border-radius:0;box-shadow:none}
+  #tv{margin-left:-14px;margin-right:-14px;border-left:0;border-right:0;border-radius:0;box-shadow:none}
   .tv .off{gap:2px;padding:10px 12px}
   .tv .offtxt{font-size:clamp(30px,13vw,56px)}
   .tv .offsub{font-size:clamp(13px,4.6vw,22px);letter-spacing:.28em;margin-right:-.28em}
   .tv .off p{margin:4px 0 8px;font-size:12px;max-width:none}
   .tv .off .btn{padding:9px 14px;font-size:13px;min-height:40px;box-shadow:2px 2px 0 #16181d}
-  .mapbox{height:clamp(300px,78vw,420px)}
-  .mapbox .offtxt{font-size:clamp(26px,10vw,44px)}
-  .mapbox .offsub{font-size:clamp(12px,4vw,18px)}
-  .leaflet-bar a{width:38px;height:38px;line-height:38px;font-size:20px}
-  .leaflet-control-attribution{font-size:9px}
 }
 @media (max-height:480px) and (orientation:landscape){
   #tv{width:min(100%,calc((100vh - 16px)*16/9));width:min(100%,calc((100svh - 16px)*16/9));margin-left:auto;margin-right:auto}
-  .mapbox{height:calc(100vh - 24px);height:calc(100svh - 24px)}
 }
 /* ---- Topo: personagens fixos sobre o cenário sorteado ---- */
 .hero .herochars{position:absolute;inset:0;width:100%;height:100%;min-height:0;max-height:none;object-fit:cover;object-position:50% 40%;pointer-events:none}
@@ -748,7 +749,7 @@ body.dock-open #dockH{opacity:0;pointer-events:none}
 /* --- conteúdo --- */
 [role="tabpanel"]:not([hidden]){animation:acRise .4s ease both}
 @keyframes acRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.sec-title h2,#games-h,#map-h,#chars-h{text-shadow:0 0 18px rgba(57,255,20,.35)}
+.sec-title h2,#games-h,#atl-h,#chars-h{text-shadow:0 0 18px rgba(57,255,20,.35)}
 .sec-title{position:relative;padding-bottom:10px}
 .sec-title::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--neon),#7a2cff)}
 main{gap:34px;padding:30px 0 60px}
@@ -994,15 +995,36 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       <p>Aguarde e inscreva-se, já já a live vai começar.</p>
       <a class="btn red" id="ytBtn" href="https://www.youtube.com/@aovivonorio/live" target="_blank" rel="noopener">Abrir no YouTube</a>
     </div>
-  <div class="mapsec" role="region" aria-labelledby="map-h">
-  <div class="sec-title"><h2 id="map-h">ESTAMOS AO VIVO NO RIO</h2><span class="chip" id="mapStat">sem sinal</span></div>
-  <div class="tv mapbox">
-    <div id="map"></div><div class="mapfx"></div>
-    <div class="off" id="mapOff" role="status"><div class="offtxt">AGUARDANDO</div><div class="offsub">SINAL DO APP</div><p>ACOMPANHE NOSSA CAMINHADA</p></div>
-    <div class="maphint" id="mapHint" hidden>Use 2 dedos para mover o mapa</div>
-    <button type="button" class="maprc" id="mapRecenter" hidden>📍 Centralizar</button>
+  <div class="mapsec" role="region" aria-labelledby="atl-h">
+    <div class="sec-title"><h2 id="atl-h">EXPLORE O RIO</h2></div>
+    <div class="atalhos">
+      <button type="button" class="atalho" data-go="filmes" style="--h:320" aria-label="Abrir a aba Filmes e Séries">
+        <span class="atl-ico" aria-hidden="true">🎬</span>
+        <span class="atl-t">FILMES</span>
+        <span class="atl-d">Próximos lançamentos do cinema e séries para assistir, com trailer e onde ver.</span>
+        <span class="atl-go">Abrir aba →</span>
+      </button>
+      <button type="button" class="atalho" data-go="musicas" style="--h:200" aria-label="Abrir a aba Rádios ao vivo">
+        <span class="atl-ico" aria-hidden="true">📻</span>
+        <span class="atl-t">RÁDIOS</span>
+        <span class="atl-d">Ouça emissoras ao vivo do Brasil e do mundo, por gênero ou pelo nome.</span>
+        <span class="atl-go">Abrir aba →</span>
+      </button>
+      <button type="button" class="atalho" data-go="bares" style="--h:32" aria-label="Abrir a aba Bares do Rio">
+        <span class="atl-ico" aria-hidden="true">🍻</span>
+        <span class="atl-t">BARES</span>
+        <span class="atl-d">Botecos, casas de chope e restaurantes do Rio, separados por região.</span>
+        <span class="atl-go">Abrir aba →</span>
+      </button>
+    </div>
   </div>
-</div>
+  <script>
+  (function(){
+    document.querySelectorAll('.atalho[data-go]').forEach(function(b){
+      b.addEventListener('click',function(){var t=document.getElementById('tab-'+b.dataset.go);if(t)t.click();});
+    });
+  })();
+  </script>
   <div class="mapsec lvsec" id="lvsec" role="region" aria-labelledby="lv-h" hidden>
     <div class="sec-title"><h2 id="lv-h">ÚLTIMAS 5 LIVES</h2></div>
     <div class="tv lvplayer"><div id="lvPlayer"></div></div>
@@ -1946,8 +1968,6 @@ var CHANNEL_ID = "UCzvoX_qu3L0bV7PXh01RpKg";
 // true = player embutido (use quando o site estiver no seu próprio domínio)
 var EMBED = true;
 var HANDLE = "aovivonorio";
-// Chave "Pull Key" do RealtimeIRL (para o mapa em tempo real). Deixe vazio para mostrar só o aviso.
-var RTIRL_PULL_KEY = "y971psbf8katoxkq";
 // Chave de API do YouTube (Google Cloud > YouTube Data API v3) para mostrar quantas pessoas estão assistindo. Deixe vazio para desativar.
 var YT_API_KEY = "AIzaSyDX5bdScRx7h8Of1JNgrG6m2C0bYvhDQxo";
 
@@ -2000,107 +2020,6 @@ var YT_API_KEY = "AIzaSyDX5bdScRx7h8Of1JNgrG6m2C0bYvhDQxo";
   document.querySelectorAll('.game').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.game);});});
   document.getElementById('close').addEventListener('click',close);
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&stage.classList.contains('on'))close();});
-})();
-</script>
-<script>
-/* ===== MAPA AO VIVO (RealtimeIRL) ===== */
-(function(){
-  var KEY=String(window.RTIRL_PULL_KEY||'').trim();
-  var mbox=document.getElementById('map'),ov=document.getElementById('mapOff'),stat=document.getElementById('mapStat');
-  if(!KEY||!mbox||!ov||!stat)return;
-  var offTxt=ov.querySelector('.offtxt'),offSub=ov.querySelector('.offsub');
-  var STALE_MS=10*60*1000;           /* sinal mais velho que isso = "sem sinal" */
-  function log(){try{console.log.apply(console,['[RTIRL]'].concat([].slice.call(arguments)));}catch(e){}}
-  function setOff(a,b){if(offTxt)offTxt.textContent=a;if(offSub)offSub.textContent=b;}
-  function css(h,fail){var l=document.createElement('link');l.rel='stylesheet';l.href=h;if(fail)l.onerror=fail;document.head.appendChild(l);}
-  function js(src,ok,fail){var e=document.createElement('script');e.src=src;e.async=true;e.onload=ok;e.onerror=fail;document.head.appendChild(e);}
-  /* tenta várias fontes em ordem até uma carregar */
-  function loadAny(urls,ok,fail){
-    (function next(i){
-      if(i>=urls.length){fail();return;}
-      js(urls[i],ok,function(){log('falhou',urls[i]);next(i+1);});
-    })(0);
-  }
-  stat.textContent='conectando…';
-  css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',function(){css('https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css');});
-  loadAny(['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js','https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js'],init,function(){
-    setOff('MAPA','INDISPONÍVEL');stat.textContent='mapa indisponível';
-  });
-
-  function init(){
-    if(!window.L){setOff('MAPA','INDISPONÍVEL');stat.textContent='mapa indisponível';return;}
-    var touch=(window.matchMedia&&matchMedia('(pointer:coarse)').matches)||L.Browser.mobile;
-    var map=L.map('map',{dragging:!touch,tap:false}).setView([-22.9068,-43.1729],12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'© OpenStreetMap © CARTO'}).addTo(map);
-    var icon=L.divIcon({className:'me',html:'<i></i>',iconSize:[22,22],iconAnchor:[11,11]});
-    var mk=null,lastAt=0,dragged=false;
-    map.on('dragstart',function(){dragged=true;});
-    var rc=document.getElementById('mapRecenter'),hint=document.getElementById('mapHint');
-    if(touch){ /* 1 dedo rola a página; 2 dedos movem/ampliam o mapa */
-      mbox.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)dragged=true;},{passive:true});
-      if(hint){hint.hidden=false;setTimeout(function(){hint.style.opacity='0';setTimeout(function(){hint.hidden=true;},450);},5000);}
-    }
-    if(rc)rc.addEventListener('click',function(){dragged=false;if(mk)map.flyTo(mk.getLatLng(),Math.max(map.getZoom(),16),{duration:.6});});
-    function fit(){map.invalidateSize();}
-    window.addEventListener('orientationchange',function(){setTimeout(fit,250);});
-    window.addEventListener('resize',fit);
-    if(window.ResizeObserver)new ResizeObserver(fit).observe(mbox);
-    setTimeout(fit,300);setTimeout(fit,1500);
-
-    function fresh(){return lastAt&&(Date.now()-lastAt)<STALE_MS;}
-    function render(){
-      if(!lastAt){stat.textContent='sem sinal';ov.style.display='';setOff('AGUARDANDO','SINAL DO APP');return;}
-      var s=Math.max(0,Math.round((Date.now()-lastAt)/1000));
-      if(!fresh()){stat.textContent='sem sinal';ov.style.display='';setOff('AGUARDANDO','SINAL DO APP');if(rc)rc.hidden=true;return;}
-      ov.style.display='none';if(rc)rc.hidden=false;
-      stat.textContent=s<20?'ao vivo agora':(s<120?'sinal há '+s+'s':'sinal há '+Math.round(s/60)+' min');
-    }
-    /* at = hora em que o app ENVIOU a posição (ms). Sem at, usa a hora atual. */
-    function onLoc(lat,lng,at){
-      lat=Number(lat);lng=Number(lng);
-      if(!isFinite(lat)||!isFinite(lng))return;
-      at=Number(at)||Date.now();
-      if(at>=lastAt)lastAt=at;
-      var p=[lat,lng];
-      if(!mk){mk=L.marker(p,{icon:icon}).addTo(map);if(fresh())map.setView(p,16);}
-      else{mk.setLatLng(p);if(fresh()&&!dragged)map.panTo(p);}
-      render();
-    }
-    setInterval(render,5000);
-    render();
-
-    /* 1) Consulta direta a cada 5 s (não depende de nenhuma biblioteca extra) */
-    var url='https://rtirl.com/api/pull?key='+encodeURIComponent(KEY);
-    function poll(){
-      var ctl=window.AbortController?new AbortController():null;
-      var to=setTimeout(function(){if(ctl)ctl.abort();},8000);
-      fetch(url,{cache:'no-store',signal:ctl?ctl.signal:undefined})
-        .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-        .then(function(d){
-          clearTimeout(to);
-          var l=d&&d.location;
-          if(l&&l.latitude!=null&&l.longitude!=null)onLoc(l.latitude,l.longitude,d.reportedAt||d.updatedAt);
-          else log('sem localização na resposta',d);
-        })
-        .catch(function(e){clearTimeout(to);log('falha na consulta',e&&e.message);});
-    }
-    poll();setInterval(poll,5000);
-
-    /* 2) Push em tempo real (mais rápido), quando a biblioteca carrega */
-    loadAny(['https://unpkg.com/@rtirl/api@latest/lib/index.min.js','https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js'],function(){
-      try{
-        if(!(window.RealtimeIRL&&window.RealtimeIRL.forPullKey)){log('biblioteca sem forPullKey');return;}
-        var subAt=Date.now();
-        window.RealtimeIRL.forPullKey(KEY).addLocationListener(function(l){
-          if(!l)return;
-          /* o 1º valor pode ser só a última posição guardada: sem hora própria, não conta como "ao vivo" */
-          var at=l.reportedAt||((Date.now()-subAt)>2500?Date.now():0);
-          if(at)onLoc(l.latitude,l.longitude,at);
-          else if(!mk)onLoc(l.latitude,l.longitude,lastAt||1);
-        });
-      }catch(e){log('erro no push',e&&e.message);}
-    },function(){log('biblioteca push indisponível; seguindo só com a consulta direta');});
-  }
 })();
 </script>
 <script>
