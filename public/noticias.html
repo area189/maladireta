@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Notícias · Ao Vivo no Rio</title>
+<meta name="description" content="Notícias de gastronomia, cinema, shows, teatro, exposições, eventos e programação infantil no Rio de Janeiro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120826;--neon:#39ff14;--purple:#7a2cff;--sky:#5ad1ff;--ink:#f4eeff;--mute:#b9a8e0}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at 80% -10%,#2a1260,transparent 55%),var(--bg);color:var(--ink);font:500 15px/1.5 Archivo,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(40px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+.wrap{max-width:1100px;margin:0 auto}
+.back{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 8px 12px;font:800 14px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#170a33;background:var(--neon);border:2px solid #170a33;border-radius:999px;box-shadow:3px 3px 0 var(--purple);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.back:hover{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--purple)}
+.back:focus-visible,.nt-chip:focus-visible,.nt-more:focus-visible,.nt-card a:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+.back svg{width:20px;height:20px;flex:none}
+.hd{margin:22px 0 16px}
+.kick{display:inline-block;padding:5px 10px;margin-bottom:10px;font:800 11px/1 Archivo,sans-serif;letter-spacing:.14em;color:#170a33;background:var(--neon);border-radius:999px}
+h1{margin:0;font:400 clamp(26px,5vw,44px)/1.05 "Archivo Black",Impact,sans-serif;letter-spacing:.03em;text-shadow:0 0 18px rgba(57,255,20,.35)}
+.sub{margin:10px 0 0;color:var(--mute)}
+.nt-bar{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0 14px}
+.nt-chip{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:8px 14px;font:800 12px/1 Archivo,sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);background:#170a33;border:2px solid hsl(var(--h,120),80%,55%);border-radius:999px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.nt-chip b{font-weight:800;font-size:11px;padding:2px 6px;border-radius:999px;background:hsla(var(--h,120),80%,55%,.25)}
+.nt-chip:hover{background:hsla(var(--h,120),80%,55%,.2)}
+.nt-chip[aria-pressed="true"]{background:hsl(var(--h,120),85%,58%);color:#170a33}
+.nt-chip[aria-pressed="true"] b{background:rgba(23,10,51,.2)}
+.nt-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
+.nt-card{display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(160deg,#241052,#170a33 80%);border:2px solid hsl(var(--h,120),70%,45%);border-top-width:5px;border-radius:14px;box-shadow:4px 4px 0 var(--purple)}
+.nt-img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#120826}
+.nt-body{display:flex;flex-direction:column;gap:8px;padding:14px 14px 16px;flex:1}
+.nt-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font:700 11px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.nt-tag{padding:4px 8px;border-radius:999px;color:#170a33;background:hsl(var(--h,120),85%,58%)}
+.nt-t{font:400 clamp(17px,2.4vw,20px)/1.2 "Archivo Black",Impact,sans-serif;color:#fff;margin:0}
+.nt-t a{color:inherit;text-decoration:none}
+.nt-t a:hover{text-decoration:underline}
+.nt-r{margin:0;font:500 14px/1.45 Archivo,sans-serif;color:var(--mute)}
+.nt-go{margin-top:auto;padding-top:4px;font:800 12px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--neon);text-decoration:none}
+.nt-empty{grid-column:1/-1;padding:26px 16px;text-align:center;font:500 15px/1.5 Archivo,sans-serif;color:var(--mute);border:2px dashed var(--purple);border-radius:14px}
+.nt-more{display:block;margin:20px auto 0;padding:0 22px;min-height:44px;font:800 13px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#170a33;background:var(--neon);border:2px solid #170a33;border-radius:999px;box-shadow:3px 3px 0 var(--purple);cursor:pointer}
+@media (max-width:600px){.nt-bar{gap:6px}.nt-chip{min-height:38px;padding:6px 11px;font-size:11px;letter-spacing:.05em}.nt-chip b{font-size:10px;padding:2px 5px}}
+@media (prefers-reduced-motion:reduce){.back{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./" aria-label="Voltar para a página inicial do site">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>
+    <span>Voltar ao site</span>
+  </a>
+
+  <header class="hd">
+    <span class="kick">AO VIVO NO RIO</span>
+    <h1 id="pgTitle">NOTÍCIAS</h1>
+    <p class="sub" id="pgSub"></p>
+  </header>
+
+  <div class="nt-bar" id="ntBar" role="group" aria-label="Filtrar notícias por categoria"></div>
+  <div class="nt-list" id="ntList" aria-live="polite"></div>
+  <button type="button" class="nt-more" id="ntMore" hidden>Mostrar mais</button>
+</div>
+
+<script>
+(function(){
+  var CATS=[
+    {id:'gastronomia',nome:'Gastronomia',h:32},
+    {id:'cinema',nome:'Cinema',h:320},
+    {id:'shows',nome:'Shows e Concertos',h:270},
+    {id:'teatro',nome:'Teatro e Dança',h:350},
+    {id:'exposicoes',nome:'Exposições',h:175},
+    {id:'eventos',nome:'Eventos',h:120},
+    {id:'infantil',nome:'Infantil',h:50}
+  ];
+  var PAGE=12,MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  var bar=document.getElementById('ntBar'),list=document.getElementById('ntList'),more=document.getElementById('ntMore'),
+      ttl=document.getElementById('pgTitle'),sub=document.getElementById('pgSub');
+  var items=[],loaded=false,failed=false,shown=PAGE;
+  function catOf(id){for(var i=0;i<CATS.length;i++)if(CATS[i].id===id)return CATS[i];return null;}
+  var cur=(function(){try{var c=new URLSearchParams(location.search).get('cat');return catOf(c)?c:'todas';}catch(e){return 'todas';}})();
+
+  function safeUrl(u){u=String(u||'').trim();return /^https?:\/\//i.test(u)?u:'';}
+  function safeImg(u){u=String(u||'').trim();return (/^https?:\/\//i.test(u)||/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(u))?u:'';}
+  function fmt(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(d||''));return m?(+m[3])+' '+MES[+m[2]-1]+' '+m[1]:'';}
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+  function setItems(arr){
+    items=(Array.isArray(arr)?arr:[]).filter(function(n){return n&&n.titulo;}).map(function(n,i){n._i=i;return n;});
+    items.sort(function(a,b){var da=String(a.data||''),db=String(b.data||'');return da===db?a._i-b._i:(da<db?1:-1);});
+  }
+  function count(id){return id==='todas'?items.length:items.filter(function(n){return n.categoria===id;}).length;}
+
+  function chips(){
+    bar.textContent='';
+    [{id:'todas',nome:'Todas',h:120}].concat(CATS).forEach(function(c){
+      var b=el('button','nt-chip');b.type='button';b.style.setProperty('--h',c.h);
+      b.setAttribute('aria-pressed',c.id===cur?'true':'false');
+      b.appendChild(document.createTextNode(c.nome));
+      var n=count(c.id);if(n)b.appendChild(el('b',null,String(n)));
+      b.addEventListener('click',function(){
+        cur=c.id;shown=PAGE;
+        try{history.replaceState(null,'',c.id==='todas'?location.pathname:'?cat='+encodeURIComponent(c.id));}catch(e){}
+        draw();
+      });
+      bar.appendChild(b);
+    });
+  }
+  function card(n){
+    var c=catOf(n.categoria),u=safeUrl(n.link),img=safeImg(n.imagem);
+    var a=el('article','nt-card');a.style.setProperty('--h',c?c.h:120);
+    if(img){var im=el('img','nt-img');im.src=img;im.alt='';im.loading='lazy';im.referrerPolicy='no-referrer';im.onerror=function(){im.remove();};a.appendChild(im);}
+    var body=el('div','nt-body'),meta=el('div','nt-meta');
+    if(c)meta.appendChild(el('span','nt-tag',c.nome));
+    var d=fmt(n.data);if(d)meta.appendChild(el('span',null,d));
+    if(n.fonte)meta.appendChild(el('span',null,String(n.fonte)));
+    body.appendChild(meta);
+    var h=el('h2','nt-t');
+    if(u){var l=el('a',null,String(n.titulo));l.href=u;l.target='_blank';l.rel='noopener';h.appendChild(l);}else h.textContent=String(n.titulo);
+    body.appendChild(h);
+    if(n.resumo)body.appendChild(el('p','nt-r',String(n.resumo)));
+    if(u){var g=el('a','nt-go','Ler matéria ↗');g.href=u;g.target='_blank';g.rel='noopener';g.setAttribute('aria-label','Ler matéria: '+n.titulo);body.appendChild(g);}
+    a.appendChild(body);return a;
+  }
+  function draw(){
+    var c=catOf(cur),nome=c?c.nome:'Todas as categorias';
+    ttl.textContent=c?c.nome.toUpperCase():'NOTÍCIAS';
+    document.title=(c?c.nome+' · ':'')+'Notícias · Ao Vivo no Rio';
+    chips();list.textContent='';
+    if(!loaded){sub.textContent='Carregando…';more.hidden=true;return;}
+    if(failed){sub.textContent='';list.appendChild(el('div','nt-empty','Não foi possível carregar as notícias agora. Tente novamente em instantes.'));more.hidden=true;return;}
+    var sel=cur==='todas'?items:items.filter(function(n){return n.categoria===cur;});
+    sub.textContent=sel.length?(sel.length+(sel.length===1?' notícia':' notícias')+(c?' em '+nome:'')):'';
+    if(!sel.length){
+      list.appendChild(el('div','nt-empty',c?'Ainda não há notícias de '+nome+' por aqui. Volte em breve!':'As notícias vão aparecer aqui.'));
+      more.hidden=true;return;
+    }
+    sel.slice(0,shown).forEach(function(n){list.appendChild(card(n));});
+    more.hidden=sel.length<=shown;
+  }
+  more.addEventListener('click',function(){shown+=PAGE;draw();});
+  draw();
+  fetch('noticias.json',{cache:'no-store'})
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(d){if(!Array.isArray(d))throw 0;setItems(d);loaded=true;draw();})
+    .catch(function(){loaded=true;failed=true;draw();});
+})();
+</script>
+</body>
+</html>
