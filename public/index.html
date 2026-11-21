@@ -1006,6 +1006,7 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
 </div>
 <div class="herotabs" id="dock"><div class="wrap"><nav class="tabs" role="tablist" aria-label="Seções do site">
   <button class="tab" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" data-tab="live"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></svg><span>AO VIVO</span></button>
+  <button class="tab" role="tab" id="tab-noticias" aria-controls="panel-noticias" aria-selected="false" data-tab="noticias" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h13a1 1 0 0 1 1 1v13a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2z"/><path d="M18 9h2a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2"/><path d="M7.5 9h7M7.5 13h7M7.5 17h4"/></svg><span>NOTÍCIAS</span></button>
   <button class="tab" role="tab" id="tab-dicas" aria-controls="panel-dicas" aria-selected="false" data-tab="dicas" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5V20l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4z"/><path d="M9 4v13.5M15 6.5V20"/></svg><span>DICAS : AO VIVO NO RIO</span></button>
   <button class="tab" role="tab" id="tab-clima" aria-controls="panel-clima" aria-selected="false" data-tab="clima" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>CLIMA TEMPO</span></button>
   <button class="tab" role="tab" id="tab-cameras" aria-controls="panel-cameras" aria-selected="false" data-tab="cameras" tabindex="-1"><svg class="ti" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(12 13 9)"><rect x="6" y="4.5" width="13" height="7" rx="1.5"/><path d="M19 6.5h2.5v3H19"/></g><path d="M3 3v14M3 8h4M7 17H3"/></svg><span>CÂMERAS DO RIO</span></button>
@@ -1043,7 +1044,6 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   <div class="mapsec" role="region" aria-labelledby="nt-h">
     <div class="sec-title"><h2 id="nt-h">NOTÍCIAS</h2></div>
     <div class="nt-bar" id="ntBar" role="group" aria-label="Filtrar notícias por categoria"></div>
-    <a class="nt-rs" id="ntRs" href="#" target="_blank" rel="noopener" hidden></a>
     <div class="nt-list" id="ntList" aria-live="polite"></div>
     <button type="button" class="nt-more" id="ntMore" hidden>Mostrar mais</button>
   </div>
@@ -1080,9 +1080,10 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       {id:'eventos',nome:'Eventos',h:120},
       {id:'infantil',nome:'Infantil',h:50}
     ];
-    var bar=document.getElementById('ntBar'),list=document.getElementById('ntList'),more=document.getElementById('ntMore'),rs=document.getElementById('ntRs');
-    if(!bar||!list||!more||!rs)return;
-    var cur='todas',shown=PAGE;
+    var bar=document.getElementById('ntBar'),list=document.getElementById('ntList'),more=document.getElementById('ntMore');
+    if(!bar||!list||!more)return;
+    /* Os ícones de categoria levam para a aba NOTÍCIAS do menu, já com a categoria escolhida */
+    function go(id){if(window.noticiasSetCat)window.noticiasSetCat(id);var t=document.getElementById('tab-noticias');if(t)t.click();}
     var MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
     function safeUrl(u){u=String(u||'').trim();return /^https?:\/\//i.test(u)?u:'';}
     function safeImg(u){u=String(u||'').trim();return (/^https?:\/\//i.test(u)||/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(u))?u:'';}
@@ -1094,17 +1095,18 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       items=(Array.isArray(arr)?arr:[]).filter(function(n){return n&&n.titulo;}).map(function(n,i){n._i=i;return n;});
       items.sort(function(a,b){var da=String(a.data||''),db=String(b.data||'');return da===db?a._i-b._i:(da<db?1:-1);});
     }
-    setItems(NOTICIAS);
+    function publish(){window.NOTICIAS_ITEMS=items;try{window.dispatchEvent(new Event('noticias:data'));}catch(e){}}
+    setItems(NOTICIAS);publish();
     function count(id){return id==='todas'?items.length:items.filter(function(n){return n.categoria===id;}).length;}
 
     function chips(){
       bar.textContent='';
       [{id:'todas',nome:'Todas',h:120}].concat(CATS).forEach(function(c){
         var b=el('button','nt-chip');b.type='button';b.style.setProperty('--h',c.h);
-        b.setAttribute('aria-pressed',c.id===cur?'true':'false');
+        b.setAttribute('aria-label',c.id==='todas'?'Abrir a aba Notícias':'Abrir a aba Notícias: '+c.nome);
         b.appendChild(document.createTextNode(c.nome));
         var n=count(c.id);if(n){b.appendChild(el('b',null,String(n)));}
-        b.addEventListener('click',function(){cur=c.id;shown=PAGE;draw();});
+        b.addEventListener('click',function(){go(c.id);});
         bar.appendChild(b);
       });
     }
@@ -1126,25 +1128,18 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
       a.appendChild(body);return a;
     }
     function draw(){
-      chips();
-      var c=catOf(cur);
-      var sel=cur==='todas'?items:items.filter(function(n){return n.categoria===cur;});
-      if(c){rs.hidden=false;rs.href='noticias.html?cat='+encodeURIComponent(c.id);rs.textContent='Ver todas as notícias de '+c.nome+' ↗';}else rs.hidden=true;
-      list.textContent='';
-      if(!sel.length){
-        list.appendChild(el('div','nt-empty',c?'Ainda não há notícias de '+c.nome+' por aqui.':'As notícias vão aparecer aqui.'));
-        more.hidden=true;return;
-      }
-      sel.slice(0,shown).forEach(function(n){list.appendChild(card(n));});
-      more.hidden=sel.length<=shown;
+      chips();list.textContent='';
+      if(!items.length){list.appendChild(el('div','nt-empty','As notícias vão aparecer aqui.'));more.hidden=true;return;}
+      items.slice(0,PAGE).forEach(function(n){list.appendChild(card(n));});
+      more.textContent='Ver todas as notícias →';more.hidden=false;
     }
-    more.addEventListener('click',function(){shown+=PAGE;draw();});
+    more.addEventListener('click',function(){go('todas');});
     draw();
     /* noticias.json (gerado pela admin.html) tem prioridade sobre a lista acima */
     try{
       fetch('noticias.json',{cache:'no-store'})
         .then(function(r){if(!r.ok)throw 0;return r.json();})
-        .then(function(d){if(Array.isArray(d)){setItems(d);shown=PAGE;draw();}})
+        .then(function(d){if(Array.isArray(d)){setItems(d);draw();publish();}})
         .catch(function(){});
     }catch(e){}
   })();
@@ -1248,6 +1243,71 @@ bg.src=SCENES[k].s;ch.src=CHARS;ch.alt="Vloggers do Ao Vivo no Rio "+SCENES[k].n
   </section>
 </main>
 
+<section id="panel-noticias" role="tabpanel" aria-labelledby="tab-noticias" hidden>
+  <div class="sec-title"><h2 id="noticias-h">NOTÍCIAS · RIO DE JANEIRO</h2><span class="chip" id="npCount"></span></div>
+  <p class="dicas-intro">Gastronomia, cinema, shows, teatro, exposições, eventos e programação infantil. Escolha uma categoria para filtrar.</p>
+  <div class="nt-bar" id="npBar" role="group" aria-label="Filtrar notícias por categoria"></div>
+  <div class="nt-list" id="npList" aria-live="polite"></div>
+  <button type="button" class="nt-more" id="npMore" hidden>Mostrar mais</button>
+  <script>
+  (function(){
+    var CATS=[{id:'gastronomia',nome:'Gastronomia',h:32},{id:'cinema',nome:'Cinema',h:320},{id:'shows',nome:'Shows e Concertos',h:270},{id:'teatro',nome:'Teatro e Dança',h:350},{id:'exposicoes',nome:'Exposições',h:175},{id:'eventos',nome:'Eventos',h:120},{id:'infantil',nome:'Infantil',h:50}];
+    var PAGE=12,MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+    var bar=document.getElementById('npBar'),list=document.getElementById('npList'),more=document.getElementById('npMore'),cnt=document.getElementById('npCount');
+    if(!bar||!list||!more||!cnt)return;
+    var items=[],cur='todas',shown=PAGE;
+    function safeUrl(u){u=String(u||'').trim();return /^https?:\/\//i.test(u)?u:'';}
+    function safeImg(u){u=String(u||'').trim();return (/^https?:\/\//i.test(u)||/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(u))?u:'';}
+    function fmt(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(d||''));return m?(+m[3])+' '+MES[+m[2]-1]+' '+m[1]:'';}
+    function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+    function catOf(id){for(var i=0;i<CATS.length;i++)if(CATS[i].id===id)return CATS[i];return null;}
+    function count(id){return id==='todas'?items.length:items.filter(function(n){return n.categoria===id;}).length;}
+    function chips(){
+      bar.textContent='';
+      [{id:'todas',nome:'Todas',h:120}].concat(CATS).forEach(function(c){
+        var b=el('button','nt-chip');b.type='button';b.style.setProperty('--h',c.h);
+        b.setAttribute('aria-pressed',c.id===cur?'true':'false');
+        b.appendChild(document.createTextNode(c.nome));
+        var n=count(c.id);if(n)b.appendChild(el('b',null,String(n)));
+        b.addEventListener('click',function(){cur=c.id;shown=PAGE;draw();});
+        bar.appendChild(b);
+      });
+    }
+    function card(n){
+      var c=catOf(n.categoria),u=safeUrl(n.link),img=safeImg(n.imagem);
+      var a=el('article','nt-card');a.style.setProperty('--h',c?c.h:120);
+      if(img){var im=el('img','nt-img');im.src=img;im.alt='';im.loading='lazy';im.referrerPolicy='no-referrer';im.onerror=function(){im.remove();};a.appendChild(im);}
+      var body=el('div','nt-body'),meta=el('div','nt-meta');
+      if(c)meta.appendChild(el('span','nt-tag',c.nome));
+      var d=fmt(n.data);if(d)meta.appendChild(el('span',null,d));
+      if(n.fonte)meta.appendChild(el('span',null,String(n.fonte)));
+      body.appendChild(meta);
+      var h=el('h3','nt-t');
+      if(u){var l=el('a',null,String(n.titulo));l.href=u;l.target='_blank';l.rel='noopener';h.appendChild(l);}else h.textContent=String(n.titulo);
+      body.appendChild(h);
+      if(n.resumo)body.appendChild(el('p','nt-r',String(n.resumo)));
+      if(u){var g=el('a','nt-go','Ler matéria ↗');g.href=u;g.target='_blank';g.rel='noopener';g.setAttribute('aria-label','Ler matéria: '+n.titulo);body.appendChild(g);}
+      a.appendChild(body);return a;
+    }
+    function draw(){
+      chips();list.textContent='';
+      var c=catOf(cur),sel=cur==='todas'?items:items.filter(function(n){return n.categoria===cur;});
+      cnt.textContent=items.length+(items.length===1?' notícia':' notícias');
+      if(!sel.length){
+        list.appendChild(el('div','nt-empty',c?'Ainda não há notícias de '+c.nome+' por aqui. Volte em breve!':'As notícias vão aparecer aqui.'));
+        more.hidden=true;return;
+      }
+      sel.slice(0,shown).forEach(function(n){list.appendChild(card(n));});
+      more.hidden=sel.length<=shown;
+    }
+    function load(){items=Array.isArray(window.NOTICIAS_ITEMS)?window.NOTICIAS_ITEMS:[];shown=PAGE;draw();}
+    more.addEventListener('click',function(){shown+=PAGE;draw();});
+    window.noticiasSetCat=function(id){cur=(id==='todas'||catOf(id))?id:'todas';shown=PAGE;draw();};
+    window.addEventListener('noticias:data',load);
+    load();
+  })();
+  </script>
+</section>
 <section id="panel-dicas" role="tabpanel" aria-labelledby="tab-dicas" hidden>
   <div class="sec-title"><h2 id="dicas-h">DICAS : AO VIVO NO RIO</h2><span class="chip" id="dicasCount"></span></div>
   <p class="dicas-intro">Pontos turísticos do Rio de Janeiro separados por região. Toque em uma região no mapa para ver os pontos e toque em um card para ver os detalhes.</p>
@@ -3650,12 +3710,12 @@ var DICAS = [
   }
 
   /* ---- Abas ---- */
-  var tabs=document.querySelectorAll('.tab'),panels={live:$('panel-live'),dicas:$('panel-dicas'),clima:$('panel-clima'),cameras:$('panel-cameras'),newsletter:$('panel-newsletter'),musicas:$('panel-musicas'),filmes:$('panel-filmes'),bares:$('panel-bares'),jogo:$('panel-jogo')};
+  var tabs=document.querySelectorAll('.tab'),panels={live:$('panel-live'),noticias:$('panel-noticias'),dicas:$('panel-dicas'),clima:$('panel-clima'),cameras:$('panel-cameras'),newsletter:$('panel-newsletter'),musicas:$('panel-musicas'),filmes:$('panel-filmes'),bares:$('panel-bares'),jogo:$('panel-jogo')};
   function selectTab(name,focus){
     if(window.closeFilmesPopups)window.closeFilmesPopups();
     tabs.forEach(function(t){var on=t.dataset.tab===name;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on&&focus)t.focus();});
     Object.keys(panels).forEach(function(k){panels[k].hidden=(k!==name);});
-    try{history.replaceState(null,'',name==='dicas'?'#dicas':name==='clima'?'#clima':name==='cameras'?'#cameras':name==='newsletter'?'#newsletter':name==='musicas'?'#musicas':name==='filmes'?'#filmes':name==='bares'?'#bares':name==='jogo'?'#jogo':location.pathname+location.search);}catch(e){}
+    try{history.replaceState(null,'',name==='noticias'?'#noticias':name==='dicas'?'#dicas':name==='clima'?'#clima':name==='cameras'?'#cameras':name==='newsletter'?'#newsletter':name==='musicas'?'#musicas':name==='filmes'?'#filmes':name==='bares'?'#bares':name==='jogo'?'#jogo':location.pathname+location.search);}catch(e){}
     window.scrollTo(0,0);
     if(name==='clima'&&window.loadClima)window.loadClima();
     if(name==='musicas'&&window.musicOpen)window.musicOpen();
@@ -3668,7 +3728,7 @@ var DICAS = [
       if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];selectTab(n.dataset.tab,true);}
     });
   });
-  if(location.hash==='#dicas')selectTab('dicas');else if(location.hash==='#clima')selectTab('clima');else if(location.hash==='#cameras')selectTab('cameras');else if(location.hash==='#newsletter')selectTab('newsletter');else if(location.hash==='#musicas')selectTab('musicas');else if(location.hash==='#filmes')selectTab('filmes');else if(location.hash==='#bares')selectTab('bares');else if(location.hash==='#jogo')selectTab('jogo');
+  if(location.hash==='#noticias')selectTab('noticias');else if(location.hash==='#dicas')selectTab('dicas');else if(location.hash==='#clima')selectTab('clima');else if(location.hash==='#cameras')selectTab('cameras');else if(location.hash==='#newsletter')selectTab('newsletter');else if(location.hash==='#musicas')selectTab('musicas');else if(location.hash==='#filmes')selectTab('filmes');else if(location.hash==='#bares')selectTab('bares');else if(location.hash==='#jogo')selectTab('jogo');
 
   /* ---- Cards ---- */
   function makeCard(d,i){
